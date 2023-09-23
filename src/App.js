@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { MantineProvider, createTheme } from "@mantine/core";
+import logo from "./logo.svg";
+import "./App.css";
+import { createTables, insertTestAddress } from "./Database/database";
+import { CalendarView } from "./Components/Calendar";
+import {MainView} from "./Components/MainView";
+import "@mantine/core/styles.css";
 
 function App() {
+  createTables();
+  insertTestAddress();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MantineProvider defaultColorScheme="light">
+      <div className="App">
+        <header className="App-header">
+          <MainView />
+        </header>
+      </div>
+    </MantineProvider>
   );
 }
 
