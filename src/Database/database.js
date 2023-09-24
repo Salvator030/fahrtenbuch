@@ -5,22 +5,25 @@ const { query, get, all, raw, transaction } = SQLiteTagSpawned("./db.sql");
 
 export async function createTables() {
   await query`CREATE TABLE IF NOT EXISTS address_tbl ( 
-    add_id  INTEGER AUTO_INCREMENT PRIMARY KEY , 
+    add_id INTEGER NOT NULL , 
     name VARCHAR(100) NOT NULL,
     street VARCHAR(100) NOT NULL,
-    hnr varchar(5) Not NULL,
+    hnr varchar(5) NOt NULL,
     plz varchar(5) NOT NULL,
     place varchar(50) NOT NULL,
-    info varchar(255)
+    info varchar(255),
+    PRIMARY KEY(add_id)
 );`;
+console.log("DB created")
 }
 export async function deleteTable(tableName){
   await query`DELETE FROM ${tableName};`
 }
 
-export async function insertAddress(name, street, hnr, plz, place) {
+export async function insertAddress(address) {
+  console.log(address)
   const populate = transaction();
-  populate`INSERT INTO address_tbl VALUES (null,name,street,hnr,plz, place,info)`;
+  populate`INSERT INTO address_tbl VALUES (null,${address.name}, ${address.street}, ${address.hnr}, ${address.plz}, ${address.place}, ${address.info})`;
   await populate.commit();
 }
 
@@ -33,16 +36,19 @@ export async function insertAddresses(addresses){
 
 export async function insertTestAddress(){
   const populate = transaction();
-  populate`INSERT INTO address_tbl VALUES (null,"Fam. A","Heuchler Straße","12a","12345","Blöd-Hausen", null);`;
-  populate`INSERT INTO address_tbl VALUES (null, "Fam. Ch", "Bimmel Bammel Weg", "666", "12345", "Blöd-Hausen", "Goßes schwarzes Haus");`;
-  populate`INSERT INTO address_tbl VALUES (null, "J.Amt","Helferstr.", "4b", "00010"," Meuchel-Berg", null);`;
-  populate`INSERT INTO address_tbl VALUES (null, "Arbeit", "Buckelstraße", "34", "00100", "Heuchel-Berg", "Büro");`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ("Fam. A","Heuchler Straße","12a","12345","Blöd-Hausen", null);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info)  VALUES ( "Fam. Ch", "Bimmel Bammel Weg", "666", "12345", "Blöd-Hausen", "Goßes schwarzes Haus");`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "J.Amt","Helferstr.", "4b", "00010"," Meuchel-Berg", null);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "Arbeit", "Buckelstraße", "34", "00100", "Heuchel-Berg", "Büro");`;
   await populate.commit();
+  console.log("Inset test addresses")
 }
-
+all`SELECT * FROM address_tbl`
 export async function getAllAddress(){
-  await console.log(all`SELECT * FROM address_tbl`);
-}
+
+   let addressList = await all`SELECT * FROM address_tbl`;
+  console.log(addressList)
+return addressList}
 
 export async function getDb() {
   // single query as any info
