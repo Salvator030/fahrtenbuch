@@ -2,7 +2,6 @@ import SQLiteTagSpawned from "sqlite-tag-spawned";
 
 const { query, get, all, raw, transaction } = SQLiteTagSpawned("./db.sql");
 
-
 export async function createTables() {
   await query`CREATE TABLE IF NOT EXISTS address_tbl ( 
     add_id INTEGER NOT NULL , 
@@ -14,41 +13,41 @@ export async function createTables() {
     info varchar(255),
     PRIMARY KEY(add_id)
 );`;
-console.log("DB created")
+  console.log("DB created");
 }
-export async function deleteTable(tableName){
-  await query`DELETE FROM ${tableName};`
+export async function deleteTable(tableName) {
+  await query`DELETE FROM ${tableName};`;
 }
 
 export async function insertAddress(address) {
-  console.log(address)
+  console.log(address);
   const populate = transaction();
   populate`INSERT INTO address_tbl VALUES (null,${address.name}, ${address.street}, ${address.hnr}, ${address.plz}, ${address.place}, ${address.info})`;
   await populate.commit();
 }
 
-export async function insertAddresses(addresses){
+export async function insertAddresses(addresses) {
   const populate = transaction();
-  addresses.forEach((address) =>  populate`INSERT INTO address_tbl VALUES (null, ${address.name}, ${address.street}, ${address.hnr}, ${address.plz}, ${address.place}, ${address.info})`);
+  addresses.forEach(
+    (address) =>
+      populate`INSERT INTO address_tbl VALUES (null, ${address.name}, ${address.street}, ${address.hnr}, ${address.plz}, ${address.place}, ${address.info})`
+  );
   await populate.commit();
-
 }
 
-export async function insertTestAddress(){
+export async function insertTestAddress() {
   const populate = transaction();
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ("Fam. A","Heuchler Straße","12a","12345","Blöd-Hausen", null);`;
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info)  VALUES ( "Fam. Ch", "Bimmel Bammel Weg", "666", "12345", "Blöd-Hausen", "Goßes schwarzes Haus");`;
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "J.Amt","Helferstr.", "4b", "00010"," Meuchel-Berg", null);`;
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "Arbeit", "Buckelstraße", "34", "00100", "Heuchel-Berg", "Büro");`;
   await populate.commit();
-  console.log("Inset test addresses")
+  console.log("Inset test addresses");
 }
-all`SELECT * FROM address_tbl`
-export async function getAllAddress(){
 
-   let addressList = await all`SELECT * FROM address_tbl`;
-  console.log(addressList)
-return addressList}
+export async function getAllAddress() {
+  return await all`SELECT * FROM address_tbl`;
+}
 
 export async function getDb() {
   // single query as any info

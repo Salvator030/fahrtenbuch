@@ -1,10 +1,30 @@
-import {insertAddress, getAllAddress} from './database';
+import { insertAddress, getAllAddress } from "./database";
 
-function persistNewAddress(address){
-        insertAddress(address);
+function persistNewAddress(address) {
+  insertAddress(address);
 }
 
- async function getAddressList(){
-       return await getAllAddress()}
+async function getAddressList() {
+  function p() {
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        resolve( getAllAddress());
+      }, 100);
+    });
+  }
 
-export {persistNewAddress, getAddressList}
+
+  const list = await p().then((res) => {
+    console.log(res);
+     return  res;})
+   
+ 
+    console.log(list)
+    return list
+
+  //   const l =  Promise.all(list)
+  //   console.log(l)
+    
+}
+
+export { persistNewAddress, getAddressList };

@@ -1,26 +1,27 @@
-import { Button, Select, Title } from "@mantine/core";
+import { Button, Select, Table, Title } from "@mantine/core";
 import { useState, useRef } from "react";
 import "@mantine/core/styles.css";
 import { getAddressList } from "../../Database/databaseHandler";
 
-export async function CreateRouteView() {
-     const  getList =[ await getAddressList()];
-  const [addressList, setAddressList] = useState(getList);
-  
+ let list = await getAddressList();
+export function CreateRouteView() {
+console.log(list);
+  const [addressList, setAddressList] = useState( list);
+const table = [<Table><Table.Th>Test</Table.Th></Table>]
 
 
-
-    async function onClick(){
-         console.log(   await  getAddressList()    );
-    }
+  async function onClick() {
+    console.log(addressList);
+  }
   return (
     <>
-    <Button onClick={onClick}>click</Button>
+      <Button onClick={onClick}>click</Button>
       <Title order={1}>Start</Title>
       <Select
         label="Start Addresse"
         placeholder="Bitte wählen"
-        data={addressList}
+        data={[addressList[1].name]}
+ 
       />
     </>
   );
