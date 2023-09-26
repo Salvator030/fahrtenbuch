@@ -2,69 +2,65 @@ import {
   Box,
   Button,
   Card,
+  CardActionArea,
   Grid,
+  Overlay,
   ScrollArea,
   Select,
+  Stack,
   Table,
   Text,
   Title,
 } from "@mantine/core";
-import { useState, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 import "@mantine/core/styles.css";
+import { useEventListener } from '@mantine/hooks';
 import { getAddressList } from "../../Database/databaseHandler";
+import classes from "./CreateRouteView.module.css";
 
 let list = await getAddressList();
+
+
 export function CreateRouteView() {
   console.log(list);
   const [addressList, setAddressList] = useState(list);
-  const table = [
-    <Table>
-      <Table.Th>Test</Table.Th>
-    </Table>,
-  ];
+   const increment = useCallback((e) =>click(), []);
+  const ref = useEventListener('click', increment);
  
+  const click = (e) => {console.log(e)}
 
-  const Rows = addressList.map((address) => (
-    <Table.Tr key={address.name}>
-      <Table.Td>{address.name}</Table.Td>
-      <Table.Td>{address.street}</Table.Td>
-      <Table.Td>{address.hnr}</Table.Td>
-      <Table.Td>{address.plz}</Table.Td>
-      <Table.Td>{address.place}</Table.Td>
-      <Table.Td>{address.info}</Table.Td>
-    </Table.Tr>
+
+   const Cards = addressList.map((address) => (
+    <Card ref={ref} key={address.add_id}  withBorder  padding="xs" inheritPadding classNames={{root: classes.cardRoot}}>
+       <Card.Section component="a" onClick={ click}>
+      <Stack gap="xs">
+        <Grid>
+          <Grid.Col span="content" > <Text>{address.name}</Text></Grid.Col>
+        </Grid>
+        <Grid>
+          <Grid.Col span="content"><Text>{address.street}</Text></Grid.Col>
+          <Grid.Col span="content"><Text>{address.hnr}</Text></Grid.Col>
+        </Grid>
+        <Grid>
+          <Grid.Col span="content"><Text>{address.plz}</Text></Grid.Col>
+          <Grid.Col span="content"><Text>{address.place}</Text></Grid.Col>
+        </Grid>
+        <Text>{address.info}</Text>
+      </Stack>
+      </Card.Section>
+      <Overlay backgroundOpacity={0} id={address.add_id} onClick={click}/>
+    </Card>
   ));
-
   async function onClick() {
     console.log(addressList);
   }
   return (
     <>
-      <Button onClick={onClick}>click</Button>
-      <Table >
-      <Table.Tr >
-            <Table.Th>Name</Table.Th>
-            <Table.Th>Starße</Table.Th>
-            <Table.Th>Hnr</Table.Th>
-            <Table.Th>PLZ</Table.Th>
-            <Table.Th>Ort</Table.Th>
-            <Table.Th>Info</Table.Th>
-            </Table.Tr></Table>
-      <Table.ScrollContainer minWidth={500} h={300} >
-        <Table  highlightOnHover withTableBorder withColumnBorders>
-          <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Name</Table.Th>
-            <Table.Th>Starße</Table.Th>
-            <Table.Th>Hnr</Table.Th>
-            <Table.Th>PLZ</Table.Th>
-            <Table.Th>Ort</Table.Th>
-            <Table.Th>Info</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{Rows}</Table.Tbody>
-        </Table>
-      </Table.ScrollContainer>
+   <Title>Start Addresse</Title>
+      <ScrollArea w={400} h={500} type="always">
+        <Box w={400}>{Cards}</Box>
+      </ScrollArea>
     </>
+  
   );
 }

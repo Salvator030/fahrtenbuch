@@ -1,8 +1,31 @@
-import { insertAddress, getAllAddress } from "./database";
+import { insertAddress, getAllAddress, createTables } from "./database";
 
 function persistNewAddress(address) {
   insertAddress(address);
 }
+
+async function setTables() {
+  function p() {
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        resolve( createTables());
+      }, 100);
+    });
+  }
+
+  const list = await p().then((res) => {
+    console.log(res);
+     return  res;})
+   
+ 
+    // console.log(list)
+    // return list
+
+  //   const l =  Promise.all(list)
+  //   console.log(l)
+    
+}
+
 
 async function getAddressList() {
   function p() {
@@ -12,7 +35,6 @@ async function getAddressList() {
       }, 100);
     });
   }
-
 
   const list = await p().then((res) => {
     console.log(res);
@@ -27,4 +49,4 @@ async function getAddressList() {
     
 }
 
-export { persistNewAddress, getAddressList };
+export { persistNewAddress, getAddressList, setTables };

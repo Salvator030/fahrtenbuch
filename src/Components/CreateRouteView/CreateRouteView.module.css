@@ -1,0 +1,11 @@
+.cardRoot{
+    margin-bottom: 8px;
+}
+
+.col {
+    align-items: flex-start;
+}
+.table {
+   
+    width: 600px;
+}
