@@ -2,7 +2,7 @@ import SQLiteTagSpawned from "sqlite-tag-spawned";
 
 const { query, get, all, raw, transaction } = SQLiteTagSpawned("./db.sql");
 
-export async function createTables() {
+export  async function queryCreateTableAddress() {
   await query`CREATE TABLE IF NOT EXISTS address_tbl ( 
     add_id INTEGER NOT NULL , 
     name VARCHAR(100) NOT NULL,
@@ -15,7 +15,7 @@ export async function createTables() {
 );`;
   console.log("DB created");
 }
-export async function deleteTable(tableName) {
+export  async function deleteTable(tableName) {
   await query`DELETE FROM ${tableName};`;
 }
 
@@ -41,7 +41,12 @@ export async function insertTestAddress() {
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info)  VALUES ( "Fam. Ch", "Bimmel Bammel Weg", "666", "12345", "Blöd-Hausen", "Goßes schwarzes Haus");`;
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "J.Amt","Helferstr.", "4b", "00010"," Meuchel-Berg", null);`;
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "Arbeit", "Buckelstraße", "34", "00100", "Heuchel-Berg", "Büro");`;
+  try{
   await populate.commit();
+  }
+  catch({message}){
+    console.log(message);
+  }
   console.log("Inset test addresses");
 }
 
