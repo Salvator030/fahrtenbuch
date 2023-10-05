@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useInputState } from "@mantine/hooks";
 import { TextInput, InputBase, Button, Stack, Grid } from "@mantine/core";
 import { IMaskInput } from "react-imask";
-import * as databaseHandler from "../../Database/databaseHandler";
+import * as databaseHandler from "../../../Database/databaseHandler";
 import "@mantine/core/styles.css";
 import styles from "./AddressInputView.module.css";
 
@@ -155,6 +155,7 @@ export function AddressInputView() {
       <Button className={styles.safeBtn} onClick={setNewAddress}>
         Speichern
       </Button>
+      
     </Stack>
   );
 }

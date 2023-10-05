@@ -23,7 +23,7 @@ function Cards(description) {
         (address) =>
           address &&
           (console.log(address),
-          (<Item description={description} address={address} key={address.add_id} />))
+          (<Item address={address} key={address.add_id} />))
       );
 
       setCardList(items);

@@ -1,5 +1,5 @@
 import { Address } from "cluster";
-import { AddressInputView } from "./AddressInputView/AddressInputView";
+import { AddressInputView } from "./CreateRouteView/AddressInputView/AddressInputView";
 import {CreateRouteView} from "./CreateRouteView/CreateRouteView";
 
 export function MainView(){

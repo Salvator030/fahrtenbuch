@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { getAllAddress } from "../Database/database";
-import { makeObservable} from "../asserts/observable"
 
 function useCraeteRoute(newDescription) {
   const [startAddress, setStartAddress] = useState();
   const [destinationAddress, setDestinationAddress] = useState();
   const [addressesList, setAddressList] = useState();
-  const [description, setDescription] = useState("start");
+  const [addressDescription, setAddressDescription] = useState("start");
 
   useEffect(() => {
     async function fetchData() {
@@ -21,26 +20,14 @@ function useCraeteRoute(newDescription) {
     fetchData();
   }, []);
 
-  // useEffect(() => {  
-  //   console.log(description);
-    
-  //   returnD();
-  // }, [description]);
-
-  const returnD = () => {
-    return description
-  }
-
-
-  const toggleDescription = () => {
-    setDescription( description === "start" ? "destination" : "start");
+  const toggleAddressDescription = () => {
+    setAddressDescription(addressesList === "start" ? "destination" : "start");
   };
 
   return {
-    returnD,
     addressesList,
-    description,
-    toggleDescription,
+    addressDescription,
+    toggleAddressDescription,
     startAddress,
     setStartAddress,
     destinationAddress,
