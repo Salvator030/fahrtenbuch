@@ -6,7 +6,7 @@ import * as databaseHandler from "../../../Database/databaseHandler";
 import "@mantine/core/styles.css";
 import styles from "./AddressInputView.module.css";
 
-export function AddressInputView() {
+export function AddressInputView({toggleAddNewAddress}) {
   let newAddress = {
     name: "",
     street: "",
@@ -80,12 +80,20 @@ export function AddressInputView() {
     databaseHandler.persistNewAddress(newAddress);
   }
 
-  function handelSaveBtn() {
+
+
+  function handelOnClickSaveBtn() {
     checkInput();
     if (!checks.includes(false)) {
       setNewAddress();
+       cleanInputFields();
+      toggleAddNewAddress();
     }
-    cleanInputFields();
+   
+  }
+
+  const handelOnClickCancelBtn = ()=> {
+    toggleAddNewAddress();
   }
 
   return (
@@ -152,9 +160,10 @@ export function AddressInputView() {
         onChange={setInfoValue}
         max={255}
       />
-      <Button className={styles.safeBtn} onClick={setNewAddress}>
+      <Button className={styles.safeBtn} onClick={handelOnClickSaveBtn}>
         Speichern
       </Button>
+      <Button className={styles.cancelBtn} onClick={handelOnClickCancelBtn}>Abbrechen</Button>
       
     </Stack>
   );

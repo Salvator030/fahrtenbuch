@@ -30,7 +30,7 @@ export function CreateRouteView() {
   return (
     <>
       {isAddNewAddress ? (
-        <AddressInputView />
+        <AddressInputView toggleAddNewAddress={toggleAddNewAddress} />
       ) : (
         <>
           {addressDescription === "start" ? (
