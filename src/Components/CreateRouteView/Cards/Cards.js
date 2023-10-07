@@ -4,7 +4,7 @@ import Item from "./Item";
 import useCraeteRoute from "../../../hooks/createRouteHook";
 // import Card from "./Card";
 
-function Cards(description) {
+function Cards() {
   const a = {
     name: "abc",
     street: "street",
@@ -17,12 +17,12 @@ function Cards(description) {
   const [cardList, setCardList] = useState();
 
   useEffect(() => {
-    console.log(addressesList);
+ 
     if (addressesList) {
       const items = addressesList.map(
         (address) =>
           address &&
-          (console.log(address),
+          (
           (<Item address={address} key={address.add_id} />))
       );
 

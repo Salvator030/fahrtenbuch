@@ -4,32 +4,28 @@ import useCraeteRoute from "../../../hooks/createRouteHook";
 import { useBetween } from "use-between";
 import { useEffect } from "react";
 
-
-function Item({ address}) {
+function Item({ address }) {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const {
+    viewDescription,
 
-    addressDescription,
-    startAddress,
     setStartAddress,
-    destinationAddress,
+
     setDestinationAddress,
   } = useSharedCreateRoute();
 
-
-  console.log(startAddress);
-  console.log(destinationAddress);
+ 
 
   const handelOnClick = () => {
-    console.log(addressDescription);
-    if (addressDescription === "start") {
-      console.log(addressDescription);
+    console.log(viewDescription);
+    if (viewDescription === "start") {
+      console.log(viewDescription);
       setStartAddress(address);
     } else {
-      console.log(addressDescription);
+      console.log(viewDescription);
       setDestinationAddress(address);
     }
-    console.log(addressDescription);
+    console.log(viewDescription);
   };
   return (
     <Card

@@ -6,49 +6,73 @@ import useCraeteRoute from "../../hooks/createRouteHook";
 import Cards from "./Cards/Cards";
 import classes from "./CreateRouteView.module.css";
 import { useBetween } from "use-between";
+import NewRoutePreView from "./NewRoutePreView/NewRoutePreView";
+import { DistanceInput } from "./DistanceInput/DistanceInput";
+import { checkDistanceInput } from "../../asserts/helper";
 
 export function CreateRouteView() {
   const [isAddNewAddress, setAddNewAddress] = useState(false);
+  
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
-  const { addressDescription, toggleAddressDescription } =
+  const { startAddress,distance, viewDescription, viewForwards, viewBackwards, distanceInputRef,okBtn,okBtnRef } =
     useSharedCreateRoute();
 
   const toggleAddNewAddress = () => {
     setAddNewAddress(!isAddNewAddress);
   };
-  const handelOnClickSaveBtn = () => {
-    console.log(addressDescription);
-    toggleAddressDescription();
-    console.log(addressDescription);
+
+  const handelOnClickOkBtn = () => {
+    okBtn()
+  
+  };
+
+  const handelOnClickBackBtn = () => {
+    viewBackwards();
   };
 
   const handelOnClickAddBtn = () => {
-    toggleAddNewAddress();
+    toggleAddNewAddress(); 
   };
 
-  console.log(addressDescription);
+  console.log(viewDescription);
   return (
-    <>
-      {isAddNewAddress ? (
-        <AddressInputView toggleAddNewAddress={toggleAddNewAddress} />
-      ) : (
-        <>
-          {addressDescription === "start" ? (
-            <Title>Start Addresse</Title>
-          ) : (
-            <Title>Ziel Addresse</Title>
-          )}
-          <Cards />
-          <Grid justify="flex-start" classNames={{ root: classes.gridRoot }}>
-            <Grid.Col span="content">
+    <Grid>
+      <Grid.Col span="content">
+        {(viewDescription === "start" || viewDescription === "destination") && (
+          <>
+            {viewDescription === "start" && <Title>Start Addresse</Title>}
+            {viewDescription === "destination" && <Title>Ziel Addresse</Title>}
+            <Cards />
+          </>
+        )}
+
+        {viewDescription === "distance" && (
+          <>
+            <Title>Entfernung</Title>
+            <DistanceInput />
+          </>
+        )}
+        {viewDescription === "save" && <Title>Speichern</Title>}
+        <Grid justify="flex-start" className={classes.grid}>
+          <Grid.Col span={4}>
+            {(viewDescription === "start" ||
+              viewDescription === "destination") && (
               <Button onClick={handelOnClickAddBtn}>+</Button>
-            </Grid.Col>
-            <Grid.Col span={3} offset={3}>
-              <Button onClick={handelOnClickSaveBtn}>Save</Button>
-            </Grid.Col>
-          </Grid>
-        </>
-      )}
-    </>
+            )}
+          </Grid.Col>
+          <Grid.Col span={4}>
+            {viewDescription !== "save" && (
+              <Button disabled={!startAddress} ref={okBtnRef} onClick={handelOnClickOkBtn}>Ok</Button>
+            )}
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <Button onClick={handelOnClickBackBtn}>zurück</Button>
+          </Grid.Col>
+        </Grid>
+      </Grid.Col> 
+      <Grid.Col span="content">
+        <NewRoutePreView />
+      </Grid.Col>
+    </Grid>
   );
 }
