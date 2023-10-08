@@ -26,67 +26,75 @@ function useCraeteRoute(newDescription) {
     fetchData();
   }, []);
 
+ const discriptionList = ["start", "destination", "distance", "save"];
   useEffect(() => {
     setviewDescription(discriptionList[viewCount]);
-  }, [viewCount]);
 
-  const discriptionList = ["start", "destination", "distance", "save"];
+  }, [viewCount,]);
+
+ 
 
   const viewForwards = () => {
-    console.log(viewCount);
     if (viewCount !== 3) {
       setViewCount(viewCount + 1);
+      
     }
-    console.log(viewCount);
   };
 
   const viewBackwards = () => {
-    console.log(viewCount);
+    if (viewDescription === "destination"){setStartAddress(undefined)};
+    if (viewDescription === "distance"){setDestinationAddress(undefined);setDistance("")};
+    if (viewDescription === "save"){setDistance("")};
     if (viewCount !== 0) {
       setViewCount(viewCount - 1);
-
-      console.log(viewCount);
     }
   };
 
   useEffect(() => {
+    console.log(okBtnRef)
     if (okBtnRef.current) {
-      console.log(okBtnRef.current);
+ 
       if (viewDescription === "start") {
-        if (!destinationAddress) {
-          okBtnRef.current.disabled = true;
+        console.log("1")  
+        if (!startAddress) {
+         okBtnRef.current.disabled = true; 
+         console.log("2")
         } else {
+          console.log("3")
           okBtnRef.current.disabled = false;
         }
       }
     }
     if (viewDescription === "destination") {
+      console.log(viewDescription);
+      
       if (!destinationAddress) {
         okBtnRef.current.disabled = true;
-      }
-      if (
+      } else {
+          if (
         destinationAddress &&
         startAddress.add_id === destinationAddress.add_id
       ) {
         console.log("gleiche add");
         okBtnRef.current.disabled = true;
-      } else {
+      
+      } else {  
         okBtnRef.current.disabled = false;
       }
+      }
+    
     }
     if (viewDescription === "distance") {
-      console.log("distance" + distance.length)
+
       if (distance.length === 0) {
         okBtnRef.current.disabled = true;
       } else {
         okBtnRef.current.disabled = false;
       }
     }
-    console.log(okBtnRef);
-  }, [viewDescription,destinationAddress, distance]);
+    }, [viewDescription,startAddress, destinationAddress, distance]);
   const okBtn = () => {
-    console.log(okBtnRef);
-    console.log(distanceInputRef);
+
     if (viewDescription === "distance") {
       if (checkDistanceInput(distance)) {
         distanceInputRef.current.style.borderColor = "black";

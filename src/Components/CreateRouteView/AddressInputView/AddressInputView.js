@@ -44,7 +44,7 @@ export function AddressInputView({toggleAddNewAddress}) {
 
   function checkInput() {
     for (let i = 0; i < 4; i++) {
-      console.log(refs[i]);
+   
       if (refs[i].current.value === "") {
         checks[i] = false;
         refs[i].current.style.borderColor = "red";
@@ -64,7 +64,7 @@ export function AddressInputView({toggleAddNewAddress}) {
   }
 
   function setNewAddress() {
-    console.log(!checks.includes(false));
+    
     newAddress.name = nameValue;
     newAddress.street = streetValue;
     newAddress.hnr = hnrValue;
@@ -76,7 +76,7 @@ export function AddressInputView({toggleAddNewAddress}) {
       newAddress.info = infoValue;
     }
 
-    console.log(newAddress);
+   
     databaseHandler.persistNewAddress(newAddress);
   }
 

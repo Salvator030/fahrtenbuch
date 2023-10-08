@@ -6,7 +6,7 @@ export default function AddressView({description, address, classes}) {
 
          <Title order={3}>{description}</Title>
         <Title order={4}>{address.name}</Title>
-        <Grid>
+        <Grid >
           <Grid.Col span="content">
             <Text>{address.street}</Text>
           </Grid.Col>

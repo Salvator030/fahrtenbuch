@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { createTables, insertTestData } from "./Database/databaseHandler";
 import { CalendarView } from "./Components/Calendar";
-import { MainView } from "./Components/MainView";
+import { MainView } from "./Components/MainView/MainView";
 import "@mantine/core/styles.css";
 import { useEffect } from "react";
 

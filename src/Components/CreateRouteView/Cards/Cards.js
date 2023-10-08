@@ -17,26 +17,18 @@ function Cards() {
   const [cardList, setCardList] = useState();
 
   useEffect(() => {
- 
     if (addressesList) {
       const items = addressesList.map(
-        (address) =>
-          address &&
-          (
-          (<Item address={address} key={address.add_id} />))
+        (address) => address && <Item address={address} key={address.add_id} />
       );
 
       setCardList(items);
-      console.log(cardList);
-
-      console.log(addressesList);
-      console.log(cardList);
     }
   }, [addressesList]);
 
   return (
     <>
-      <ScrollArea w={400} h={500} type="always">
+      <ScrollArea w={400} h={700} type="always">
         <Box w={400}>{cardList}</Box>
       </ScrollArea>
     </>

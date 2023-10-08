@@ -3,6 +3,7 @@ import useCraeteRoute from "../../../hooks/createRouteHook";
 import { useBetween } from "use-between";
 import AddressView from "./AddressView/AddressView";
 import classes from "./NewRoutePreView.module.css";
+import DistanceView from "./DistanceView/DistanceView";
 
 export default function NewRoutePreView() {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
@@ -20,10 +21,9 @@ export default function NewRoutePreView() {
           address={destinationAddress}
         />
       )}
-      {distance && (
+      {distance.length > 0 && (
         <>
-          <Title order={3}>Entfernuug</Title>
-          <Title order={4}>{distance.toString()+ " KM"}</Title>
+        <DistanceView classes={classes.distance} distance={distance} />
         </>
       )}
     </>

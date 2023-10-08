@@ -17,15 +17,15 @@ function Item({ address }) {
  
 
   const handelOnClick = () => {
-    console.log(viewDescription);
+  
     if (viewDescription === "start") {
-      console.log(viewDescription);
+   
       setStartAddress(address);
     } else {
-      console.log(viewDescription);
+    
       setDestinationAddress(address);
     }
-    console.log(viewDescription);
+  
   };
   return (
     <Card
