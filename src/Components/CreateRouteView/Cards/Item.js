@@ -11,7 +11,7 @@ function Item({ address }) {
     setStartAddress,
     setDestinationAddress,
     startAddressRef,
-    selectedCard, setSelectedCard
+    selectedStartAddressCard, setSelectedStartAddressCard
   } = useSharedCreateRoute();
 
 
@@ -20,8 +20,9 @@ function Item({ address }) {
     console.log(e)
        if (viewDescription === "start") {
       setStartAddress(address);
-        e.target.style.border = "1pxs solid lightgreen"
-        e.target.style.backgroundColor = "black"
+        e.target.style.backgroundColor = "lightgreen"
+        e.target.style.opacity = "0.2"
+        setSelectedStartAddressCard(e)
     
     
     } else {

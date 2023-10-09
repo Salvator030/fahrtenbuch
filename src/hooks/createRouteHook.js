@@ -12,7 +12,7 @@ function useCraeteRoute(newDescription) {
   const [viewCount, setViewCount] = useState(0);
   const [distance, setDistance] = useInputState("");
   const [isDistance, setIsDistance] = useState(false);
-  const [selectedCard, setSelectedCard] = useState();
+  const [selectedStartAddressCard, setSelectedStartAddressCard] = useState();
 
   const distanceInputRef = useRef();
   const okBtnRef = useRef();
@@ -134,7 +134,7 @@ useEffect(()=>{
     viewForwards,
     viewBackwards,
     distanceInputRef,
-    selectedCard, setSelectedCard
+    selectedStartAddressCard, setSelectedStartAddressCard
   };
 }
 export default useCraeteRoute;
