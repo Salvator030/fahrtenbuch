@@ -1,8 +1,16 @@
+.stackRoot{
+    width: 300px;
+}
+
+.titleDestination{
+    margin-top:40px;
+    left: 0px;
+}
 .destinationAddress {
-    margin-top: 32px;
+   
 }
 
 .distance {
-    margin-top: 32px;
+    margin-top: 40px;
     text-align: left;
 }

@@ -2,6 +2,7 @@ import { Box, ScrollArea } from "@mantine/core";
 import React, { useState, useEffect } from "react";
 import Item from "./Item";
 import useCraeteRoute from "../../../hooks/createRouteHook";
+
 // import Card from "./Card";
 
 function Cards() {
@@ -13,8 +14,8 @@ function Cards() {
     place: "place",
   };
   const { addressesList } = useCraeteRoute();
-
   const [cardList, setCardList] = useState();
+  
 
   useEffect(() => {
     if (addressesList) {

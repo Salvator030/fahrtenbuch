@@ -12,9 +12,11 @@ function useCraeteRoute(newDescription) {
   const [viewCount, setViewCount] = useState(0);
   const [distance, setDistance] = useInputState("");
   const [isDistance, setIsDistance] = useState(false);
+  const [selectedCard, setSelectedCard] = useState();
 
   const distanceInputRef = useRef();
   const okBtnRef = useRef();
+  const startAddressRef = useRef();
 
   useEffect(() => {
     async function fetchData() {
@@ -26,75 +28,84 @@ function useCraeteRoute(newDescription) {
     fetchData();
   }, []);
 
- const discriptionList = ["start", "destination", "distance", "save"];
+  const discriptionList = ["start", "destination", "distance", "save"];
   useEffect(() => {
     setviewDescription(discriptionList[viewCount]);
-
-  }, [viewCount,]);
-
- 
+  }, [viewCount]);
 
   const viewForwards = () => {
     if (viewCount !== 3) {
       setViewCount(viewCount + 1);
-      
     }
   };
 
   const viewBackwards = () => {
-    if (viewDescription === "destination"){setStartAddress(undefined)};
-    if (viewDescription === "distance"){setDestinationAddress(undefined);setDistance("")};
-    if (viewDescription === "save"){setDistance("")};
+    if (viewDescription === "destination") {
+      setStartAddress();
+    }
+    if (viewDescription === "distance") {
+      setDestinationAddress();
+      setDistance("");
+    }
+    if (viewDescription === "save") {
+      setDistance("");
+    }
     if (viewCount !== 0) {
       setViewCount(viewCount - 1);
     }
   };
 
+useEffect(()=>{
+  if (startAddress){
+    console.log(startAddress)
+    startAddressRef.current.style.backgroundColor = "black";
+  }
+},[startAddress])
+
   useEffect(() => {
-    console.log(okBtnRef)
+   
     if (okBtnRef.current) {
- 
       if (viewDescription === "start") {
-        console.log("1")  
+       
         if (!startAddress) {
-         okBtnRef.current.disabled = true; 
-         console.log("2")
+          console.log(startAddress)
+          okBtnRef.current.disabled = true;
+          console.log("2");
         } else {
-          console.log("3")
-          okBtnRef.current.disabled = false;
+          console.log("3");
+          okBtnRef.current.disabled = false; 
         }
       }
     }
     if (viewDescription === "destination") {
       console.log(viewDescription);
-      
-      if (!destinationAddress) {
+
+      if (!destinationAddress) { 
         okBtnRef.current.disabled = true;
       } else {
-          if (
-        destinationAddress &&
-        startAddress.add_id === destinationAddress.add_id
-      ) {
-        console.log("gleiche add");
-        okBtnRef.current.disabled = true;
-      
-      } else {  
-        okBtnRef.current.disabled = false;
+        if (
+          destinationAddress &&
+          startAddress &&
+          startAddress.add_id === destinationAddress.add_id
+        ) {
+          console.log("gleiche add");
+          okBtnRef.current.disabled = true;
+        } else {
+          okBtnRef.current.disabled = false;
+        }
       }
-      }
-    
     }
     if (viewDescription === "distance") {
-
-      if (distance.length === 0) {
-        okBtnRef.current.disabled = true;
-      } else {
-        okBtnRef.current.disabled = false;
+      if (okBtnRef.current) {
+        if (distance.length === 0) {
+          okBtnRef.current.disabled = true;
+        } else {
+          okBtnRef.current.disabled = false;
+        }
       }
     }
-    }, [viewDescription,startAddress, destinationAddress, distance]);
+  }, [viewDescription, startAddress, destinationAddress, distance]);
   const okBtn = () => {
-
     if (viewDescription === "distance") {
       if (checkDistanceInput(distance)) {
         distanceInputRef.current.style.borderColor = "black";
@@ -112,6 +123,7 @@ function useCraeteRoute(newDescription) {
     okBtn,
     okBtnRef,
     addressesList,
+    startAddressRef,
     viewDescription,
     startAddress,
     setStartAddress,
@@ -122,6 +134,7 @@ function useCraeteRoute(newDescription) {
     viewForwards,
     viewBackwards,
     distanceInputRef,
+    selectedCard, setSelectedCard
   };
 }
 export default useCraeteRoute;
