@@ -2,7 +2,7 @@ import SQLiteTagSpawned from "sqlite-tag-spawned";
 
 const { query, get, all, raw, transaction } = SQLiteTagSpawned("./db.sql");
 
-export  async function queryCreateTableAddress() {
+export async function queryCreateTableAddress() {
   await query`CREATE TABLE IF NOT EXISTS address_tbl ( 
     add_id INTEGER NOT NULL , 
     name VARCHAR(100) NOT NULL,
@@ -13,10 +13,30 @@ export  async function queryCreateTableAddress() {
     info varchar(255),
     PRIMARY KEY(add_id)
 );`;
-  console.log("DB created");
+  console.log("Table address_tbl created");
 }
-export  async function deleteTable(tableName) {
+
+export async function queryCreateTableRoute() {
+  await query`
+CREATE TABLE IF NOT EXISTS route_tbl (
+  route_id INTEGER NOT NULL,
+  startAdd_id INTEGER NOT NULL,
+  destAdd_id INTEGER NOT NULL,
+  distance FLOAT NOT NULL,
+  date DATE NOT NULL,
+  PRIMARY KEY(route_id),
+  FOREIGN KEY(startAdd_id) REFERENCES address_tbl(add_id),
+  FOREIGN KEY(destAdd_id) REFERENCES address_tbl(add_id)
+);`;
+console.log("Table route_tbl created");
+}
+
+export async function deleteTable(tableName) {
   await query`DELETE FROM ${tableName};`;
+}
+
+export async function getAllAddress() {
+  return await all`SELECT * FROM address_tbl`;
 }
 
 export async function insertAddress(address) {
@@ -41,17 +61,32 @@ export async function insertTestAddress() {
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info)  VALUES ( "Fam. Ch", "Bimmel Bammel Weg", "666", "12345", "Blöd-Hausen", "Goßes schwarzes Haus");`;
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "J.Amt","Helferstr.", "4b", "00010"," Meuchel-Berg", null);`;
   populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "Arbeit", "Buckelstraße", "34", "00100", "Heuchel-Berg", "Büro");`;
-  try{
-  await populate.commit();
-  }
-  catch({message}){
+  try {
+    await populate.commit();
+  } catch ({ message }) {
     console.log(message);
   }
   console.log("Inset test addresses");
 }
 
-export async function getAllAddress() {
-  return await all`SELECT * FROM address_tbl`;
+export async function getAllRoutes() {
+  return await all`SELECT * FROM route_tbl`;
+}
+
+export async function insertRoute(route) {
+  console.log(route);
+  const populate = transaction();
+  populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance}, ${route.date})`;
+  await populate.commit();
+}
+
+export async function insertRoutes(routes) {
+  const populate = transaction();
+  routes.forEach(
+    (route) =>
+    populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance}, ${route.date})`
+  );
+  await populate.commit();
 }
 
 export async function getDb() {

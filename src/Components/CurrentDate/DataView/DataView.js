@@ -1,4 +1,5 @@
 import React from "react";
+import {Title} from "@mantine/core"
 import { TableView } from "./TableView";
 
 
@@ -7,8 +8,8 @@ import { TableView } from "./TableView";
     console.log("DateView", date);
   
     return(<>
-        <p>{date.day}.{date.month}.{date.year}</p>
-        <TableView/>
+        <Title order={3} style={{marginBottom: "16px"}}>{date.day}.{date.month}.{date.year}</Title>
+        <TableView />
     </>);
 }
 

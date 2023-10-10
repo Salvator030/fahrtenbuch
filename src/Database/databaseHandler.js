@@ -13,6 +13,8 @@ async function createTables() {
     console.log(res);
     return res;
   });
+
+  await db.queryCreateTableRoute();
 }
 
 async function insertTestData() {
@@ -34,20 +36,6 @@ function persistNewAddress(address) {
   db.insertAddress(address);
 }
 
-// async function setTables() {
-//   function p() {
-//     return new Promise((resolve) => {
-//       setTimeout(async () => {
-//         resolve( db.createTables());
-//       }, 100);
-//     });
-//   }
-
-//   const list = await p().then((res) => {
-//     console.log(res);
-//      return  res;})
-
-// }
 
 function getAddressList() {
   return new Promise(async (resolve, reject) => {

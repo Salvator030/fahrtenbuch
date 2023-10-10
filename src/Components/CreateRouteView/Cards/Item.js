@@ -7,32 +7,61 @@ import { useEffect, useState } from "react";
 function Item({ address }) {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const {
+    startAddress,
+    destinationAddress,
     viewDescription,
     setStartAddress,
     setDestinationAddress,
     startAddressRef,
-    selectedStartAddressCard, setSelectedStartAddressCard
+    selectedStartAddressCard,
+    setSelectedStartAddressCard,
+    selectedDestinationAddressCard,
+    setSelectedDestinationAddressCard,
   } = useSharedCreateRoute();
 
-
-
   const handelOnClick = (e) => {
-    console.log(e)
-       if (viewDescription === "start") {
+    console.log(e);
+    if (viewDescription === "start") {
       setStartAddress(address);
-        e.target.style.backgroundColor = "lightgreen"
-        e.target.style.opacity = "0.2"
-        setSelectedStartAddressCard(e)
-    
-    
+      e.target.style.backgroundColor = "lightgreen";
+      e.target.style.opacity = "0.2";
+      if (selectedStartAddressCard !== undefined) {
+        selectedStartAddressCard.target.style.backgroundColor = "";
+      }
+      setSelectedStartAddressCard(e);
     } else {
-      console.log(startAddressRef)
+      if (startAddress.add_id !== address.add_id) {
+        e.target.style.backgroundColor = "blue";
+        e.target.style.opacity = "0.2";
+
+        setSelectedDestinationAddressCard(e);
+      }
+      if (selectedDestinationAddressCard !== undefined) {
+        selectedDestinationAddressCard.target.style.backgroundColor = "";
+      }
+
       setDestinationAddress(address);
-     
     }
   };
 
-  return ( 
+  
+  const getBg = () => {
+    if (startAddress && startAddress.add_id === address.add_id) {
+      return {
+        backgroundColor: "lightgreen",
+        opacity: "0.2",
+      };
+    }
+    if (destinationAddress && destinationAddress.add_id === address.add_id) {
+      return {
+        backgroundColor: "blue",
+        opacity: "0.2",
+      };
+    }
+  };
+  const bg = getBg;
+
+  return (
     <Card
       withBorder
       padding="xs"
@@ -40,7 +69,6 @@ function Item({ address }) {
       classNames={{ root: classes.cardRoot }}
       key={address.add_id}
       ref={startAddressRef}
-   
     >
       <Stack gap="xs">
         <Grid>
@@ -72,8 +100,7 @@ function Item({ address }) {
         backgroundOpacity={0}
         id={address.add_id}
         onClick={handelOnClick}
-       
-     
+        style={bg}
       />
     </Card>
   );

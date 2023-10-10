@@ -2,6 +2,9 @@
     width: 300px;
 }
 
+.titleAddress{
+    margin-top:24px
+}
 .titleDestination{
     margin-top:40px;
     left: 0px;

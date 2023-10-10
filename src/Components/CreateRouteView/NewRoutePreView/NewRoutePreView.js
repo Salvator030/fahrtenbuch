@@ -12,18 +12,21 @@ export default function NewRoutePreView() {
 
   return (
     <Stack classNames={{ root: classes.stackRoot } } align="flex-start">
-      <Title order={3}>Startaddresse</Title>
+      <Title order={3} >Neue Addrresse</Title>
+      <Title order={3} className={classes.titleAddress}>Startaddresse</Title>
       {startAddress && (
         <AddressView description="Start Adresse" address={startAddress} />
       )}
 
       {viewDescription !== "start" && <Title className={classes.titleDestination} order={3}>Zieladdresse</Title>}
-      {destinationAddress && (
-        <AddressView
+      {destinationAddress && (<>
+      { startAddress !== destinationAddress?  <AddressView
           classes={classes.destinationAddress}
           description="Ziel Adresse"
           address={destinationAddress}
-        />
+        
+        /> : <Title order={3}>Start und Zieladdresse sind gleich</Title>}
+       </>
       )}
 
       {distance.length > 0 && (

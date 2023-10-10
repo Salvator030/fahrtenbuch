@@ -9,6 +9,7 @@ import { useBetween } from "use-between";
 import NewRoutePreView from "./NewRoutePreView/NewRoutePreView";
 import { DistanceInput } from "./DistanceInput/DistanceInput";
 import { checkDistanceInput } from "../../asserts/helper";
+import SaveQuestion from "./SaveQuestion/SaveQuestion";
 
 export function CreateRouteView() {
   const [isAddNewAddress, setAddNewAddress] = useState(false);
@@ -23,6 +24,7 @@ export function CreateRouteView() {
     distanceInputRef,
     okBtn,
     okBtnRef,
+    backBtn
   } = useSharedCreateRoute();
 
   const toggleAddNewAddress = () => {
@@ -34,7 +36,7 @@ export function CreateRouteView() {
   };
 
   const handelOnClickBackBtn = () => {
-    viewBackwards();
+    backBtn();
   };
 
   const handelOnClickAddBtn = () => {
@@ -58,6 +60,7 @@ export function CreateRouteView() {
               <Cards />
             )}
             {viewDescription === "distance" &&  <DistanceInput />}
+            {viewDescription === "save" && <SaveQuestion/>}
         </Center>
    
         <Grid justify="flex-start" className={classes.grid}>
@@ -68,7 +71,7 @@ export function CreateRouteView() {
             )}
           </Grid.Col>
           <Grid.Col span={4}>
-            {viewDescription !== "save" && (
+          
               <Button
                 disabled={!startAddress}
                 ref={okBtnRef}
@@ -76,7 +79,7 @@ export function CreateRouteView() {
               >
                 Ok
               </Button>
-            )}
+           
           </Grid.Col>
           <Grid.Col span={4}>
             <Button onClick={handelOnClickBackBtn}>zurück</Button>

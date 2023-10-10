@@ -1,10 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { useInputState } from "@mantine/hooks";
-import { getAllAddress } from "../Database/database";
-
+import { useBetween } from "use-between";
+import { getAllAddress, insertRoute } from "../database/database";
+import  useCurrentDate from "./currentDateHook"
 import { checkDistanceInput } from "../asserts/helper";
 
 function useCraeteRoute(newDescription) {
+  const useSharedCurrentRoute = () => useBetween(useCurrentDate);
+const {selectedDate} = useSharedCurrentRoute;
+
   const [startAddress, setStartAddress] = useState();
   const [destinationAddress, setDestinationAddress] = useState();
   const [addressesList, setAddressList] = useState();
@@ -13,6 +17,11 @@ function useCraeteRoute(newDescription) {
   const [distance, setDistance] = useInputState("");
   const [isDistance, setIsDistance] = useState(false);
   const [selectedStartAddressCard, setSelectedStartAddressCard] = useState();
+  const [selectedDestinationAddressCard, setSelectedDestinationAddressCard] =
+    useState();
+    const[showCreateRouteView, setShowCreateRouteView] = useState();
+
+  
 
   const distanceInputRef = useRef();
   const okBtnRef = useRef();
@@ -40,7 +49,9 @@ function useCraeteRoute(newDescription) {
   };
 
   const viewBackwards = () => {
+    console.log(viewDescription);
     if (viewDescription === "destination") {
+      console.log(selectedStartAddressCard.target.style.backgroundColor);
       setStartAddress();
     }
     if (viewDescription === "distance") {
@@ -55,32 +66,30 @@ function useCraeteRoute(newDescription) {
     }
   };
 
-useEffect(()=>{
-  if (startAddress){
-    console.log(startAddress)
-    startAddressRef.current.style.backgroundColor = "black";
-  }
-},[startAddress])
+  useEffect(() => {
+    if (startAddress) {
+      console.log(startAddress);
+      startAddressRef.current.style.backgroundColor = "black";
+    }
+  }, [startAddress]);
 
   useEffect(() => {
-   
     if (okBtnRef.current) {
       if (viewDescription === "start") {
-       
         if (!startAddress) {
-          console.log(startAddress)
+          console.log(startAddress);
           okBtnRef.current.disabled = true;
           console.log("2");
         } else {
           console.log("3");
-          okBtnRef.current.disabled = false; 
+          okBtnRef.current.disabled = false;
         }
       }
     }
     if (viewDescription === "destination") {
       console.log(viewDescription);
 
-      if (!destinationAddress) { 
+      if (!destinationAddress) {
         okBtnRef.current.disabled = true;
       } else {
         if (
@@ -105,6 +114,7 @@ useEffect(()=>{
       }
     }
   }, [viewDescription, startAddress, destinationAddress, distance]);
+
   const okBtn = () => {
     if (viewDescription === "distance") {
       if (checkDistanceInput(distance)) {
@@ -117,11 +127,30 @@ useEffect(()=>{
     } else {
       viewForwards();
     }
+
+    if (viewDescription === "save") {
+      const newRoute = {
+        start_id: startAddress.add_id,
+        dest_id: destinationAddress.add_id,
+        distance: distance,
+        date: selectedDate
+      };
+      insertRoute(newRoute);
+      setShowCreateRouteView(false);
+    }
   };
+
+  const backBtn = () => {
+    if ( viewDescription === "start") {
+      setShowCreateRouteView(false);
+      viewBackwards();
+    }
+  }
 
   return {
     okBtn,
     okBtnRef,
+    backBtn,
     addressesList,
     startAddressRef,
     viewDescription,
@@ -134,7 +163,12 @@ useEffect(()=>{
     viewForwards,
     viewBackwards,
     distanceInputRef,
-    selectedStartAddressCard, setSelectedStartAddressCard
+    selectedStartAddressCard,
+    setSelectedStartAddressCard,
+    selectedDestinationAddressCard,
+    setSelectedDestinationAddressCard,
+    showCreateRouteView, 
+    setShowCreateRouteView
   };
 }
 export default useCraeteRoute;
