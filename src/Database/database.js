@@ -23,18 +23,30 @@ CREATE TABLE IF NOT EXISTS route_tbl (
   startAdd_id INTEGER NOT NULL,
   destAdd_id INTEGER NOT NULL,
   distance FLOAT NOT NULL,
-  date DATE NOT NULL,
   PRIMARY KEY(route_id),
   FOREIGN KEY(startAdd_id) REFERENCES address_tbl(add_id),
   FOREIGN KEY(destAdd_id) REFERENCES address_tbl(add_id)
 );`;
-console.log("Table route_tbl created");
+  console.log("Table route_tbl created");
+}
+
+export async function queryCreateDrivenRoute() {
+  await query`
+CREATE TABLE IF NOT EXISTS drivenRoute_tbl (
+  dRoute_id INTEGER NOT NULL,
+  date DATE NOT NULL,
+  route_id INTEGER NOT NULL,
+  PRIMARY KEY(dRoute_id),
+  FOREIGN KEY(route_id) REFERENCES route_tbl(route_id)
+);`;
+  console.log("Table route_tbl created");
 }
 
 export async function deleteTable(tableName) {
   await query`DELETE FROM ${tableName};`;
 }
 
+//----Address
 export async function getAllAddress() {
   return await all`SELECT * FROM address_tbl`;
 }
@@ -69,6 +81,7 @@ export async function insertTestAddress() {
   console.log("Inset test addresses");
 }
 
+//----Route
 export async function getAllRoutes() {
   return await all`SELECT * FROM route_tbl`;
 }
@@ -76,7 +89,7 @@ export async function getAllRoutes() {
 export async function insertRoute(route) {
   console.log(route);
   const populate = transaction();
-  populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance}, ${route.date})`;
+  populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance})`;
   await populate.commit();
 }
 
@@ -84,10 +97,36 @@ export async function insertRoutes(routes) {
   const populate = transaction();
   routes.forEach(
     (route) =>
-    populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance}, ${route.date})`
+      populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance})`
   );
   await populate.commit();
 }
+
+export async function insertTestRoutes() {
+  const populate = transaction();
+  populate`INSERT INTO route_tbl (startAdd_id,destAdd_id,distance) VALUES (1,3,25);`;
+  populate`INSERT INTO route_tbl (startAdd_id,destAdd_id,distance) VALUES (2,3,16.5);`; 
+  populate`INSERT INTO route_tbl (startAdd_id,destAdd_id,distance) VALUES (4,1,5.3);`;
+  try {
+    await populate.commit();
+  } catch ({ message }) {
+    console.log(message);
+  }
+  console.log("Inset test routes");
+}
+
+//----DrivenRoute
+
+export async function getAllDrivenRoutes() {
+  return await all`SELECT * FROM drivenRoute_tbl`;
+}
+
+export async function getDrivenRoutesByDate(date){
+  return await all`SELECT * FROM drivenRoute_tbl WHERE date LIKE "${date}"`;
+}
+
+
+
 
 export async function getDb() {
   // single query as any info

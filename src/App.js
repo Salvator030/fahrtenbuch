@@ -7,9 +7,9 @@ import { MainView } from "./Components/MainView/MainView";
 import "@mantine/core/styles.css";
 import { useEffect } from "react";
 
-function App() {
-    createTables();
-    insertTestData();
+ function App() {
+    //  createTables();
+    //  insertTestData();
     
 
   

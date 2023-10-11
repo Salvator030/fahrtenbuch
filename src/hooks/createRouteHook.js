@@ -4,10 +4,16 @@ import { useBetween } from "use-between";
 import { getAllAddress, insertRoute } from "../database/database";
 import  useCurrentDate from "./currentDateHook"
 import { checkDistanceInput } from "../asserts/helper";
+import useAddRoute from "./addRouteHook"
+import CurrentDate from "../Components/CurrentDate/CurrentDate";
 
-function useCraeteRoute(newDescription) {
+function useCraeteRoute() {
   const useSharedCurrentRoute = () => useBetween(useCurrentDate);
-const {selectedDate} = useSharedCurrentRoute;
+  const useSharedAddRoute = () => useBetween(useAddRoute);
+ 
+
+const {selectedDate} = useSharedCurrentRoute();
+const {setIsNewRoute} = useSharedAddRoute();
 
   const [startAddress, setStartAddress] = useState();
   const [destinationAddress, setDestinationAddress] = useState();
@@ -20,8 +26,7 @@ const {selectedDate} = useSharedCurrentRoute;
   const [selectedDestinationAddressCard, setSelectedDestinationAddressCard] =
     useState();
     const[showCreateRouteView, setShowCreateRouteView] = useState();
-
-  
+     
 
   const distanceInputRef = useRef();
   const okBtnRef = useRef();
@@ -49,10 +54,8 @@ const {selectedDate} = useSharedCurrentRoute;
   };
 
   const viewBackwards = () => {
-    console.log(viewDescription);
-    if (viewDescription === "destination") {
-      console.log(selectedStartAddressCard.target.style.backgroundColor);
-      setStartAddress();
+       if (viewDescription === "destination") {
+           setStartAddress();
     }
     if (viewDescription === "distance") {
       setDestinationAddress();
@@ -68,8 +71,7 @@ const {selectedDate} = useSharedCurrentRoute;
 
   useEffect(() => {
     if (startAddress) {
-      console.log(startAddress);
-      startAddressRef.current.style.backgroundColor = "black";
+           startAddressRef.current.style.backgroundColor = "black";
     }
   }, [startAddress]);
 
@@ -77,18 +79,13 @@ const {selectedDate} = useSharedCurrentRoute;
     if (okBtnRef.current) {
       if (viewDescription === "start") {
         if (!startAddress) {
-          console.log(startAddress);
-          okBtnRef.current.disabled = true;
-          console.log("2");
-        } else {
-          console.log("3");
-          okBtnRef.current.disabled = false;
+                 okBtnRef.current.disabled = true;
+           } else {
+              okBtnRef.current.disabled = false;
         }
       }
     }
     if (viewDescription === "destination") {
-      console.log(viewDescription);
-
       if (!destinationAddress) {
         okBtnRef.current.disabled = true;
       } else {
@@ -97,8 +94,7 @@ const {selectedDate} = useSharedCurrentRoute;
           startAddress &&
           startAddress.add_id === destinationAddress.add_id
         ) {
-          console.log("gleiche add");
-          okBtnRef.current.disabled = true;
+                  okBtnRef.current.disabled = true;
         } else {
           okBtnRef.current.disabled = false;
         }
@@ -114,6 +110,9 @@ const {selectedDate} = useSharedCurrentRoute;
       }
     }
   }, [viewDescription, startAddress, destinationAddress, distance]);
+
+  useEffect(()=> {
+     },[selectedDate])
 
   const okBtn = () => {
     if (viewDescription === "distance") {
@@ -133,10 +132,15 @@ const {selectedDate} = useSharedCurrentRoute;
         start_id: startAddress.add_id,
         dest_id: destinationAddress.add_id,
         distance: distance,
-        date: selectedDate
+        // date: `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`
       };
-      insertRoute(newRoute);
+          insertRoute(newRoute);
+          setIsNewRoute(true)
       setShowCreateRouteView(false);
+      setStartAddress();
+      setDestinationAddress();
+      setDistance("");
+      setviewDescription("start")
     }
   };
 
@@ -144,8 +148,12 @@ const {selectedDate} = useSharedCurrentRoute;
     if ( viewDescription === "start") {
       setShowCreateRouteView(false);
       viewBackwards();
+      setViewCount(0) 
     }
+    
   }
+
+
 
   return {
     okBtn,

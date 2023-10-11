@@ -2,7 +2,11 @@ import { useState, useRef } from "react";
 import { useInputState } from "@mantine/hooks";
 import { TextInput, InputBase, Button, Stack, Grid } from "@mantine/core";
 import { IMaskInput } from "react-imask";
+import { useBetween } from "use-between";
+import useAddRoute from "../../../hooks/addRouteHook";
 import * as databaseHandler from "../../../database/databaseHandler";
+
+
 import "@mantine/core/styles.css";
 import styles from "./AddressInputView.module.css";
 
@@ -16,6 +20,9 @@ export function AddressInputView({toggleAddNewAddress}) {
     info: "",
   };
   const [address, setAddress] = useState(newAddress);
+
+  const useSharedAddRoute = () => useBetween(useAddRoute);
+  const {setIsNewRoute, isNewRoute} = useSharedAddRoute();
 
   const [nameValue, setNameValue] = useInputState("");
   const [streetValue, setStreetValue] = useInputState("");
@@ -87,12 +94,13 @@ export function AddressInputView({toggleAddNewAddress}) {
     if (!checks.includes(false)) {
       setNewAddress();
        cleanInputFields();
-      toggleAddNewAddress();
+          toggleAddNewAddress();
     }
    
   }
 
   const handelOnClickCancelBtn = ()=> {
+  
     toggleAddNewAddress();
   }
 

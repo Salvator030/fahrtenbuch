@@ -1,35 +1,17 @@
 import * as db from "./database";
 
 async function createTables() {
-  function p() {
-    return new Promise((resolve) => {
-      setTimeout(async () => {
-        resolve(db.queryCreateTableAddress());
-      }, 100);
-    });
-  }
-
-  await p().then((res) => {
-    console.log(res);
-    return res;
-  });
+ await db.queryCreateTableAddress();
 
   await db.queryCreateTableRoute();
+
+  await db.queryCreateDrivenRoute()
+
 }
 
 async function insertTestData() {
-  function p() {
-    return new Promise((resolve) => {
-      setTimeout(async () => {
-        resolve(db.insertTestAddress());
-      }, 100);
-    });
-  }
-
-  await p().then((res) => {
-    console.log(res);
-    return res;
-  });
+  await db.insertTestAddress();
+  await db.insertTestRoutes()
 }
 
 function persistNewAddress(address) {
@@ -40,10 +22,10 @@ function persistNewAddress(address) {
 function getAddressList() {
   return new Promise(async (resolve, reject) => {
     let list = await db.getAllAddress();
-    console.log(list);
+
     resolve(list);
   }).then(async (res) => {
-    console.log(res);
+
     return await res;
   });
 }

@@ -1,4 +1,4 @@
-import { Box, Button,Center , Grid, ScrollArea, Title } from "@mantine/core";
+import { Button, Center, Grid, Title } from "@mantine/core";
 import React, { useState } from "react";
 import { AddressInputView } from "./AddressInputView/AddressInputView";
 import "@mantine/core/styles.css";
@@ -8,7 +8,6 @@ import classes from "./CreateRouteView.module.css";
 import { useBetween } from "use-between";
 import NewRoutePreView from "./NewRoutePreView/NewRoutePreView";
 import { DistanceInput } from "./DistanceInput/DistanceInput";
-import { checkDistanceInput } from "../../asserts/helper";
 import SaveQuestion from "./SaveQuestion/SaveQuestion";
 
 export function CreateRouteView() {
@@ -17,14 +16,10 @@ export function CreateRouteView() {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const {
     startAddress,
-    distance,
     viewDescription,
-    viewForwards,
-    viewBackwards,
-    distanceInputRef,
     okBtn,
     okBtnRef,
-    backBtn
+    backBtn,
   } = useSharedCreateRoute();
 
   const toggleAddNewAddress = () => {
@@ -43,52 +38,52 @@ export function CreateRouteView() {
     toggleAddNewAddress();
   };
 
-  console.log(startAddress)
-  console.log(viewDescription);
   return (
-    <Grid>
-      <Grid.Col span="content">
-        <Title order={3}>
-          {viewDescription === "start" && "Startaddresse"}
-          {viewDescription === "destination" && "Zieladdresse"}
-          {viewDescription === "distance" && "Entfernung"}
-          {viewDescription === "save" && "Speichern"}
-        </Title>
-        <Center  className={classes.viewDiv}>
-          {(viewDescription === "start" ||
-            viewDescription === "destination") && (
-              <Cards />
-            )}
-            {viewDescription === "distance" &&  <DistanceInput />}
-            {viewDescription === "save" && <SaveQuestion/>}
-        </Center>
-   
-        <Grid justify="flex-start" className={classes.grid}>
-          <Grid.Col span={4}>
-            {(viewDescription === "start" ||
-              viewDescription === "destination") && (
-              <Button onClick={handelOnClickAddBtn}>+</Button>
-            )}
+    <>
+      {!isAddNewAddress ? (
+        <Grid>
+          <Grid.Col span="content">
+            <Title order={3}>
+              {viewDescription === "start" && "Startaddresse"}
+              {viewDescription === "destination" && "Zieladdresse"}
+              {viewDescription === "distance" && "Entfernung"}
+              {viewDescription === "save" && "Speichern"}
+            </Title>
+            <Center className={classes.viewDiv}>
+              {(viewDescription === "start" ||
+                viewDescription === "destination") && <Cards />}
+              {viewDescription === "distance" && <DistanceInput />}
+              {viewDescription === "save" && <SaveQuestion />}
+            </Center>
+
+            <Grid justify="flex-start" className={classes.grid}>
+              <Grid.Col span={4}>
+                {(viewDescription === "start" ||
+                  viewDescription === "destination") && (
+                  <Button onClick={handelOnClickAddBtn}>+</Button>
+                )}
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <Button
+                  disabled={!startAddress}
+                  ref={okBtnRef}
+                  onClick={handelOnClickOkBtn}
+                >
+                  Ok
+                </Button>
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <Button onClick={handelOnClickBackBtn}>zurück</Button>
+              </Grid.Col>
+            </Grid>
           </Grid.Col>
-          <Grid.Col span={4}>
-          
-              <Button
-                disabled={!startAddress}
-                ref={okBtnRef}
-                onClick={handelOnClickOkBtn}
-              >
-                Ok
-              </Button>
-           
-          </Grid.Col>
-          <Grid.Col span={4}>
-            <Button onClick={handelOnClickBackBtn}>zurück</Button>
+          <Grid.Col span="content">
+            <NewRoutePreView />
           </Grid.Col>
         </Grid>
-      </Grid.Col>
-      <Grid.Col span="content">
-        <NewRoutePreView />
-      </Grid.Col>
-    </Grid>
+      ) : (
+        <AddressInputView toggleAddNewAddress={toggleAddNewAddress}/>
+      )}
+    </>
   );
 }

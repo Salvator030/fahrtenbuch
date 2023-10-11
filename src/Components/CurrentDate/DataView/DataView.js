@@ -4,8 +4,6 @@ import { TableView } from "./TableView";
 
 
  function DataView(date){
-    
-    console.log("DateView", date);
   
     return(<>
         <Title order={3} style={{marginBottom: "16px"}}>{date.day}.{date.month}.{date.year}</Title>
