@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useBetween } from "use-between";
-function useCurrentDate(){
-    const date = new Date();
-    const [selectedDate, setSelectedDate] = useState(date);
+function useCurrentDate() {
+  const date = new Date();
+  const [selectedDate, setSelectedDate] = useState(date);
 
-    useEffect(()=> {
-           },[selectedDate])
+  useEffect(() => {}, [selectedDate]);
 
-return {selectedDate, setSelectedDate}
+  const getCurrentDate = () => {
+    return {
+      day: selectedDate?.getDate(),
+      month: selectedDate?.getMonth(),
+      year: selectedDate?.getFullYear(),
+    };
+  };
+
+  return { selectedDate, setSelectedDate, getCurrentDate };
 }
-export default useCurrentDate
+export default useCurrentDate;

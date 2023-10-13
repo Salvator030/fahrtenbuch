@@ -3,14 +3,13 @@ import { useInputState } from "@mantine/hooks";
 import { TextInput, InputBase, Button, Stack, Grid } from "@mantine/core";
 import { IMaskInput } from "react-imask";
 import { useBetween } from "use-between";
-import useAddRoute from "../../../hooks/addRouteHook";
+import useCraeteRoute from "../../../hooks/createRouteHook";
 import * as databaseHandler from "../../../database/databaseHandler";
-
 
 import "@mantine/core/styles.css";
 import styles from "./AddressInputView.module.css";
 
-export function AddressInputView({toggleAddNewAddress}) {
+export function AddressInputView({ toggleAddNewAddress }) {
   let newAddress = {
     name: "",
     street: "",
@@ -21,8 +20,10 @@ export function AddressInputView({toggleAddNewAddress}) {
   };
   const [address, setAddress] = useState(newAddress);
 
-  const useSharedAddRoute = () => useBetween(useAddRoute);
-  const {setIsNewRoute, isNewRoute} = useSharedAddRoute();
+  const useSharedCreateRoute = () => useBetween(useCraeteRoute);
+  const {
+    setIsNewAddress
+  } = useSharedCreateRoute();
 
   const [nameValue, setNameValue] = useInputState("");
   const [streetValue, setStreetValue] = useInputState("");
@@ -51,7 +52,6 @@ export function AddressInputView({toggleAddNewAddress}) {
 
   function checkInput() {
     for (let i = 0; i < 4; i++) {
-   
       if (refs[i].current.value === "") {
         checks[i] = false;
         refs[i].current.style.borderColor = "red";
@@ -71,7 +71,6 @@ export function AddressInputView({toggleAddNewAddress}) {
   }
 
   function setNewAddress() {
-    
     newAddress.name = nameValue;
     newAddress.street = streetValue;
     newAddress.hnr = hnrValue;
@@ -83,29 +82,25 @@ export function AddressInputView({toggleAddNewAddress}) {
       newAddress.info = infoValue;
     }
 
-   
     databaseHandler.persistNewAddress(newAddress);
   }
-
-
 
   function handelOnClickSaveBtn() {
     checkInput();
     if (!checks.includes(false)) {
       setNewAddress();
-       cleanInputFields();
-          toggleAddNewAddress();
+      setIsNewAddress(true)
+      cleanInputFields();
+      toggleAddNewAddress();
     }
-   
   }
 
-  const handelOnClickCancelBtn = ()=> {
-  
+  const handelOnClickCancelBtn = () => {
     toggleAddNewAddress();
-  }
+  };
 
   return (
-    <Stack >
+    <Stack>
       <TextInput
         ref={nameRef}
         label="Name"
@@ -114,7 +109,7 @@ export function AddressInputView({toggleAddNewAddress}) {
         onChange={setNameValue}
         max={100}
         error={false}
-        classNames={{label: styles.label,}}
+        classNames={{ label: styles.label }}
       />
       <Grid>
         <Grid.Col span={9}>
@@ -171,8 +166,9 @@ export function AddressInputView({toggleAddNewAddress}) {
       <Button className={styles.safeBtn} onClick={handelOnClickSaveBtn}>
         Speichern
       </Button>
-      <Button className={styles.cancelBtn} onClick={handelOnClickCancelBtn}>Abbrechen</Button>
-      
+      <Button className={styles.cancelBtn} onClick={handelOnClickCancelBtn}>
+        Abbrechen
+      </Button>
     </Stack>
   );
 }

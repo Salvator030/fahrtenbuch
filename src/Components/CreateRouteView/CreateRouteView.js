@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { AddressInputView } from "./AddressInputView/AddressInputView";
 import "@mantine/core/styles.css";
 import useCraeteRoute from "../../hooks/createRouteHook";
-import Cards from "./Cards/Cards";
+import AddressesCards from "./AddressesCards/AddressesCards";
 import classes from "./CreateRouteView.module.css";
 import { useBetween } from "use-between";
 import NewRoutePreView from "./NewRoutePreView/NewRoutePreView";
@@ -51,7 +51,7 @@ export function CreateRouteView() {
             </Title>
             <Center className={classes.viewDiv}>
               {(viewDescription === "start" ||
-                viewDescription === "destination") && <Cards />}
+                viewDescription === "destination") && <AddressesCards />}
               {viewDescription === "distance" && <DistanceInput />}
               {viewDescription === "save" && <SaveQuestion />}
             </Center>

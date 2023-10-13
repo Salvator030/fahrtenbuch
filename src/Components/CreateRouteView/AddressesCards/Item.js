@@ -99,7 +99,7 @@ function Item({ address }) {
         backgroundOpacity={0}
         id={address.add_id}
         onClick={handelOnClick}
-        style={bg}
+        // style={bg}
       />
     </Card>
   );

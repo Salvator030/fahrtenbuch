@@ -2,22 +2,22 @@ import { useState, useEffect, useRef } from "react";
 import { useInputState } from "@mantine/hooks";
 import { useBetween } from "use-between";
 import { getAllAddress, insertRoute } from "../database/database";
+import useDatabases from "./databaseHook";
 import  useCurrentDate from "./currentDateHook"
 import { checkDistanceInput } from "../asserts/helper";
-import useAddRoute from "./addRouteHook"
-import CurrentDate from "../Components/CurrentDate/CurrentDate";
 
 function useCraeteRoute() {
   const useSharedCurrentRoute = () => useBetween(useCurrentDate);
-  const useSharedAddRoute = () => useBetween(useAddRoute);
+  const useSharedDatabases = () => useBetween(useDatabases);
  
 
 const {selectedDate} = useSharedCurrentRoute();
-const {setIsNewRoute} = useSharedAddRoute();
+const {setIsNewRoute} = useSharedDatabases();
 
   const [startAddress, setStartAddress] = useState();
   const [destinationAddress, setDestinationAddress] = useState();
   const [addressesList, setAddressList] = useState();
+  const [isNewAddress, setIsNewAddress] = useState();
   const [viewDescription, setviewDescription] = useState("start");
   const [viewCount, setViewCount] = useState(0);
   const [distance, setDistance] = useInputState("");
@@ -37,10 +37,11 @@ const {setIsNewRoute} = useSharedAddRoute();
       const list = await getAllAddress();
       if (list) {
         setAddressList(await list);
+        setIsNewAddress(false);
       }
     }
     fetchData();
-  }, []);
+  }, [isNewAddress]);
 
   const discriptionList = ["start", "destination", "distance", "save"];
   useEffect(() => {
@@ -140,17 +141,15 @@ const {setIsNewRoute} = useSharedAddRoute();
       setStartAddress();
       setDestinationAddress();
       setDistance("");
-      setviewDescription("start")
+      setViewCount(0)
     }
   };
 
   const backBtn = () => {
     if ( viewDescription === "start") {
       setShowCreateRouteView(false);
-      viewBackwards();
-      setViewCount(0) 
-    }
-    
+     }else{  viewBackwards();}
+       
   }
 
 
@@ -176,7 +175,9 @@ const {setIsNewRoute} = useSharedAddRoute();
     selectedDestinationAddressCard,
     setSelectedDestinationAddressCard,
     showCreateRouteView, 
-    setShowCreateRouteView
+    setShowCreateRouteView,
+    setIsNewAddress
+    
   };
 }
 export default useCraeteRoute;

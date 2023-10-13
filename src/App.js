@@ -4,7 +4,10 @@ import "./App.css";
 import { createTables, insertTestData } from "./database/databaseHandler";
 
 import { MainView } from "./Components/MainView/MainView";
+import '@mantine/core/styles/global.css';
 import "@mantine/core/styles.css";
+
+
 import { useEffect } from "react";
 
  function App() {

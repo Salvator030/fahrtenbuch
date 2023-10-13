@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {getAllRoutes} from "../database/database"
+import { getAllRoutes } from "../database/database";
 
-function useAddRoute (){
+function useAddRoute() {
+  const [selectedRoute, setSelectedRoute] = useState();
+  const [selectedCard, setSelectedCard] = useState();
 
-    const [routesList, setRoutesList] = useState();
-    const [isNewRoute, setIsNewRoute] = useState();
-    
-    useEffect(() => {
-        async function fetchData(){
-     
-            const list = await getAllRoutes();
-            if (list){
-                setRoutesList(list);
-                  setIsNewRoute(false)     }  
-        }
-        fetchData();
-     
-    },[isNewRoute])
 
-    return{routesList, setIsNewRoute}
+  
+  return {
+    selectedRoute,
+    setSelectedRoute,
+    selectedCard,
+    setSelectedCard,
+
+  };
 }
-
 
 export default useAddRoute;
