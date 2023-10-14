@@ -7,29 +7,33 @@ function RouteCard({ route }) {
   const { addressesList } = useSharedCreateRoute();
 
   const useSharedAddRoute = () => useBetween(useAddRoute);
-  const { setSelectedRoute, selectedCard, setSelectedCard } = useSharedAddRoute();
-
-
+  const { selectedRoute, setSelectedRoute, selectedCard, setSelectedCard } =
+    useSharedAddRoute();
 
   const startAdd = addressesList.find(
     (add) => add.add_id === route.startAdd_id
   );
   const destAdd = addressesList.find((add) => add.add_id === route.destAdd_id);
   const handleOnClick = (e) => {
-    if (e.target.style.backgroundColor === "white") {
-      if (selectedCard){
-        selectedCard.target.style.backgroundColor = "white";
-      }
+    if (!selectedCard) {
       e.target.style.backgroundColor = "gray";
+      setSelectedRoute(route);
       setSelectedCard(e);
-    }else {
-      e.target.style.backgroundColor = "white";
-      if(selectedCard){
-        setSelectedCard();
+    } else {
+      if (route.route_id === selectedRoute.route_id) {
+        e.target.style.backgroundColor = "white";
+        setSelectedRoute(undefined);
+        setSelectedCard(undefined);
+      }else{
+        e.target.style.backgroundColor = "gray";
+        selectedCard.target.style.backgroundColor = "white";
+        setSelectedCard(e);
+        setSelectedRoute(route);
       }
     }
-    e.target.style.opacity = 0.2;
-    setSelectedRoute(route);
+   
+   e.target.style.opacity = 0.2;
+
   };
 
   return (

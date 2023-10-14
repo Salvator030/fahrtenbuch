@@ -1,0 +1,7 @@
+.accordionControl{
+    width: 150px;
+}
+.accordionItem {
+    width: 750px;
+    align-items: center;
+}

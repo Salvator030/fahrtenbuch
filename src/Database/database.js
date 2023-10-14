@@ -132,6 +132,11 @@ export async function getDrivenRoutesByDate(date){
   return await all`SELECT * FROM drivenRoute_tbl WHERE date LIKE ${date};`;
 }
 
+export async function getDrivenRoutesByMonth(year,month){
+  return await all`SELECT * FROM drivenRoute_tbl WHERE date LIKE "${year}-${month}-%%";`;
+}
+
+
 
 
 export async function deleteDrivenRouteById(id) {
