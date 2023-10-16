@@ -9,36 +9,35 @@ import useDayRoute from "../../../hooks/dayRouteHokk";
 
 function DayRoutesCards() {
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { routesByDate , deleteSelectedDayRoute} = useSharedDatabases();
+  const { routesByDateList, deleteSelectedDayRoute } = useSharedDatabases();
   const [cards, setCards] = useState();
 
   const useSharedDayRoute = () => useBetween(useDayRoute);
-  const {selectedDayRoute,} = useSharedDayRoute();
+  const { selectedDayRoute } = useSharedDayRoute();
 
   useEffect(() => {
-    if (routesByDate) {
-   
-      const items = routesByDate.map(
+    if (routesByDateList) {
+      console.log(routesByDateList);
+      const items = routesByDateList.map(
         (route) =>
           route && <DayRouteCard drivenRoute={route} key={route.dRoute_id} />
       );
       setCards(items);
     }
-  }, [routesByDate]);
+  }, [routesByDateList]);
 
   const handelOnClick = () => {
     deleteSelectedDayRoute();
-  }
+  };
 
   return (
     <>
       <ScrollArea w={300} h={360} classNames={{ root: classes.scrollAreaRoot }}>
         <Box>{cards}</Box>
       </ScrollArea>
-      <ActionIcon onClick={handelOnClick}disabled={!selectedDayRoute}>
-        <TrashIcon/>
+      <ActionIcon onClick={handelOnClick} disabled={!selectedDayRoute}>
+        <TrashIcon />
       </ActionIcon>
-
     </>
   );
 }

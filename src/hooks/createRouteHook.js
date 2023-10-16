@@ -25,7 +25,7 @@ const {setIsNewRoute} = useSharedDatabases();
   const [selectedStartAddressCard, setSelectedStartAddressCard] = useState();
   const [selectedDestinationAddressCard, setSelectedDestinationAddressCard] =
     useState();
-    const[showCreateRouteView, setShowCreateRouteView] = useState();
+    const[showCreateRouteView, setShowCreateRouteView] = useState(false);
      
 
   const distanceInputRef = useRef();
