@@ -11,7 +11,7 @@ function DayRouteCard({ drivenRoute }) {
   const { getRouteById, getRouteFullAddressesByRouteId } = useSharedDatabases();
   const { selectedDayRoute, setSekectedDayRoute } = useSharedDayRoute();
 
-  console.log(drivenRoute);
+
   const [addresses] = useState(
     getRouteFullAddressesByRouteId(drivenRoute.route_id)
   );
@@ -19,7 +19,7 @@ function DayRouteCard({ drivenRoute }) {
   const route = getRouteById(drivenRoute.route_id);
 
   const handelOnClick = (e) => {
-    console.log(selectedDayRoute);
+ 
     if (!selectedDayRoute) {
       e.target.style.backgroundColor = "gray";
       setSelectedCard(e);
@@ -27,7 +27,7 @@ function DayRouteCard({ drivenRoute }) {
 }
 
      else {
-       console.log();
+     
        if(selectedDayRoute.dRoute_id === drivenRoute.dRoute_id){
       e.target.style.backgroundColor = "white";
       setSelectedCard();
@@ -35,10 +35,9 @@ function DayRouteCard({ drivenRoute }) {
     }
     e.target.style.opacity = 0.2;
 
-    console.log(selectedDayRoute);
   };
 
-  console.log(addresses[0].name);
+  
   return (
     <Card withBorder key={drivenRoute.dRoute_id}>
       <Grid>

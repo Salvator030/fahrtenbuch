@@ -1,3 +1,6 @@
+// The logic to make the days on which routes are available is very complicated
+
+
 import { useBetween } from "use-between";
 // import useAddRoute from "../../../hooks/addRouteHook";
 import { Box, Button, Grid, ScrollArea, Table, Title } from "@mantine/core";
@@ -19,7 +22,7 @@ function RoutesCards() {
   useEffect(() => {
     if (routesList) {
      
-      const cardsList = routesList.map((route) => route && <RouteCard route={route} key={route.route_idd}/>);
+      const cardsList = routesList.map((route) => route && <RouteCard route={route} />);
       setCards(cardsList);
     }
   },[routesList]);

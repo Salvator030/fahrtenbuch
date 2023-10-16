@@ -13,13 +13,13 @@ function TableView() {
     if(routesByDate){
     let distance = 0;
     routesByDate.forEach((route) => {
-      console.log(getDistanceById(route))
+
       distance += getDistanceById(route);
     });
     setDayDistance(distance);}
   },[routesByDate]);
 
-  console.log(routesByDate);
+ 
 
   return (
     <Stack algin="flex-start">

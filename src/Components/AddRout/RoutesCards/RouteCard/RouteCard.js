@@ -37,7 +37,7 @@ function RouteCard({ route }) {
   };
 
   return (
-    <Card>
+    <Card key={route.route_id}>
       <Grid
         justify="flex-start"
         style={{ marginBottom: "8px", border: "1px solid gray" }}
@@ -80,7 +80,7 @@ function RouteCard({ route }) {
         backgroundOpacity={0}
         id={route.route_id}
 
-        // style={bg}
+        key={route.route_id}
       />
     </Card>
   );

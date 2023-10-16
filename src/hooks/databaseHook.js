@@ -26,6 +26,8 @@ function useDatabases() {
   const useSharedCurrentDate = () => useBetween(useCurrentDate);
   const { selectedDate, getCurrentDate, newMonth } = useSharedCurrentDate();
 
+  const [first, setFirst] = useState(true);
+
   // fetch the content of tbl_address
   useEffect(() => {
     async function fetchData() {
@@ -50,25 +52,38 @@ function useDatabases() {
     fetchData();
   }, [isNewRoute]);
 
-  // fetch the driven routes by a month
+  // ----fetch the driven routes by a month ----
 
   useEffect(() => {
     async function fetchData() {
       let list;
       if (isChangedMonth) {
+        console.log(newMonth.year);
+        console.log(newMonth.month);
         list = await db.getDrivenRoutesByMonth(newMonth.year, newMonth.month);
-      } else {
-        list = await db.getDrivenRoutesByMonth(selectedDate.year, selectedDate.month);
+        setIsChangedMonth(false);
+      }
+      if (first) {
+        if (selectedDate) {
+          console.log(selectedDate.getFullYear());
+          list = await db.getDrivenRoutesByMonth(
+            selectedDate.getFullYear(),
+            selectedDate.getMonth() + 1
+          );
+          setFirst(false)
+        }
+        
       }
 
+   
       if (list) {
         console.log(list);
         setRoutesByMonthList(list);
-        setIsChangedMonth(false);
       }
     }
+
     fetchData();
-  }, [isChangedMonth, selectedDate]);
+  }, [isChangedMonth,selectedDate]);
 
   useEffect(() => {
     async function fetchData() {

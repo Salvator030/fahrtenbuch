@@ -1,6 +1,6 @@
 import { Button, Grid, Indicator } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DataView } from "../CurrentDate/DataView/DataView";
 import DayRoutesCards from "./RouteList/DayRoutesCards";
 import { useBetween } from "use-between";
@@ -23,37 +23,45 @@ export default function CurrentDate() {
     console.log(e);
   };
 
-  const dayRenderer = (date) => {
-    if(routesByMonthList){
-    console.log(
-      routesByMonthList.find(
-        (route) =>
-          route.date ===
-          `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-      )
-    )};
+  useEffect(() => {});
+
+  const DayRenderer = (date) => {
     const day = date.getDate();
-    return (
-      <Indicator
-        size={6}
-        color="red"
-        offset={-5}
-        disabled={
+
+    const [disabled, setDisabled] = useState();
+    console.log(date.getMonth());
+
+    useEffect(() => {
+      routesByMonthList &&
+        setDisabled(
           !routesByMonthList.find(
-            (route) => 
+            (route) =>
               route.date ===
-              `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+              `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
           )
+        );
+    },[date]);
+
+    
+    return (
+      <> 
+        {
+          <Indicator
+            size={6}
+            color="red"
+            offset={-5}
+            disabled={disabled}
+          >
+            <div>{day}</div>
+          </Indicator>
         }
-      >
-        <div>{day}</div>
-      </Indicator>
+      </>
     );
   };
 
   const handelChangeMonth = (e) => {
-    console.log(e);
-    setNewMonth({ year: e.getFullYear(), month: e.getMonth() });
+    console.log(e.getMonth() + 1);
+    setNewMonth({ year: e.getFullYear(), month: e.getMonth() + 1 });
     setIsChangedMonth(true);
   };
 
@@ -66,7 +74,7 @@ export default function CurrentDate() {
           onNextMonth={handelChangeMonth}
           onPreviousMonth={handelChangeMonth}
           locale="locale"
-          renderDay={dayRenderer}
+          renderDay={DayRenderer}
         />
       </Grid.Col>
       <Grid.Col span="auto">
