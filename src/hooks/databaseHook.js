@@ -93,7 +93,7 @@ function useDatabases() {
 
     fetchData();
   }, [isChangedMonth, isNewDayRoute, selectedDate]);
-  }, [isChangedMonth, selectedDate]);
+  
 
   //---- fetch content of the Route by a day
   useEffect(() => {

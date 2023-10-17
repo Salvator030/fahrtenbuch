@@ -11,7 +11,7 @@ export function MainView() {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { showCreateRouteView } = useSharedCreateRoute();
   const useSharedMainView = () => useBetween(useMainView);
-  const { showMassage } = useSharedMainView();
+  const { showMassage, massageContent } = useSharedMainView();
 
   console.log(showCreateRouteView);
   return (
@@ -22,7 +22,7 @@ export function MainView() {
         <>
           <CurrenDate />
           <AddRoute />
-          <MessageModal opened={showMassage}/>
+          <MessageModal opened={showMassage} msgContent={massageContent} />
          
         </>
       )}

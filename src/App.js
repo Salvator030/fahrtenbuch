@@ -1,7 +1,7 @@
 import { MantineProvider, createTheme } from "@mantine/core";
 import logo from "./logo.svg";
 import "./App.css";
-import { createTables, insertTestData } from "./Database/databaseHandler";
+import { createTables, insertTestData } from "./database/databaseHandler";
 
 import { MainView } from "./Components/MainView/MainView";
 import '@mantine/core/styles/global.css';
