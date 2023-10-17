@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useInputState } from "@mantine/hooks";
 import { useBetween } from "use-between";
-import { getAllAddress, insertRoute } from "../Database/database";
+import { getAllAddress, insertRoute } from "../database/database";
 import useDatabases from "./databaseHook";
 import  useCurrentDate from "./currentDateHook"
 import { checkDistanceInput } from "../asserts/helper";
@@ -25,7 +25,7 @@ const {setIsNewRoute} = useSharedDatabases();
   const [selectedStartAddressCard, setSelectedStartAddressCard] = useState();
   const [selectedDestinationAddressCard, setSelectedDestinationAddressCard] =
     useState();
-    const[showCreateRouteView, setShowCreateRouteView] = useState();
+    const[showCreateRouteView, setShowCreateRouteView] = useState(false);
      
 
   const distanceInputRef = useRef();

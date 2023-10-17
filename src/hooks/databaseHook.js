@@ -1,11 +1,11 @@
-//----NOT INUSE
-
 import { useState, useEffect } from "react";
-import * as db from "../Database/database";
+import * as db from "../database/database";
 import { useBetween } from "use-between";
 import useAddRoute from "./addRouteHook";
 import useCurrentDate from "./currentDateHook";
 import useDayRoute from "./dayRouteHokk";
+import useMassage from "./massageHook";
+import useMainView from "./mainViewHook";
 
 function useDatabases() {
   const [addressesList, setAddressList] = useState();
@@ -25,6 +25,14 @@ function useDatabases() {
 
   const useSharedCurrentDate = () => useBetween(useCurrentDate);
   const { selectedDate, getCurrentDate, newMonth } = useSharedCurrentDate();
+
+  const useSharedMainView = () => useBetween(useMainView);
+  const {
+    setShowMassage,
+    saveAfterMassage,
+    setSaveAfterMassage,
+    setMassageContent,
+  } = useSharedMainView();
 
   const [first, setFirst] = useState(true);
 
@@ -57,26 +65,26 @@ function useDatabases() {
   useEffect(() => {
     async function fetchData() {
       let list;
-      if (isChangedMonth || isNewDayRoute) {
+      if (isChangedMonth ) {
         console.log(newMonth.year);
         console.log(newMonth.month);
         list = await db.getDrivenRoutesByMonth(newMonth.year, newMonth.month);
         setIsChangedMonth(false);
         setIsNewDayRoute(false);
+
+
       }
-      if (first) {
+      if (first | isNewDayRoute) {
         if (selectedDate) {
           console.log(selectedDate.getFullYear());
           list = await db.getDrivenRoutesByMonth(
             selectedDate.getFullYear(),
             selectedDate.getMonth() + 1
           );
-          setFirst(false)
+          setFirst(false);
         }
-        
       }
 
-   
       if (list) {
         console.log(list);
         setRoutesByMonthList(list);
@@ -85,7 +93,9 @@ function useDatabases() {
 
     fetchData();
   }, [isChangedMonth, isNewDayRoute, selectedDate]);
+  
 
+  //---- fetch content of the Route by a day
   useEffect(() => {
     async function fetchData() {
       if (selectedDate || isNewDayRoute) {
@@ -94,19 +104,18 @@ function useDatabases() {
         }-${selectedDate.getDate()}`;
         const list = await db.getDrivenRoutesByDate(date);
         if (await list) {
+          console.log(list);
           setRoutesByDateList(list);
         }
         setIsNewDayRoute(false);
       }
-
-     
     }
     fetchData();
   }, [selectedDate, isNewDayRoute]);
 
   const persistDrivenRoute = () => {
-    if (selectedRoute) {
-      console.log(selectedRoute);
+    
+      console.log("2. track")
       const date = getCurrentDate();
       try {
         db.insertDrivenRoute({
@@ -116,8 +125,9 @@ function useDatabases() {
       } catch (e) {
         console.error(e);
       }
+      setSaveAfterMassage(false);
       setIsNewDayRoute(true);
-    }
+   
   };
 
   const getDistanceById = (route) => {
@@ -164,7 +174,7 @@ function useDatabases() {
     addressesList,
     setIsNewAddress,
     routesList,
-    routesByDate: routesByDateList,
+    routesByDateList,
     setRoutesList,
     setIsNewRoute,
     setIsChangedMonth,

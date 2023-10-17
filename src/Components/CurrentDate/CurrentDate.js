@@ -29,8 +29,7 @@ export default function CurrentDate() {
     const day = date.getDate();
 
     const [disabled, setDisabled] = useState();
-    console.log(date.getMonth());
-
+   
     useEffect(() => {
       routesByMonthList &&
         setDisabled(
@@ -41,7 +40,6 @@ export default function CurrentDate() {
           )
         );
     },[date]);
-
     
     return (
       <> 

@@ -1,4 +1,9 @@
 import * as db from "./database";
+import { useBetween } from "use-between";
+import useDatabases from "../hooks/databaseHook";
+
+
+
 
 async function createTables() {
  await db.queryCreateTableAddress();
@@ -19,6 +24,11 @@ async function insertTestData() {
 function persistNewAddress(address) {
   db.insertAddress(address);
 }
+
+function saveRouteByDay(){
+
+}
+
 
 
 function getAddressList() {

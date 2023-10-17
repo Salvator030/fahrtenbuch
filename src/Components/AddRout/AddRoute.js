@@ -4,6 +4,7 @@ import useCraeteRoute from "../../hooks/createRouteHook";
 import useDatabases from "../../hooks/databaseHook";
 import RoutesCards from "./RoutesCards/RoutesCards";
 import useAddRoute from "../../hooks/addRouteHook";
+import useMainView from "../../hooks/mainViewHook";
 import RouteIcon from "../Icons/RouteIcon";
 import classes from "./AddRoute.module.css";
 function AddRoute() {
@@ -11,17 +12,31 @@ function AddRoute() {
   const { setShowCreateRouteView } = useSharedCreateRoute();
 
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { routesList, persistDrivenRoute } = useSharedDatabases();
+  const { routesList, routesByDateList, persistDrivenRoute } =
+    useSharedDatabases();
 
   const useSharedAddRoute = () => useBetween(useAddRoute);
   const { selectedRoute } = useSharedAddRoute();
+
+  const useSharedMainView = () => useBetween(useMainView);
+  const { setShowMassage, setMassageContent } = useSharedMainView();
 
   const handelOnClickNewRouteBtn = () => {
     setShowCreateRouteView(true);
   };
 
   const handelOnClickAddRouteToDayBtn = () => {
-    persistDrivenRoute();
+
+    console.log(routesByDateList.find((r) => r.route_id === selectedRoute.route_id))
+    if (
+      routesByDateList.find((r) => r.route_id === selectedRoute.route_id) ===
+      undefined
+    ) {
+      persistDrivenRoute();
+    } else {
+      setMassageContent("routeIsSetInDay");
+      setShowMassage(true);
+    }
   };
 
   return (
