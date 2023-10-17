@@ -60,7 +60,7 @@ function AddRoute() {
               </Grid.Col>
               {routesList && (
                 <Grid.Col span="content">
-                  <Button onClick={handelOnClickAddRouteToDayBtn}>
+                  <Button onClick={handelOnClickAddRouteToDayBtn} disabled={!selectedRoute}>
                     Strecke zum Tag hinzufügen
                   </Button>
                 </Grid.Col>
