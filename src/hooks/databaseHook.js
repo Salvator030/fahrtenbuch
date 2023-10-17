@@ -57,11 +57,12 @@ function useDatabases() {
   useEffect(() => {
     async function fetchData() {
       let list;
-      if (isChangedMonth) {
+      if (isChangedMonth || isNewDayRoute) {
         console.log(newMonth.year);
         console.log(newMonth.month);
         list = await db.getDrivenRoutesByMonth(newMonth.year, newMonth.month);
         setIsChangedMonth(false);
+        setIsNewDayRoute(false);
       }
       if (first) {
         if (selectedDate) {
@@ -83,7 +84,7 @@ function useDatabases() {
     }
 
     fetchData();
-  }, [isChangedMonth,selectedDate]);
+  }, [isChangedMonth, isNewDayRoute, selectedDate]);
 
   useEffect(() => {
     async function fetchData() {
@@ -95,9 +96,10 @@ function useDatabases() {
         if (await list) {
           setRoutesByDateList(list);
         }
+        setIsNewDayRoute(false);
       }
 
-      setIsNewDayRoute(false);
+     
     }
     fetchData();
   }, [selectedDate, isNewDayRoute]);
