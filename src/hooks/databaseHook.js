@@ -4,7 +4,6 @@ import { useBetween } from "use-between";
 import useAddRoute from "./addRouteHook";
 import useCurrentDate from "./currentDateHook";
 import useDayRoute from "./dayRouteHokk";
-import useMassage from "./massageHook";
 import useMainView from "./mainViewHook";
 
 function useDatabases() {
@@ -28,10 +27,7 @@ function useDatabases() {
 
   const useSharedMainView = () => useBetween(useMainView);
   const {
-    setShowMassage,
-    saveAfterMassage,
     setSaveAfterMassage,
-    setMassageContent,
   } = useSharedMainView();
 
   const [first, setFirst] = useState(true);

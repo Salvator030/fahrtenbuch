@@ -10,13 +10,12 @@ import classes from "./AddRoute.module.css";
 function AddRoute() {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { setShowCreateRouteView } = useSharedCreateRoute();
-
-  const useSharedDatabases = () => useBetween(useDatabases);
-  const { routesList, routesByDateList, persistDrivenRoute } =
-    useSharedDatabases();
-
   const useSharedAddRoute = () => useBetween(useAddRoute);
   const { selectedRoute } = useSharedAddRoute();
+  const useSharedDatabases = () => useBetween(useDatabases);
+  const { routesList, routesByDateList, persistDrivenRoute } = useSharedDatabases();
+
+
 
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setMassageContent } = useSharedMainView();

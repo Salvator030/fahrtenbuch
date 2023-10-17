@@ -13,7 +13,7 @@ function AddressesCards() {
     plz: "12345",
     place: "place",
   };
-  const useSharedDatabases = useBetween(useDatabases)
+  const useSharedDatabases = () => useBetween(useDatabases)
   const { addressesList } = useSharedDatabases();
   const [cardList, setCardList] = useState();
   
