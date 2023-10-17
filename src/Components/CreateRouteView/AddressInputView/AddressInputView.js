@@ -4,7 +4,7 @@ import { TextInput, InputBase, Button, Stack, Grid } from "@mantine/core";
 import { IMaskInput } from "react-imask";
 import { useBetween } from "use-between";
 import useCraeteRoute from "../../../hooks/createRouteHook";
-import * as databaseHandler from "../../../database/databaseHandler";
+import * as databaseHandler from "../../../Database/databaseHandler";
 
 import "@mantine/core/styles.css";
 import styles from "./AddressInputView.module.css";

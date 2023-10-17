@@ -69,14 +69,14 @@ export async function insertAddresses(addresses) {
 
 export async function insertTestAddress() {
   const populate = transaction();
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ("Fam. A","Heuchler Straße","12a","12345","Blöd-Hausen", null);`;
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info)  VALUES ( "Fam. Ch", "Bimmel Bammel Weg", "666", "12345", "Blöd-Hausen", "Goßes schwarzes Haus");`;
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "J.Amt","Helferstr.", "4b", "00010"," Meuchel-Berg", null);`;
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( "Arbeit", "Buckelstraße", "34", "00100", "Heuchel-Berg", "Büro");`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'Fam. A','Heuchler Straße','12a','12345','Blöd-Hausen', null);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info)  VALUES ( 'Fam. Ch', 'Bimmel Bammel Weg', '666', '12345', 'Blöd-Hausen', 'Goßes schwarzes Haus');`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'J.Amt','Helferstr.', '4b', '00010',' Meuchel-Berg', null);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'Arbeit', 'Buckelstraße', '34', '00100', 'Heuchel-Berg', 'Büro');`;
   try {
     await populate.commit();
   } catch ({ message }) {
-    console.log(message);
+    console.error(message);
   }
   console.log("Inset test addresses");
 }
@@ -133,7 +133,7 @@ export async function getDrivenRoutesByDate(date){
 }
 
 export async function getDrivenRoutesByMonth(year,month){
-  return await all`SELECT * FROM drivenRoute_tbl WHERE date LIKE "${year}-${month}-%%";`;
+  return await all`SELECT * FROM drivenRoute_tbl WHERE date LIKE '${year}-${month}-%%';`;
 }
 
 

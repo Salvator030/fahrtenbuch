@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect } from "react";
 import * as db from "../database/database";
 import { useBetween } from "use-between";
@@ -28,11 +26,13 @@ function useDatabases() {
   const useSharedCurrentDate = () => useBetween(useCurrentDate);
   const { selectedDate, getCurrentDate, newMonth } = useSharedCurrentDate();
 
-  const useSharedMessage = () => useBetween(useMassage);
-  const { setMassageContent } = useSharedMessage();
-
   const useSharedMainView = () => useBetween(useMainView);
-  const { setShowMassage, saveAfterMassage } = useSharedMainView();
+  const {
+    setShowMassage,
+    saveAfterMassage,
+    setSaveAfterMassage,
+    setMassageContent,
+  } = useSharedMainView();
 
   const [first, setFirst] = useState(true);
 
@@ -65,13 +65,16 @@ function useDatabases() {
   useEffect(() => {
     async function fetchData() {
       let list;
-      if (isChangedMonth) {
+      if (isChangedMonth ) {
         console.log(newMonth.year);
         console.log(newMonth.month);
         list = await db.getDrivenRoutesByMonth(newMonth.year, newMonth.month);
         setIsChangedMonth(false);
+        setIsNewDayRoute(false);
+
+
       }
-      if (first) {
+      if (first | isNewDayRoute) {
         if (selectedDate) {
           console.log(selectedDate.getFullYear());
           list = await db.getDrivenRoutesByMonth(
@@ -89,6 +92,7 @@ function useDatabases() {
     }
 
     fetchData();
+  }, [isChangedMonth, isNewDayRoute, selectedDate]);
   }, [isChangedMonth, selectedDate]);
 
   //---- fetch content of the Route by a day
@@ -103,18 +107,15 @@ function useDatabases() {
           console.log(list);
           setRoutesByDateList(list);
         }
+        setIsNewDayRoute(false);
       }
-
-      setIsNewDayRoute(false);
     }
     fetchData();
   }, [selectedDate, isNewDayRoute]);
 
   const persistDrivenRoute = () => {
-    if (
-      !routesByMonthList.find((r) => r.route_id === selectedRoute.route_id) ||
-      saveAfterMassage
-    ) {
+    
+      console.log("2. track")
       const date = getCurrentDate();
       try {
         db.insertDrivenRoute({
@@ -124,11 +125,9 @@ function useDatabases() {
       } catch (e) {
         console.error(e);
       }
+      setSaveAfterMassage(false);
       setIsNewDayRoute(true);
-    } else {
-      setMassageContent("routeIsSetInDay")
-      setShowMassage(true);
-    }
+   
   };
 
   const getDistanceById = (route) => {
