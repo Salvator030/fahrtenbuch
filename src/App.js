@@ -1,7 +1,7 @@
 import { MantineProvider, createTheme } from "@mantine/core";
 import logo from "./logo.svg";
 import "./App.css";
-import { createTables, insertTestData } from "./database/databaseHandler";
+import { createTables, insertTestData } from "./Database/databaseHandler";
 
 import { MainView } from "./Components/MainView/MainView";
 import '@mantine/core/styles/global.css';
@@ -11,7 +11,7 @@ import "@mantine/core/styles.css";
 import { useEffect } from "react";
 
  function App() {
-    //  createTables();
+   //  createTables();
     //  insertTestData();
     
 

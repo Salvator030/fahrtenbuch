@@ -3,8 +3,8 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "database": "${workspaceFolder:fahrtenbuch}/build/db.sql",
-            "name": "fahrtenbuch_db"
+            "name": "fahrtenbuchDB",
+            "database": "${workspaceFolder:fahrtenbuch}/build/db.sql"
         }
     ],
     "sqltools.useNodeRuntime": true
