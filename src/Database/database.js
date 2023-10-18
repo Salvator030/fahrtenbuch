@@ -121,14 +121,12 @@ export async function getAllDrivenRoutes() {
   return await all`SELECT * FROM drivenRoute_tbl`;
 }
 export async function insertDrivenRoute(drivenRoute) {
-  console.log(drivenRoute);
   const populate = transaction();
   populate`INSERT INTO drivenRoute_tbl VALUES (null,${drivenRoute.date}, ${drivenRoute.route_id})`;
   await populate.commit();
 }
 
 export async function getDrivenRoutesByDate(date){
-  console.log(date)
   return await all`SELECT * FROM drivenRoute_tbl WHERE date LIKE ${date};`;
 }
 

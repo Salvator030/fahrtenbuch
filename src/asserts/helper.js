@@ -11,8 +11,7 @@ function checkDistanceInput(value) {
 }
 
 function sortByAddress(a,b){
-  console.log(a)
-  console.log(b)
+  
   const nameA = a.toUpperCase(); // ignore upper and lowercase
   const nameB = b.toUpperCase(); // ignore upper and lowercase
   if (nameA < nameB) {

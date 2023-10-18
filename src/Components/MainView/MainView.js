@@ -13,7 +13,6 @@ export function MainView() {
   const useSharedMainView = () => useBetween(useMainView);
   const { showMassage, massageContent } = useSharedMainView();
 
-  console.log(showCreateRouteView);
   return (
     <>
       {showCreateRouteView ? (
