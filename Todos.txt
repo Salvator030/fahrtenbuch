@@ -1,6 +1,6 @@
 x   1-feature check if the day already contains the route 
 x   2-bug- refresh-routesByDate-if-a-new-drivenRoute-adding
-3-feature sort routeList by name, start or destination- addresses
+3-feature sort routeList by  start or destination- addresses
 4-feature sort driven routes by start an destination address in logical order
 5-bug the dataView is not show the sum of the drinven routes of the selectet days
 6-bug the last address in the createNewRouteView routeList has the wrong color when is selected in

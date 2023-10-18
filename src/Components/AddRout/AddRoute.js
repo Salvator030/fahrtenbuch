@@ -1,4 +1,13 @@
-import { Accordion, Button, Grid, Stack, Text } from "@mantine/core";
+import {
+  Accordion,
+  Button,
+  Chip,
+  Grid,
+  Group,
+  Stack,
+  Text,
+} from "@mantine/core";
+import { useState } from "react";
 import { useBetween } from "use-between";
 import useCraeteRoute from "../../hooks/createRouteHook";
 import useDatabases from "../../hooks/databaseHook";
@@ -11,22 +20,23 @@ function AddRoute() {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { setShowCreateRouteView } = useSharedCreateRoute();
   const useSharedAddRoute = () => useBetween(useAddRoute);
-  const { selectedRoute } = useSharedAddRoute();
+  const { selectedRoute, chipValue, setChipValue } = useSharedAddRoute();
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { routesList, routesByDateList, persistDrivenRoute } = useSharedDatabases();
-
-
-
+  const { routesList, routesByDateList, persistDrivenRoute } =
+    useSharedDatabases();
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setMassageContent } = useSharedMainView();
+
+ 
 
   const handelOnClickNewRouteBtn = () => {
     setShowCreateRouteView(true);
   };
 
   const handelOnClickAddRouteToDayBtn = () => {
-
-    console.log(routesByDateList.find((r) => r.route_id === selectedRoute.route_id))
+    console.log(
+      routesByDateList.find((r) => r.route_id === selectedRoute.route_id)
+    );
     if (
       routesByDateList.find((r) => r.route_id === selectedRoute.route_id) ===
       undefined
@@ -50,6 +60,18 @@ function AddRoute() {
           <Text>Strecken</Text>
         </Accordion.Control>
         <Accordion.Panel>
+          <Chip.Group
+            multiple={false}
+            value={chipValue}
+            onChange={setChipValue}
+          >
+            <Group justify="center">
+            <Chip value="startAddName">Start Name</Chip>
+            <Chip value="startAddStreet">Start Straße </Chip>
+            <Chip value="destinationAddName">Ziel Adresse Name</Chip>
+            <Chip value="destinationAddStreet">Ziel Straße</Chip>
+            </Group>
+          </Chip.Group>
           <Stack>
             <RoutesCards />
             <Grid justify="flex-start">
@@ -60,7 +82,10 @@ function AddRoute() {
               </Grid.Col>
               {routesList && (
                 <Grid.Col span="content">
-                  <Button onClick={handelOnClickAddRouteToDayBtn} disabled={!selectedRoute}>
+                  <Button
+                    onClick={handelOnClickAddRouteToDayBtn}
+                    disabled={!selectedRoute}
+                  >
                     Strecke zum Tag hinzufügen
                   </Button>
                 </Grid.Col>
