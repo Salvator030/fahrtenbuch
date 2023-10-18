@@ -132,7 +132,7 @@ const {setIsNewRoute} = useSharedDatabases();
       const newRoute = {
         start_id: startAddress.add_id,
         dest_id: destinationAddress.add_id,
-        distance: distance,
+        distance: parseFloat(distance.replace(",", ".")),
         // date: `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`
       };
           insertRoute(newRoute);

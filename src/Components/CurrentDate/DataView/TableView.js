@@ -12,10 +12,12 @@ function TableView() {
   useEffect(() => {
     console.log(routesByDateList)
     if(routesByDateList){
-    let distance = 0;
+    let distance = 0.00;
     routesByDateList.forEach((route) => {
-
-      distance += getDistanceById(route);
+console.log(getDistanceById(route))
+console.log(parseFloat(getDistanceById(route)))
+      distance += parseFloat(getDistanceById(route)) ;
+      console.log(distance)
     });
     setDayDistance(distance);}
   },[routesByDateList]);
