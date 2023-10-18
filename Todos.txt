@@ -7,3 +7,5 @@ x   5-bug the dataView is not show the sum of the drinven routes of the selectet
 7-feature extend the DataView, The Month his driveneRoutes and the sum of it are to be displayed
 x   8-bug the addRouteTo Day Btn is not deactivated when a route is not selected
 x   9-bug corection of the summering of ther route distance in the dayRouteList
+10-feature make name collum in address_tbl unique
+11-bug Uncaught runtime errors: undefined (reading 'find') at RouteCard (RouteCard.js:13:1)
