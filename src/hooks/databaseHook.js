@@ -62,8 +62,7 @@ function useDatabases() {
     async function fetchData() {
       let list;
       if (isChangedMonth ) {
-        console.log(newMonth.year);
-        console.log(newMonth.month);
+        
         list = await db.getDrivenRoutesByMonth(newMonth.year, newMonth.month);
         setIsChangedMonth(false);
         setIsNewDayRoute(false);
@@ -72,7 +71,7 @@ function useDatabases() {
       }
       if (first | isNewDayRoute) {
         if (selectedDate) {
-          console.log(selectedDate.getFullYear());
+        
           list = await db.getDrivenRoutesByMonth(
             selectedDate.getFullYear(),
             selectedDate.getMonth() + 1
@@ -82,7 +81,7 @@ function useDatabases() {
       }
 
       if (list) {
-        console.log(list);
+       
         setRoutesByMonthList(list);
       }
     }
@@ -100,7 +99,7 @@ function useDatabases() {
         }-${selectedDate.getDate()}`;
         const list = await db.getDrivenRoutesByDate(date);
         if (await list) {
-          console.log(list);
+          console.log(list)
           setRoutesByDateList(list);
         }
         setIsNewDayRoute(false);
@@ -111,7 +110,6 @@ function useDatabases() {
 
   const persistDrivenRoute = () => {
     
-      console.log("2. track")
       const date = getCurrentDate();
       try {
         db.insertDrivenRoute({
@@ -127,11 +125,10 @@ function useDatabases() {
   };
 
   const getDistanceById = (route) => {
-    console.log(route);
     const fullRoute = routesList.find(
       (item) => item.route_id === route.route_id
     );
-    console.log(fullRoute.distance);
+
     return fullRoute.distance;
   };
 
@@ -144,14 +141,9 @@ function useDatabases() {
   };
 
   const getRouteFullAddressesByRouteId = (id) => {
-    console.log(id);
     const route = routesList.find((item) => item.route_id === id);
-    console.log(route);
     const startId = route.startAdd_id;
     const destId = route.destAdd_id;
-
-    console.log(startId);
-    console.log(destId);
 
     return [getFullAddressByID(startId), getFullAddressByID(destId)];
   };

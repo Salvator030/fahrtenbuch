@@ -17,7 +17,7 @@ function DayRoutesCards() {
 
   useEffect(() => {
     if (routesByDateList) {
-      console.log(routesByDateList);
+    
       const items = routesByDateList.map(
         (route) =>
           route && <DayRouteCard drivenRoute={route} key={route.dRoute_id} />
