@@ -27,7 +27,7 @@ function AddRoute() {
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setMassageContent } = useSharedMainView();
 
- 
+
 
   const handelOnClickNewRouteBtn = () => {
     setShowCreateRouteView(true);
@@ -60,19 +60,19 @@ function AddRoute() {
           <Text>Strecken</Text>
         </Accordion.Control>
         <Accordion.Panel>
-          <Chip.Group
+
+          <Stack>  <Chip.Group
             multiple={false}
             value={chipValue}
             onChange={setChipValue}
           >
             <Group justify="center">
-            <Chip value="startAddName">Start Name</Chip>
-            <Chip value="startAddStreet">Start Straße </Chip>
-            <Chip value="destinationAddName">Ziel Adresse Name</Chip>
-            <Chip value="destinationAddStreet">Ziel Straße</Chip>
+              <Chip value="startAddName">Start Name</Chip>
+              <Chip value="startAddStreet">Start Straße </Chip>
+              <Chip value="destinationAddName">Ziel Adresse Name</Chip>
+              <Chip value="destinationAddStreet">Ziel Straße</Chip>
             </Group>
           </Chip.Group>
-          <Stack>
             <RoutesCards />
             <Grid justify="flex-start">
               <Grid.Col span="content">
