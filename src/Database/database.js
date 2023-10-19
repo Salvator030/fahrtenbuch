@@ -87,6 +87,9 @@ export async function getAllRoutes() {
   return await all`SELECT * FROM route_tbl`;
 }
 
+export async function deleteRouteById(id) {
+  await query`DELETE FROM route_tbl WHERE route_id LIKE ${id};`;
+}
 export async function insertRoute(route) {
   console.log(route);
   const populate = transaction();
