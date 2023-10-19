@@ -26,9 +26,7 @@ function useDatabases() {
   const { selectedDate, getCurrentDate, newMonth } = useSharedCurrentDate();
 
   const useSharedMainView = () => useBetween(useMainView);
-  const {
-    setSaveAfterMassage,
-  } = useSharedMainView();
+  const { setSaveAfterMassage } = useSharedMainView();
 
   const [first, setFirst] = useState(true);
 
@@ -61,17 +59,13 @@ function useDatabases() {
   useEffect(() => {
     async function fetchData() {
       let list;
-      if (isChangedMonth ) {
-        
+      if (isChangedMonth) {
         list = await db.getDrivenRoutesByMonth(newMonth.year, newMonth.month);
         setIsChangedMonth(false);
         setIsNewDayRoute(false);
-
-
       }
       if (first | isNewDayRoute) {
         if (selectedDate) {
-        
           list = await db.getDrivenRoutesByMonth(
             selectedDate.getFullYear(),
             selectedDate.getMonth() + 1
@@ -81,14 +75,12 @@ function useDatabases() {
       }
 
       if (list) {
-       
         setRoutesByMonthList(list);
       }
     }
 
     fetchData();
   }, [isChangedMonth, isNewDayRoute, selectedDate]);
-  
 
   //---- fetch content of the Route by a day
   useEffect(() => {
@@ -99,7 +91,7 @@ function useDatabases() {
         }-${selectedDate.getDate()}`;
         const list = await db.getDrivenRoutesByDate(date);
         if (await list) {
-          console.log(list)
+          console.log(list);
           setRoutesByDateList(list);
         }
         setIsNewDayRoute(false);
@@ -108,20 +100,26 @@ function useDatabases() {
     fetchData();
   }, [selectedDate, isNewDayRoute]);
 
+  const persistRoute = (route) => {
+    try {
+      db.insertRoute(route);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const persistDrivenRoute = () => {
-    
-      const date = getCurrentDate();
-      try {
-        db.insertDrivenRoute({
-          date: `${date.year}-${date.month}-${date.day}`,
-          route_id: selectedRoute.route_id,
-        });
-      } catch (e) {
-        console.error(e);
-      }
-      setSaveAfterMassage(false);
-      setIsNewDayRoute(true);
-   
+    const date = getCurrentDate();
+    try {
+      db.insertDrivenRoute({
+        date: `${date.year}-${date.month}-${date.day}`,
+        route_id: selectedRoute.route_id,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    setSaveAfterMassage(false);
+    setIsNewDayRoute(true);
   };
 
   const getDistanceById = (route) => {
@@ -167,6 +165,7 @@ function useDatabases() {
     setIsNewRoute,
     setIsChangedMonth,
     routesByMonthList,
+    persistRoute,
     persistDrivenRoute,
     getDistanceById,
     getFullAddressByID,

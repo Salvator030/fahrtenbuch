@@ -1,4 +1,3 @@
-
 import CurrenDate from "../CurrentDate/CurrentDate";
 import { CreateRouteView } from "../CreateRouteView/CreateRouteView";
 import { useBetween } from "use-between";
@@ -21,10 +20,9 @@ export function MainView() {
         <>
           <CurrenDate />
           <AddRoute />
-          <MessageModal opened={showMassage} msgContent={massageContent} />
-         
         </>
       )}
+      <MessageModal opened={showMassage} msgContent={massageContent} />
     </>
   );
 }

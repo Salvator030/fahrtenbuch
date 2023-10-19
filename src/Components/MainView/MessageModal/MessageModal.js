@@ -34,9 +34,10 @@ function MessageModal({ opened, msgContent }) {
           <Text>Diese Strecke ist bereits vorhanden, dennoch dem Tag hinzufügen?</Text>
         </>
       )}
+      {msgContent === "route exist" && ( <Text>Diese Strecke existiert bereits</Text>)}
       <Grid>
         <Grid.Col span={2}>
-          <Button onClick={handelnOnClickOkBtn}>OK</Button>
+         { msgContent === "routeIsSetInDay" &&  <Button onClick={handelnOnClickOkBtn}>OK</Button>}
         </Grid.Col>
         <Grid.Col span={2}>
           <Button onClick={handelOnClickCancelBtn}>Abbrechen</Button>
