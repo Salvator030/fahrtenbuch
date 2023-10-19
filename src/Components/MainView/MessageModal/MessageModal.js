@@ -4,23 +4,21 @@ import useDatabases from "../../../hooks/databaseHook";
 import useMainView from "../../../hooks/mainViewHook";
 function MessageModal({ opened, msgContent }) {
   const useSharedDatabases = () => useBetween(useDatabases);
-  const {persistDrivenRoute} = useSharedDatabases();
+  const { persistDrivenRoute } = useSharedDatabases();
 
   const useSharedMainView = () => useBetween(useMainView);
-  const { setShowMassage, setSaveAfterMassage} = useSharedMainView();
+  const { setShowMassage, setSaveAfterMassage } = useSharedMainView();
 
   const handelnOnClickOkBtn = () => {
-    if (msgContent === "routeIsSetInDay"){
-  
-        persistDrivenRoute();
-   setShowMassage(false);
+    if (msgContent === "routeIsSetInDay") {
+      persistDrivenRoute();
+      setShowMassage(false);
     }
-  }
+  };
 
   const handelOnClickCancelBtn = () => {
     setShowMassage(false);
   };
-
 
   return (
     <Modal
@@ -30,14 +28,19 @@ function MessageModal({ opened, msgContent }) {
       title="INFO"
     >
       {msgContent === "routeIsSetInDay" && (
-        <>
-          <Text>Diese Strecke ist bereits vorhanden, dennoch dem Tag hinzufügen?</Text>
-        </>
+        <Text>
+          Diese Strecke ist bereits vorhanden, dennoch dem Tag hinzufügen?
+        </Text>
       )}
-      {msgContent === "route exist" && ( <Text>Diese Strecke existiert bereits</Text>)}
+      {msgContent === "route exist" && (
+        <Text>Diese Strecke existiert bereits</Text>
+      )}
+      {msgContent === "addressNameIsExisting" && (<Text>Eine Addresse mit diesem Namen ist bereits vorhanden</Text>)}
       <Grid>
         <Grid.Col span={2}>
-         { msgContent === "routeIsSetInDay" &&  <Button onClick={handelnOnClickOkBtn}>OK</Button>}
+          {msgContent === "routeIsSetInDay" && (
+            <Button onClick={handelnOnClickOkBtn}>OK</Button>
+          )}
         </Grid.Col>
         <Grid.Col span={2}>
           <Button onClick={handelOnClickCancelBtn}>Abbrechen</Button>
