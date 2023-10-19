@@ -3,16 +3,18 @@ import { useInputState } from "@mantine/hooks";
 import { useBetween } from "use-between";
 import { getAllAddress, insertRoute } from "../database/database";
 import useDatabases from "./databaseHook";
-import  useCurrentDate from "./currentDateHook"
+import useCurrentDate from "./currentDateHook";
+import useMainView from "./mainViewHook";
 import { checkDistanceInput } from "../asserts/helper";
 
 function useCraeteRoute() {
   const useSharedCurrentRoute = () => useBetween(useCurrentDate);
   const useSharedDatabases = () => useBetween(useDatabases);
- 
+  const useSharedMainView = () => useBetween(useMainView);
 
-const {selectedDate} = useSharedCurrentRoute();
-const {setIsNewRoute} = useSharedDatabases();
+  const { selectedDate } = useSharedCurrentRoute();
+  const { routesList, setIsNewRoute, persistRoute } = useSharedDatabases();
+  const { setMassageContent, setShowMassage } = useSharedMainView();
 
   const [startAddress, setStartAddress] = useState();
   const [destinationAddress, setDestinationAddress] = useState();
@@ -25,8 +27,7 @@ const {setIsNewRoute} = useSharedDatabases();
   const [selectedStartAddressCard, setSelectedStartAddressCard] = useState();
   const [selectedDestinationAddressCard, setSelectedDestinationAddressCard] =
     useState();
-    const[showCreateRouteView, setShowCreateRouteView] = useState(false);
-     
+  const [showCreateRouteView, setShowCreateRouteView] = useState(false);
 
   const distanceInputRef = useRef();
   const okBtnRef = useRef();
@@ -55,8 +56,8 @@ const {setIsNewRoute} = useSharedDatabases();
   };
 
   const viewBackwards = () => {
-       if (viewDescription === "destination") {
-           setStartAddress();
+    if (viewDescription === "destination") {
+      setStartAddress();
     }
     if (viewDescription === "distance") {
       setDestinationAddress();
@@ -74,9 +75,9 @@ const {setIsNewRoute} = useSharedDatabases();
     if (okBtnRef.current) {
       if (viewDescription === "start") {
         if (!startAddress) {
-                 okBtnRef.current.disabled = true;
-           } else {
-              okBtnRef.current.disabled = false;
+          okBtnRef.current.disabled = true;
+        } else {
+          okBtnRef.current.disabled = false;
         }
       }
     }
@@ -89,7 +90,7 @@ const {setIsNewRoute} = useSharedDatabases();
           startAddress &&
           startAddress.add_id === destinationAddress.add_id
         ) {
-                  okBtnRef.current.disabled = true;
+          okBtnRef.current.disabled = true;
         } else {
           okBtnRef.current.disabled = false;
         }
@@ -106,8 +107,7 @@ const {setIsNewRoute} = useSharedDatabases();
     }
   }, [viewDescription, startAddress, destinationAddress, distance]);
 
-  useEffect(()=> {
-     },[selectedDate])
+  useEffect(() => {}, [selectedDate]);
 
   const okBtn = () => {
     if (viewDescription === "distance") {
@@ -124,29 +124,48 @@ const {setIsNewRoute} = useSharedDatabases();
 
     if (viewDescription === "save") {
       const newRoute = {
-        start_id: startAddress.add_id,
-        dest_id: destinationAddress.add_id,
+        startAdd_id: startAddress.add_id,
+        destAdd_id: destinationAddress.add_id,
         distance: parseFloat(distance.replace(",", ".")),
         // date: `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`
       };
-          insertRoute(newRoute);
-          setIsNewRoute(true)
-      setShowCreateRouteView(false);
+      console.log(newRoute);
+      console.log(routesList);
+      console.log(
+        routesList.find(
+          (route) =>
+            (route.startAdd_id === newRoute.startAdd_id) &
+            (route.destAdd_id === newRoute.destAdd_id)
+        )
+      );
+      if (
+        routesList.find(
+          (route) =>
+            (route.startAdd_id === newRoute.startAdd_id) &
+            (route.destAdd_id === newRoute.destAdd_id)
+        ) === undefined
+      ) {
+        persistRoute(newRoute);
+        setIsNewRoute(true);
+        setShowCreateRouteView(false);
+      } else {
+        setMassageContent("route exist");
+        setShowMassage(true);
+      }
       setStartAddress();
       setDestinationAddress();
       setDistance("");
-      setViewCount(0)
+      setViewCount(0);
     }
   };
 
   const backBtn = () => {
-    if ( viewDescription === "start") {
+    if (viewDescription === "start") {
       setShowCreateRouteView(false);
-     }else{  viewBackwards();}
-       
-  }
-
-
+    } else {
+      viewBackwards();
+    }
+  };
 
   return {
     okBtn,
@@ -168,10 +187,9 @@ const {setIsNewRoute} = useSharedDatabases();
     setSelectedStartAddressCard,
     selectedDestinationAddressCard,
     setSelectedDestinationAddressCard,
-    showCreateRouteView, 
+    showCreateRouteView,
     setShowCreateRouteView,
-    setIsNewAddress
-    
+    setIsNewAddress,
   };
 }
 export default useCraeteRoute;

@@ -8,6 +8,6 @@ x   6-bug the last address in the createNewRouteView routeList has the wrong col
 x   8-bug the addRouteTo Day Btn is not deactivated when a route is not selected
 x   9-bug corection of the summering of ther route distance in the dayRouteList
 x   10-bug thefeature make name collum in address_tbl unique
-11-bug Uncaught runtime errors: undefined (reading 'find') at RouteCard (RouteCard.js:13:1)
+x   11-bug Uncaught runtime errors: undefined (reading 'find') at RouteCard (RouteCard.js:13:1)
 12-feature implement delete routes function
 13-feature implement delete address function
