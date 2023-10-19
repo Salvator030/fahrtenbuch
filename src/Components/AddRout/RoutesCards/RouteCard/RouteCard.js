@@ -2,6 +2,7 @@ import { Card, Grid, Overlay, Text, Title } from "@mantine/core";
 import { useBetween } from "use-between";
 import useCraeteRoute from "../../../../hooks/createRouteHook";
 import useAddRoute from "../../../../hooks/addRouteHook";
+import { useEffect, useState } from "react";
 function RouteCard({ route }) {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { addressesList } = useSharedCreateRoute();
@@ -10,10 +11,20 @@ function RouteCard({ route }) {
   const { selectedRoute, setSelectedRoute, selectedCard, setSelectedCard } =
     useSharedAddRoute();
 
-  const startAdd = addressesList.find(
-    (add) => add.add_id === route.startAdd_id
-  );
-  const destAdd = addressesList.find((add) => add.add_id === route.destAdd_id);
+    const [startAdd, setStartAdd] = useState({name:"",
+  street: "", hnr: "", plz:"", info: ""});
+    const [destAdd, setDestAdd] = useState({name:"",
+    street: "", hnr: "", plz:"", info: ""});
+
+    useEffect(() => {
+      if (addressesList){
+        setStartAdd(addressesList.find(
+          (add) => add.add_id === route.startAdd_id
+        ));
+        setDestAdd(addressesList.find((add) => add.add_id === route.destAdd_id));
+      }
+    },[addressesList])
+
   const handleOnClick = (e) => {
     if (!selectedCard) {
       e.target.style.backgroundColor = "gray";
