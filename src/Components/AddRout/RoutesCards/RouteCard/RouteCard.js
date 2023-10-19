@@ -19,6 +19,7 @@ function RouteCard({ route }) {
       e.target.style.backgroundColor = "gray";
       setSelectedRoute(route);
       setSelectedCard(e);
+      
     } else {
       if (route.route_id === selectedRoute.route_id) {
         e.target.style.backgroundColor = "white";

@@ -20,12 +20,14 @@ function Item({ address }) {
   } = useSharedCreateRoute();
 
   const handelOnClick = (e) => {
+    console.log(e)
         if (viewDescription === "start") {
       setStartAddress(address);
       e.target.style.backgroundColor = "lightgreen";
       e.target.style.opacity = "0.2";
       if (selectedStartAddressCard !== undefined) {
         selectedStartAddressCard.target.style.backgroundColor = "";
+        e.target.style.opacity = "0.2";
       }
       setSelectedStartAddressCard(e);
     } else {
@@ -37,6 +39,7 @@ function Item({ address }) {
       }
       if (selectedDestinationAddressCard !== undefined) {
         selectedDestinationAddressCard.target.style.backgroundColor = "";
+        e.target.style.opacity = "0.2";
       }
 
       setDestinationAddress(address);
