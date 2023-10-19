@@ -5,7 +5,7 @@ const { query, get, all, raw, transaction } = SQLiteTagSpawned("./db.sql");
 export async function queryCreateTableAddress() {
   await query`CREATE TABLE IF NOT EXISTS address_tbl ( 
     add_id INTEGER NOT NULL , 
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     street VARCHAR(100) NOT NULL,
     hnr varchar(5) NOt NULL,
     plz varchar(5) NOT NULL,
@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS route_tbl (
   distance FLOAT NOT NULL,
   PRIMARY KEY(route_id),
   FOREIGN KEY(startAdd_id) REFERENCES address_tbl(add_id),
-  FOREIGN KEY(destAdd_id) REFERENCES address_tbl(add_id)
+  FOREIGN KEY(destAdd_id) REFERENCES address_tbl(add_id),
+  UNIQUE(startAdd_id,destAdd_id)
 );`;
   console.log("Table route_tbl created");
 }
@@ -89,7 +90,7 @@ export async function getAllRoutes() {
 export async function insertRoute(route) {
   console.log(route);
   const populate = transaction();
-  populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance})`;
+  populate`INSERT INTO route_tbl VALUES (null,${route.startAdd_id}, ${route.destAdd_id}, ${route.distance})`;
   await populate.commit();
 }
 
@@ -97,7 +98,7 @@ export async function insertRoutes(routes) {
   const populate = transaction();
   routes.forEach(
     (route) =>
-      populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance})`
+      populate`INSERT INTO route_tbl VALUES (null,${route.startAdd_id}, ${route.destAdd_id}, ${route.distance})`
   );
   await populate.commit();
 }
