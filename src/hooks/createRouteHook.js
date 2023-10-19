@@ -71,12 +71,6 @@ const {setIsNewRoute} = useSharedDatabases();
   };
 
   useEffect(() => {
-    if (startAddress) {
-           startAddressRef.current.style.backgroundColor = "black";
-    }
-  }, [startAddress]);
-
-  useEffect(() => {
     if (okBtnRef.current) {
       if (viewDescription === "start") {
         if (!startAddress) {
