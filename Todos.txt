@@ -4,10 +4,13 @@ x   3-feature sort routeList by  start or destination- addresses
 x   4-feature sort driven routes by start an destination address in logical order
 x   5-bug the dataView is not show the sum of the drinven routes of the selectet days
 x   6-bug the last address in the createNewRouteView routeList has the wrong color when is selected in
-7-feature extend the DataView, The Month his driveneRoutes and the sum of it are to be displayed
+x   7-feature extend the DataView, The Month his driveneRoutes and the sum of it are to be displayed
 x   8-bug the addRouteTo Day Btn is not deactivated when a route is not selected
 x   9-bug corection of the summering of ther route distance in the dayRouteList
 x   10-bug thefeature make name collum in address_tbl unique
 x   11-bug Uncaught runtime errors: undefined (reading 'find') at RouteCard (RouteCard.js:13:1)
-12-feature implement delete routes function
-13-feature implement delete address function
+12-feature implement delete routes function (remember database consistency)
+13-feature implement delete address function (remember database consistency)
+14-feature corection of the text, title and btn spelling
+15-feature sort addressList by name or street name
+16-feature implement an edit address Function (remember database consistency)
