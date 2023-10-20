@@ -1,9 +1,10 @@
 import {
   Accordion,
+  ActionIcon,
   Button,
   Chip,
-  Grid,
   Group,
+  Grid,
   Stack,
   Text,
 } from "@mantine/core";
@@ -16,6 +17,8 @@ import useAddRoute from "../../hooks/addRouteHook";
 import useMainView from "../../hooks/mainViewHook";
 import RouteIcon from "../Icons/RouteIcon";
 import classes from "./AddRoute.module.css";
+import TrashIcon from "../Icons/TrashIcon";
+
 function AddRoute() {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { setShowCreateRouteView } = useSharedCreateRoute();
@@ -24,9 +27,9 @@ function AddRoute() {
   const useSharedDatabases = () => useBetween(useDatabases);
   const { routesList, routesByDateList, persistDrivenRoute } =
     useSharedDatabases();
+
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setMassageContent } = useSharedMainView();
-
 
 
   const handelOnClickNewRouteBtn = () => {
@@ -48,6 +51,11 @@ function AddRoute() {
     }
   };
 
+  const handelOnClickTrashIcon = () => {
+    setMassageContent("deleteRouteWarning");
+    setShowMassage(true);
+  };
+
   return (
     <Accordion
       classNames={{
@@ -60,35 +68,43 @@ function AddRoute() {
           <Text>Strecken</Text>
         </Accordion.Control>
         <Accordion.Panel>
-
-          <Stack>  <Chip.Group
-            multiple={false}
-            value={chipValue}
-            onChange={setChipValue}
-          >
-            <Group justify="center">
-              <Chip value="startAddName">Start Name</Chip>
-              <Chip value="startAddStreet">Start Straße </Chip>
-              <Chip value="destinationAddName">Ziel Adresse Name</Chip>
-              <Chip value="destinationAddStreet">Ziel Straße</Chip>
-            </Group>
-          </Chip.Group>
+          <Stack>
+            <Chip.Group multiple={false} value={chipValue} onChange={setChipValue}>
+              <Group justify="center">
+                <Chip value="startAddName">Startadresse Name</Chip>
+                <Chip value="startAddStreet">Startadresse Straße</Chip>
+                <Chip value="destinationAddName">Zieladresse Name</Chip>
+                <Chip value="destinationAddStreet">Zieladresse Starße</Chip>
+              </Group>
+            </Chip.Group>
             <RoutesCards />
             <Grid justify="flex-start">
-              <Grid.Col span="content">
+              <Grid.Col span={3}>
                 <Button onClick={handelOnClickNewRouteBtn}>
                   Neu Strecke erstellen
                 </Button>
               </Grid.Col>
               {routesList && (
-                <Grid.Col span="content">
-                  <Button
-                    onClick={handelOnClickAddRouteToDayBtn}
-                    disabled={!selectedRoute}
-                  >
-                    Strecke zum Tag hinzufügen
-                  </Button>
-                </Grid.Col>
+                <>
+                  <Grid.Col span={3}>
+                    <Button
+                      onClick={handelOnClickAddRouteToDayBtn}
+                      disabled={!selectedRoute}
+                    >
+                      Strecke zum Tag hinzufügen
+                    </Button>
+                  </Grid.Col>
+                  <Grid.Col span={3} offset={3}>
+                    <ActionIcon
+                      onClick={handelOnClickTrashIcon}
+                      disabled={!selectedRoute}
+                      size={"lg"}
+                      style={{ marginTop: 8 }}
+                    >
+                      <TrashIcon />
+                    </ActionIcon>
+                  </Grid.Col>
+                </>
               )}
             </Grid>
           </Stack>

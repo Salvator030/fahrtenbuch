@@ -13,11 +13,13 @@ import { useEffect } from "react";
  function App() {
    //  createTables();
      // insertTestData();
+    // createTables();
+    //  insertTestData();
     
 
   
 
-  return (
+  return ( 
     <MantineProvider defaultColorScheme="light">
       <div className="App">
         <header className="App-header">
@@ -27,5 +29,5 @@ import { useEffect } from "react";
     </MantineProvider>
   );
 }
-
+ 
 export default App;
