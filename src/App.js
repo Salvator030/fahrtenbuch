@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
  function App() {
    //  createTables();
-    //  insertTestData();
+     // insertTestData();
     
 
   
