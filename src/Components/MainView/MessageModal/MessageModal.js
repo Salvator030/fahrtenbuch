@@ -6,7 +6,7 @@ import useMainView from "../../../hooks/mainViewHook";
 function MessageModal({ opened, msgContent }) {
   const useSharedDatabases = () => useBetween(useDatabases);
   const { persistDrivenRoute, deleteSelectedDayRouteById,
-    deleteDrivenRouteByRoute, deleteSelectedRoute } = useSharedDatabases();
+    deleteDrivenRouteByRoute, deleteSelectedRoute, setSelectedRouteHideInRouteTblTrue } = useSharedDatabases();
 
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setSaveAfterMassage } = useSharedMainView();
@@ -30,7 +30,8 @@ function MessageModal({ opened, msgContent }) {
           setShowMassage(false);
    
         }else{
-          console.log("nop")
+          setSelectedRouteHideInRouteTblTrue();
+          setShowMassage(false);
         }
       }
       default: {

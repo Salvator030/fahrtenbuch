@@ -20,7 +20,7 @@ function useDatabases() {
   const { selectedRoute, setSelectedRoute } = useSharedAddRoute();
 
   const useSharedDayRoute = () => useBetween(useDayRoute);
-  const { selectedDayRoute, setSekectedDayRoute } = useSharedDayRoute();
+  const { selectedDayRoute, setSekectedDayRoute: setSelectedDayRoute } = useSharedDayRoute();
 
   const useSharedCurrentDate = () => useBetween(useCurrentDate);
   const { selectedDate, getCurrentDate, newMonth } = useSharedCurrentDate();
@@ -42,10 +42,10 @@ function useDatabases() {
     fetchData();
   }, [isNewAddress]);
 
-  // fetch the content of tbl_route
+  // fetch all displayed routes from tbl_route
   useEffect(() => {
     async function fetchData() {
-      const list = await db.getAllRoutes();
+      const list = await db.getAllDisplayedRoutes();
       if (list) {
         setRoutesList(list);
         setIsNewRoute(false);
@@ -154,9 +154,7 @@ const deleteSelectedRoute = () => {
       (route) => route.route_id !== selectedRoute.route_id
     )
   );
-   
-  setIsNewRoute(true);
- 
+   setIsNewRoute(true);
    setSelectedRoute();
 }
 
@@ -167,17 +165,18 @@ const deleteSelectedRoute = () => {
         (route) => route.dRoute_id !== selectedDayRoute.dRoute_id
       )
     );
-    setSekectedDayRoute();
+    setSelectedDayRoute();
   };
 
   const deleteDrivenRouteByRoute = () => {
     db.deleteDrivenRouteByRoute(selectedRoute);
     setIsNewDayRoute(true);
-    
+   }
 
-    
-    
-  }
+   const setSelectedRouteHideInRouteTblTrue = (s) =>  {
+    db.updateRouteTblHideById(selectedRoute.route_id);
+    setIsNewRoute();
+   }
 
   return {
     addressesList,
@@ -196,7 +195,8 @@ const deleteSelectedRoute = () => {
     getRouteFullAddressesByRouteId,
     deleteSelectedRoute,
     deleteSelectedDayRouteById,
-    deleteDrivenRouteByRoute
+    deleteDrivenRouteByRoute,
+    setSelectedRouteHideInRouteTblTrue
   };
 }
 
