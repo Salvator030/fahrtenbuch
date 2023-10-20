@@ -24,12 +24,13 @@ function MessageModal({ opened, msgContent }) {
       }
       case "deleteRouteWarning": {
         if(checked) {
-          
+          console.log("a")
           deleteDrivenRouteByRoute();
           deleteSelectedRoute();
           setShowMassage(false);
    
         }else{
+          console.log("b")
           setSelectedRouteHideInRouteTblTrue();
           setShowMassage(false);
         }
