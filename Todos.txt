@@ -14,3 +14,4 @@ x   11-bug Uncaught runtime errors: undefined (reading 'find') at RouteCard (Rou
 14-feature corection of the text, title and btn spelling
 15-feature sort addressList by name or street name
 16-feature implement an edit address Function (remember database consistency)
+17-feature adding the display of the info in route card by AddRoute
