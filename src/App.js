@@ -27,5 +27,5 @@ import { useEffect } from "react";
     </MantineProvider>
   );
 }
-
+ 
 export default App;
