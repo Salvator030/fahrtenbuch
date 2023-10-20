@@ -17,18 +17,16 @@ function useDatabases() {
   const [isChangedMonth, setIsChangedMonth] = useState(false);
 
   const useSharedAddRoute = () => useBetween(useAddRoute);
-  const { selectedRoute } = useSharedAddRoute();
+  const { selectedRoute, setSelectedRoute } = useSharedAddRoute();
 
   const useSharedDayRoute = () => useBetween(useDayRoute);
-  const { selectedDayRoute, setSekectedDayRoute } = useSharedDayRoute();
+  const { selectedDayRoute, setSekectedDayRoute: setSelectedDayRoute } = useSharedDayRoute();
 
   const useSharedCurrentDate = () => useBetween(useCurrentDate);
   const { selectedDate, getCurrentDate, newMonth } = useSharedCurrentDate();
 
   const useSharedMainView = () => useBetween(useMainView);
-  const {
-    setSaveAfterMassage,
-  } = useSharedMainView();
+  const { setSaveAfterMassage } = useSharedMainView();
 
   const [first, setFirst] = useState(true);
 
@@ -44,10 +42,10 @@ function useDatabases() {
     fetchData();
   }, [isNewAddress]);
 
-  // fetch the content of tbl_route
+  // fetch all displayed routes from tbl_route
   useEffect(() => {
     async function fetchData() {
-      const list = await db.getAllRoutes();
+      const list = await db.getAllDisplayedRoutes();
       if (list) {
         setRoutesList(list);
         setIsNewRoute(false);
@@ -61,18 +59,13 @@ function useDatabases() {
   useEffect(() => {
     async function fetchData() {
       let list;
-      if (isChangedMonth ) {
-        console.log(newMonth.year);
-        console.log(newMonth.month);
+      if (isChangedMonth) {
         list = await db.getDrivenRoutesByMonth(newMonth.year, newMonth.month);
         setIsChangedMonth(false);
         setIsNewDayRoute(false);
-
-
       }
       if (first | isNewDayRoute) {
         if (selectedDate) {
-          console.log(selectedDate.getFullYear());
           list = await db.getDrivenRoutesByMonth(
             selectedDate.getFullYear(),
             selectedDate.getMonth() + 1
@@ -82,14 +75,12 @@ function useDatabases() {
       }
 
       if (list) {
-        console.log(list);
         setRoutesByMonthList(list);
       }
     }
 
     fetchData();
   }, [isChangedMonth, isNewDayRoute, selectedDate]);
-  
 
   //---- fetch content of the Route by a day
   useEffect(() => {
@@ -109,29 +100,33 @@ function useDatabases() {
     fetchData();
   }, [selectedDate, isNewDayRoute]);
 
+  const persistRoute = (route) => {
+    try {
+      db.insertRoute(route);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const persistDrivenRoute = () => {
-    
-      console.log("2. track")
-      const date = getCurrentDate();
-      try {
-        db.insertDrivenRoute({
-          date: `${date.year}-${date.month}-${date.day}`,
-          route_id: selectedRoute.route_id,
-        });
-      } catch (e) {
-        console.error(e);
-      }
-      setSaveAfterMassage(false);
-      setIsNewDayRoute(true);
-   
+    const date = getCurrentDate();
+    try {
+      db.insertDrivenRoute({
+        date: `${date.year}-${date.month}-${date.day}`,
+        route_id: selectedRoute.route_id,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    setSaveAfterMassage(false);
+    setIsNewDayRoute(true);
   };
 
   const getDistanceById = (route) => {
-    console.log(route);
     const fullRoute = routesList.find(
       (item) => item.route_id === route.route_id
     );
-    console.log(fullRoute.distance);
+
     return fullRoute.distance;
   };
 
@@ -144,27 +139,44 @@ function useDatabases() {
   };
 
   const getRouteFullAddressesByRouteId = (id) => {
-    console.log(id);
     const route = routesList.find((item) => item.route_id === id);
-    console.log(route);
-    const startId = route.startAdd_id;
+    if(route){  const startId = route.startAdd_id;
     const destId = route.destAdd_id;
 
-    console.log(startId);
-    console.log(destId);
-
-    return [getFullAddressByID(startId), getFullAddressByID(destId)];
+    return [getFullAddressByID(startId), getFullAddressByID(destId)];}
+  
   };
 
-  const deleteSelectedDayRoute = () => {
+const deleteSelectedRoute = () => {
+  db.deleteRouteById(selectedRoute.route_id);
+  setRoutesList(
+    routesList.filter(
+      (route) => route.route_id !== selectedRoute.route_id
+    )
+  );
+   setIsNewRoute(true);
+   setSelectedRoute();
+}
+
+  const deleteSelectedDayRouteById = () => {
     db.deleteDrivenRouteById(selectedDayRoute.dRoute_id);
     setRoutesByDateList(
       routesByDateList.filter(
         (route) => route.dRoute_id !== selectedDayRoute.dRoute_id
       )
     );
-    setSekectedDayRoute();
+    setSelectedDayRoute();
   };
+
+  const deleteDrivenRouteByRoute = () => {
+    db.deleteDrivenRouteByRoute(selectedRoute);
+    setIsNewDayRoute(true);
+   }
+
+   const setSelectedRouteHideInRouteTblTrue = (s) =>  {
+    db.updateRouteTblHideById(selectedRoute.route_id);
+    setIsNewRoute();
+   }
 
   return {
     addressesList,
@@ -175,12 +187,16 @@ function useDatabases() {
     setIsNewRoute,
     setIsChangedMonth,
     routesByMonthList,
+    persistRoute,
     persistDrivenRoute,
     getDistanceById,
     getFullAddressByID,
     getRouteById,
     getRouteFullAddressesByRouteId,
-    deleteSelectedDayRoute,
+    deleteSelectedRoute,
+    deleteSelectedDayRouteById,
+    deleteDrivenRouteByRoute,
+    setSelectedRouteHideInRouteTblTrue
   };
 }
 

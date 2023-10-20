@@ -6,18 +6,21 @@ import useTableViewStyles from "./TabelViewStyle";
 
 function TableView() {
   const useSharedDatbases = () => useBetween(useDatabases);
-  const { routesByDate, getDistanceById} = useSharedDatbases();
+  const { routesByDateList, getDistanceById} = useSharedDatbases();
   const [dayDistance, setDayDistance] = useState();
 
   useEffect(() => {
-    if(routesByDate){
-    let distance = 0;
-    routesByDate.forEach((route) => {
-
-      distance += getDistanceById(route);
+    console.log(routesByDateList)
+    if(routesByDateList){
+    let distance = 0.00;
+    routesByDateList.forEach((route) => {
+console.log(getDistanceById(route))
+console.log(parseFloat(getDistanceById(route)))
+      distance += parseFloat(getDistanceById(route)) ;
+      console.log(distance)
     });
     setDayDistance(distance);}
-  },[routesByDate]);
+  },[routesByDateList]);
 
  
 
@@ -29,7 +32,7 @@ function TableView() {
         <Title order={5}>Anzahl: </Title>
         </Grid.Col>
         <Grid.Col  span="auto">
-        <Text>{routesByDate ? routesByDate.length : 0}</Text>
+        <Text>{routesByDateList ? routesByDateList.length : 0}</Text>
                </Grid.Col>
         </Grid>
         <Grid algin="flex-start">

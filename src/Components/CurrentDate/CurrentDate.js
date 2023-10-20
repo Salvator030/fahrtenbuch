@@ -58,7 +58,6 @@ export default function CurrentDate() {
   };
 
   const handelChangeMonth = (e) => {
-    console.log(e.getMonth() + 1);
     setNewMonth({ year: e.getFullYear(), month: e.getMonth() + 1 });
     setIsChangedMonth(true);
   };

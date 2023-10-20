@@ -4,26 +4,31 @@ import { TextInput, InputBase, Button, Stack, Grid } from "@mantine/core";
 import { IMaskInput } from "react-imask";
 import { useBetween } from "use-between";
 import useCraeteRoute from "../../../hooks/createRouteHook";
+import useMainView from "../../../hooks/mainViewHook";
 import * as databaseHandler from "../../../database/databaseHandler";
 
 import "@mantine/core/styles.css";
 import styles from "./AddressInputView.module.css";
+import useDatabases from "../../../hooks/databaseHook";
 
 export function AddressInputView({ toggleAddNewAddress }) {
-  let newAddress = {
+  const [newAddress, setNewAddress] = useState({
     name: "",
     street: "",
     hnr: "",
     plz: "",
     place: "",
     info: "",
-  };
-  const [address, setAddress] = useState(newAddress);
+  });
+
+  const useSharedDatabases = () => useBetween(useDatabases);
+  const { addressesList } = useSharedDatabases();
 
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
-  const {
-    setIsNewAddress
-  } = useSharedCreateRoute();
+  const { setIsNewAddress } = useSharedCreateRoute();
+
+  const useSharedMainView = () => useBetween(useMainView);
+  const {setShowMassage, setMassageContent } = useSharedMainView();
 
   const [nameValue, setNameValue] = useInputState("");
   const [streetValue, setStreetValue] = useInputState("");
@@ -70,28 +75,34 @@ export function AddressInputView({ toggleAddNewAddress }) {
     }
   }
 
-  function setNewAddress() {
-    newAddress.name = nameValue;
-    newAddress.street = streetValue;
-    newAddress.hnr = hnrValue;
-    newAddress.plz = plzValue;
-    newAddress.place = placeValue;
-    if (infoValue === "") {
-      newAddress.info = null;
-    } else {
-      newAddress.info = infoValue;
-    }
-
-    databaseHandler.persistNewAddress(newAddress);
+  function getNewAddress() {
+    const add = {
+      name: nameValue,
+      street: streetValue,
+      hnr: hnrValue,
+      plz: plzValue,
+      place: placeValue,
+      info: infoValue === "" ? null : infoValue,
+    };
+    setNewAddress(add);
   }
 
   function handelOnClickSaveBtn() {
     checkInput();
     if (!checks.includes(false)) {
-      setNewAddress();
-      setIsNewAddress(true)
+      if (
+        addressesList.find((address) => address.name === nameValue) ===
+        undefined
+      ){
+        getNewAddress();
+      databaseHandler.persistNewAddress(newAddress);
+      setIsNewAddress(true);
       cleanInputFields();
       toggleAddNewAddress();
+    }else{
+      setMassageContent("addressNameIsExisting");
+      setShowMassage(true);
+    }
     }
   }
 

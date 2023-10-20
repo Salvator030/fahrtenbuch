@@ -5,7 +5,7 @@ const { query, get, all, raw, transaction } = SQLiteTagSpawned("./db.sql");
 export async function queryCreateTableAddress() {
   await query`CREATE TABLE IF NOT EXISTS address_tbl ( 
     add_id INTEGER NOT NULL , 
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     street VARCHAR(100) NOT NULL,
     hnr varchar(5) NOt NULL,
     plz varchar(5) NOT NULL,
@@ -23,9 +23,11 @@ CREATE TABLE IF NOT EXISTS route_tbl (
   startAdd_id INTEGER NOT NULL,
   destAdd_id INTEGER NOT NULL,
   distance FLOAT NOT NULL,
+  hide BOOLEAN,
   PRIMARY KEY(route_id),
   FOREIGN KEY(startAdd_id) REFERENCES address_tbl(add_id),
-  FOREIGN KEY(destAdd_id) REFERENCES address_tbl(add_id)
+  FOREIGN KEY(destAdd_id) REFERENCES address_tbl(add_id),
+  UNIQUE(startAdd_id,destAdd_id)
 );`;
   console.log("Table route_tbl created");
 }
@@ -86,10 +88,17 @@ export async function getAllRoutes() {
   return await all`SELECT * FROM route_tbl`;
 }
 
+export async function getAllDisplayedRoutes() {
+  return await all`SELECT * FROM route_tbl WHERE hide = 0`;
+}
+
+export async function deleteRouteById(id) {
+  await query`DELETE FROM route_tbl WHERE route_id LIKE ${id};`;
+}
 export async function insertRoute(route) {
   console.log(route);
   const populate = transaction();
-  populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance})`;
+  populate`INSERT INTO route_tbl VALUES (null,${route.startAdd_id}, ${route.destAdd_id}, ${route.distance},0)`;
   await populate.commit();
 }
 
@@ -97,16 +106,20 @@ export async function insertRoutes(routes) {
   const populate = transaction();
   routes.forEach(
     (route) =>
-      populate`INSERT INTO route_tbl VALUES (null,${route.start_id}, ${route.dest_id}, ${route.distance})`
+      populate`INSERT INTO route_tbl VALUES (null,${route.startAdd_id}, ${route.destAdd_id}, ${route.distance},0)`
   );
   await populate.commit();
 }
 
+export async function updateRouteTblHideById(id) {
+  await query`UPDATE route_tbl SET hide = 1 WHERE route_id LIKE ${id};`;
+}
+
 export async function insertTestRoutes() {
   const populate = transaction();
-  populate`INSERT INTO route_tbl (startAdd_id,destAdd_id,distance) VALUES (1,3,25);`;
-  populate`INSERT INTO route_tbl (startAdd_id,destAdd_id,distance) VALUES (2,3,16.5);`; 
-  populate`INSERT INTO route_tbl (startAdd_id,destAdd_id,distance) VALUES (4,1,5.3);`;
+  populate`INSERT INTO route_tbl (startAdd_id,destAdd_id,distance,hide) VALUES (1,3,25,0);`;
+  populate`INSERT INTO route_tbl (startAdd_id,destAdd_id,distance,hide) VALUES (2,3,16.5,0);`; 
+  populate`INSERT INTO route_tbl (startAdd_id,destAdd_id,distance,hide) VALUES (4,1,5.3,0);`;
   try {
     await populate.commit();
   } catch ({ message }) {
@@ -121,14 +134,12 @@ export async function getAllDrivenRoutes() {
   return await all`SELECT * FROM drivenRoute_tbl`;
 }
 export async function insertDrivenRoute(drivenRoute) {
-  console.log(drivenRoute);
   const populate = transaction();
   populate`INSERT INTO drivenRoute_tbl VALUES (null,${drivenRoute.date}, ${drivenRoute.route_id})`;
   await populate.commit();
 }
 
 export async function getDrivenRoutesByDate(date){
-  console.log(date)
   return await all`SELECT * FROM drivenRoute_tbl WHERE date LIKE ${date};`;
 }
 
@@ -136,11 +147,13 @@ export async function getDrivenRoutesByMonth(year,month){
   return await all`SELECT * FROM drivenRoute_tbl WHERE date LIKE '${year}-${month}-%%';`;
 }
 
-
-
-
 export async function deleteDrivenRouteById(id) {
   await query`DELETE FROM drivenRoute_tbl WHERE dRoute_id LIKE ${id};`;
+}
+
+
+export async function deleteDrivenRouteByRoute(route) {
+  await query`DELETE FROM drivenRoute_tbl WHERE route_id LIKE ${route.route_id};`;
 }
 
 
