@@ -23,10 +23,10 @@ function RouteCard({ route }) {
         ));
         setDestAdd(addressesList.find((add) => add.add_id === route.destAdd_id));
       }
-    },[addressesList])
+    })
 
   const handleOnClick = (e) => {
-    if (!selectedRoute) {
+    if (!selectedCard) {
       e.target.style.backgroundColor = "gray";
       setSelectedRoute(route);
       setSelectedCard(e);
@@ -45,10 +45,11 @@ function RouteCard({ route }) {
         setSelectedRoute(route);
       }
     }
-   
-   e.target.style.opacity = 0.2;
-
+      e.target.style.opacity = 0.2;
   };
+
+  console.log(startAdd);
+  console.log(destAdd)
 
   return (
     <Card key={route.route_id}>
