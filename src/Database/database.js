@@ -138,11 +138,13 @@ export async function getDrivenRoutesByMonth(year,month){
   return await all`SELECT * FROM drivenRoute_tbl WHERE date LIKE '${year}-${month}-%%';`;
 }
 
-
-
-
 export async function deleteDrivenRouteById(id) {
   await query`DELETE FROM drivenRoute_tbl WHERE dRoute_id LIKE ${id};`;
+}
+
+
+export async function deleteDrivenRouteByRoute(route) {
+  await query`DELETE FROM drivenRoute_tbl WHERE route_id LIKE ${route.route_id};`;
 }
 
 

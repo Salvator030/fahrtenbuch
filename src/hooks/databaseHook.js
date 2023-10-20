@@ -17,7 +17,7 @@ function useDatabases() {
   const [isChangedMonth, setIsChangedMonth] = useState(false);
 
   const useSharedAddRoute = () => useBetween(useAddRoute);
-  const { selectedRoute } = useSharedAddRoute();
+  const { selectedRoute, setSelectedRoute } = useSharedAddRoute();
 
   const useSharedDayRoute = () => useBetween(useDayRoute);
   const { selectedDayRoute, setSekectedDayRoute } = useSharedDayRoute();
@@ -140,13 +140,27 @@ function useDatabases() {
 
   const getRouteFullAddressesByRouteId = (id) => {
     const route = routesList.find((item) => item.route_id === id);
-    const startId = route.startAdd_id;
+    if(route){  const startId = route.startAdd_id;
     const destId = route.destAdd_id;
 
-    return [getFullAddressByID(startId), getFullAddressByID(destId)];
+    return [getFullAddressByID(startId), getFullAddressByID(destId)];}
+  
   };
 
-  const deleteSelectedDayRoute = () => {
+const deleteSelectedRoute = () => {
+  db.deleteRouteById(selectedRoute.route_id);
+  setRoutesList(
+    routesList.filter(
+      (route) => route.route_id !== selectedRoute.route_id
+    )
+  );
+   
+  setIsNewRoute(true);
+ 
+   setSelectedRoute();
+}
+
+  const deleteSelectedDayRouteById = () => {
     db.deleteDrivenRouteById(selectedDayRoute.dRoute_id);
     setRoutesByDateList(
       routesByDateList.filter(
@@ -155,6 +169,15 @@ function useDatabases() {
     );
     setSekectedDayRoute();
   };
+
+  const deleteDrivenRouteByRoute = () => {
+    db.deleteDrivenRouteByRoute(selectedRoute);
+    setIsNewDayRoute(true);
+    
+
+    
+    
+  }
 
   return {
     addressesList,
@@ -171,7 +194,9 @@ function useDatabases() {
     getFullAddressByID,
     getRouteById,
     getRouteFullAddressesByRouteId,
-    deleteSelectedDayRoute,
+    deleteSelectedRoute,
+    deleteSelectedDayRouteById,
+    deleteDrivenRouteByRoute
   };
 }
 

@@ -36,7 +36,7 @@ function DayRouteCard({ drivenRoute }) {
     e.target.style.opacity = 0.2;
 
   };
-
+console.log(route)
   
   return (
     <Card withBorder key={drivenRoute.dRoute_id}>
@@ -48,7 +48,7 @@ function DayRouteCard({ drivenRoute }) {
           <Title order={4}>{addresses[1].name}</Title>
         </Grid.Col>
         <Grid.Col span="auto">
-          <Title order={4}>{route.distance} KM</Title>
+          {route && <Title order={4}>{route.distance} KM</Title>}
         </Grid.Col>
       </Grid>
       <Overlay

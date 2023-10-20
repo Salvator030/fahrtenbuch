@@ -8,10 +8,13 @@ import TrashIcon from "../../Icons/TrashIcon";
 import useDayRoute from "../../../hooks/dayRouteHokk";
 import { sortDrivenRouteByLogicalOrder } from "../../../asserts/helper";
 
-
 function DayRoutesCards() {
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { routesByDateList, deleteSelectedDayRoute, getRouteFullAddressesByRouteId } = useSharedDatabases();
+  const {
+    routesByDateList,
+    deleteSelectedDayRouteById,
+    getRouteFullAddressesByRouteId,
+  } = useSharedDatabases();
   const [cards, setCards] = useState();
 
   const useSharedDayRoute = () => useBetween(useDayRoute);
@@ -19,10 +22,15 @@ function DayRoutesCards() {
 
   useEffect(() => {
     if (routesByDateList) {
-      console.log(routesByDateList)
- const l = routesByDateList.sort((a,b)=> sortDrivenRouteByLogicalOrder( getRouteFullAddressesByRouteId(a.route_id), getRouteFullAddressesByRouteId(b.route_id)))
-    console.log(routesByDateList)
-    const items = routesByDateList.map(
+      console.log(routesByDateList);
+      routesByDateList.sort((a, b) =>
+        sortDrivenRouteByLogicalOrder(
+          getRouteFullAddressesByRouteId(a.route_id),
+          getRouteFullAddressesByRouteId(b.route_id)
+        )
+      );
+      console.log(routesByDateList);
+      const items = routesByDateList.map(
         (route) =>
           route && <DayRouteCard drivenRoute={route} key={route.dRoute_id} />
       );
@@ -31,7 +39,7 @@ function DayRoutesCards() {
   }, [routesByDateList]);
 
   const handelOnClick = () => {
-    deleteSelectedDayRoute();
+    deleteSelectedDayRouteById();
   };
 
   return (

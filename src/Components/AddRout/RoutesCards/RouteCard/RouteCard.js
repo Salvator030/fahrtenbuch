@@ -26,12 +26,14 @@ function RouteCard({ route }) {
     },[addressesList])
 
   const handleOnClick = (e) => {
-    if (!selectedCard) {
+    if (!selectedRoute) {
       e.target.style.backgroundColor = "gray";
       setSelectedRoute(route);
       setSelectedCard(e);
       
     } else {
+      console.log(route.route_id )
+      console.log(selectedRoute.route_id)
       if (route.route_id === selectedRoute.route_id) {
         e.target.style.backgroundColor = "white";
         setSelectedRoute(undefined);
