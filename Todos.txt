@@ -10,10 +10,13 @@ x   9-bug corection of the summering of ther route distance in the dayRouteList
 x   10-bug thefeature make name collum in address_tbl unique
 x   11-bug Uncaught runtime errors: undefined (reading 'find') at RouteCard (RouteCard.js:13:1)
 x   12-feature implement delete routes function (remember database consistency)
-13-feature implement delete address function (remember database consistency)
+x   13-feature implement delete address function (remember database consistency)
 14-feature corection of the text, title and btn spelling
-15-feature sort addressList by name or street name
+x   15-feature sort addressList by name or street name
 16-feature implement an edit address Function (remember database consistency)
-17-feature adding the display of the info in route card by AddRoute
+17-feature show the info in route card by AddRoute
 18-feature change size of RouteCard
 x   19-bug when try to add a route, which exist but is hide. its go wrong. implement a question if hide route make show
+20-feature search by... function for routes
+21-feature search by.... function for address
+22-feature whenchange the month currentDate is set to the first of the month
