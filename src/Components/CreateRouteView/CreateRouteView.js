@@ -1,4 +1,4 @@
-import { Button, Center, Grid, Title } from "@mantine/core";
+import { ActionIcon, Button, Center, Grid, Title } from "@mantine/core";
 import React, { useState } from "react";
 import { AddressInputView } from "./AddressInputView/AddressInputView";
 import "@mantine/core/styles.css";
@@ -9,6 +9,7 @@ import { useBetween } from "use-between";
 import NewRoutePreView from "./NewRoutePreView/NewRoutePreView";
 import { DistanceInput } from "./DistanceInput/DistanceInput";
 import SaveQuestion from "./SaveQuestion/SaveQuestion";
+import TrashIcon from "../Icons/TrashIcon";
 
 export function CreateRouteView() {
   const [isAddNewAddress, setAddNewAddress] = useState(false);
@@ -20,6 +21,7 @@ export function CreateRouteView() {
     okBtn,
     okBtnRef,
     backBtn,
+    trashBtn
   } = useSharedCreateRoute();
 
   const toggleAddNewAddress = () => {
@@ -37,6 +39,10 @@ export function CreateRouteView() {
   const handelOnClickAddBtn = () => {
     toggleAddNewAddress();
   };
+
+ const handelOnClickTrashBtn = () => {
+  trashBtn();
+ };
 
   return (
     <>
@@ -57,10 +63,19 @@ export function CreateRouteView() {
             </Center>
 
             <Grid justify="flex-start" className={classes.grid}>
-              <Grid.Col span={4}>
+              <Grid.Col span={2}>
                 {(viewDescription === "start" ||
                   viewDescription === "destination") && (
                   <Button onClick={handelOnClickAddBtn}>+</Button>
+                )}
+              </Grid.Col>
+              <Grid.Col span={2}>
+                {(viewDescription === "start" ||
+                  viewDescription === "destination") && (
+                    // Not nice
+                 <ActionIcon onClick={handelOnClickTrashBtn} disabled={!startAddress} size={37} style={{top: 6}}>
+                  <TrashIcon/>
+                 </ActionIcon>
                 )}
               </Grid.Col>
               <Grid.Col span={4}>

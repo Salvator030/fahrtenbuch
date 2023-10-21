@@ -109,6 +109,11 @@ function useCraeteRoute() {
 
   useEffect(() => {}, [selectedDate]);
 
+  const trashBtn = () => {
+   setMassageContent("deleteAddressWarning")
+   setShowMassage(true);
+  };
+
   const okBtn = () => {
     if (viewDescription === "distance") {
       if (checkDistanceInput(distance)) {
@@ -186,6 +191,7 @@ function useCraeteRoute() {
     showCreateRouteView,
     setShowCreateRouteView,
     setIsNewAddress,
+    trashBtn,
   };
 }
 export default useCraeteRoute;

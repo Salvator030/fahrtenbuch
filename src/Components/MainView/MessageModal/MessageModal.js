@@ -17,10 +17,15 @@ function MessageModal({ opened, msgContent }) {
   const { setShowMassage, setSaveAfterMassage } = useSharedMainView();
 
   const [checked, setChecked] = useState(false);
+  const [checkedAdd, setCheckedAdd] = useState(false);
 
   const toggleChecked = () => {
     setChecked(!checked);
   };
+
+  const toggleCheckedAdd = () => {
+    setCheckedAdd(!checkedAdd);
+  }
 
   const handelnOnClickOkBtn = () => {
     switch (msgContent) {
@@ -40,8 +45,7 @@ function MessageModal({ opened, msgContent }) {
         }
         break;
       }
-      case "routeExistButHide" : {
-
+      case "routeExistButHide": {
         setShowMassage(false);
 
         break;
@@ -70,8 +74,13 @@ function MessageModal({ opened, msgContent }) {
       {msgContent === "routeExist" && (
         <Text>Diese Strecke existiert bereits</Text>
       )}
-      {msgContent === "routeExistButHide" && <> <Text>Diese Strecke existiert bereits</Text>
-      <Text>Wird aber ausgeblendet!</Text></>}
+      {msgContent === "routeExistButHide" && (
+        <>
+          {" "}
+          <Text>Diese Strecke existiert bereits</Text>
+          <Text>Wird aber ausgeblendet!</Text>
+        </>
+      )}
 
       {msgContent === "addressNameIsExisting" && (
         <Text>Eine Addresse mit diesem Namen ist bereits vorhanden</Text>
@@ -79,6 +88,7 @@ function MessageModal({ opened, msgContent }) {
       {msgContent === "deleteRouteWarning" && (
         <>
           <Text>Soll die Strecke komplet gelöscht werden?</Text>
+          <Text>!!! Wird nicht empfohlen !!!</Text>
           <Checkbox
             value={checked}
             onChange={toggleChecked}
@@ -88,11 +98,26 @@ function MessageModal({ opened, msgContent }) {
           <Text> wird die Strecke auch aus den Tagen gelöscht !!!</Text>
         </>
       )}
+      {msgContent === "deleteAddressWarning" && (
+        <>
+          {" "}
+          <Text>Soll die Addresse komplet gelöscht werden?</Text>
+          <Text>!!! Wird nicht empfohlen !!!</Text>
+          <Checkbox
+            value={checkedAdd}
+            onChange={toggleCheckedAdd}
+            label="Addresse komplet Löschen"
+          />
+          <Text>!!! Wenn die Addresse komplet gelöscht wird,</Text>
+          <Text> werden auch alle Strecken mit der Addresse gelöscht !!!</Text>
+        </>
+      )}
       <Grid>
         <Grid.Col span={2}>
-          {(msgContent !==  "addressNameIsExisting") && (msgContent !==  "routeExistButHide")  && (
-            <Button onClick={handelnOnClickOkBtn}>OK</Button>
-          )}
+          {msgContent !== "addressNameIsExisting" &&
+            msgContent !== "routeExistButHide" && (
+              <Button onClick={handelnOnClickOkBtn}>OK</Button>
+            )}
         </Grid.Col>
         <Grid.Col span={2}>
           <Button onClick={handelOnClickCancelBtn}>Abbrechen</Button>
