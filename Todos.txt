@@ -16,4 +16,4 @@ x   12-feature implement delete routes function (remember database consistency)
 16-feature implement an edit address Function (remember database consistency)
 17-feature adding the display of the info in route card by AddRoute
 18-feature change size of RouteCard
-19-bug when try to add a route, which exist but is hide. its go wrong. implement a question if hide route make show
+x   19-bug when try to add a route, which exist but is hide. its go wrong. implement a question if hide route make show
