@@ -23,9 +23,10 @@ function RoutesCards() {
 
   useEffect(() => {
     if (routesList) {
-      console.log(routesList)
+
       let list = routesList.filter((route => route.hide === 0))
       switch (chipValue) {
+
         case "startAddName": {
           list.sort((a, b) =>
             sortByAddress(
@@ -66,8 +67,10 @@ function RoutesCards() {
         }
       }
 
+
       const cardsList = list.map(
         (route) => route && <RouteCard route={route} key={route.route_id} />
+
       );
       setCards(cardsList);
     }

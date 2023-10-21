@@ -2,10 +2,13 @@ import {
   Accordion,
   ActionIcon,
   Button,
+  Chip,
+  Group,
   Grid,
   Stack,
   Text,
 } from "@mantine/core";
+import { useState } from "react";
 import { useBetween } from "use-between";
 import useCraeteRoute from "../../hooks/createRouteHook";
 import useDatabases from "../../hooks/databaseHook";
@@ -20,13 +23,14 @@ function AddRoute() {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { setShowCreateRouteView } = useSharedCreateRoute();
   const useSharedAddRoute = () => useBetween(useAddRoute);
-  const { selectedRoute } = useSharedAddRoute();
+  const { selectedRoute, chipValue, setChipValue } = useSharedAddRoute();
   const useSharedDatabases = () => useBetween(useDatabases);
   const { routesList, routesByDateList, persistDrivenRoute } =
     useSharedDatabases();
 
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setMassageContent } = useSharedMainView();
+
 
   const handelOnClickNewRouteBtn = () => {
     setShowCreateRouteView(true);
@@ -46,8 +50,8 @@ function AddRoute() {
 
   const handelOnClickTrashIcon = () => {
     setMassageContent("deleteRouteWarning");
-      setShowMassage(true);
-  }
+    setShowMassage(true);
+  };
 
   return (
     <Accordion
@@ -62,6 +66,14 @@ function AddRoute() {
         </Accordion.Control>
         <Accordion.Panel>
           <Stack>
+            <Chip.Group multiple={false} value={chipValue} onChange={setChipValue}>
+              <Group justify="center">
+                <Chip value="startAddName">Startadresse Name</Chip>
+                <Chip value="startAddStreet">Startadresse Straße</Chip>
+                <Chip value="destinationAddName">Zieladresse Name</Chip>
+                <Chip value="destinationAddStreet">Zieladresse Starße</Chip>
+              </Group>
+            </Chip.Group>
             <RoutesCards />
             <Grid justify="flex-start">
               <Grid.Col span={3}>
@@ -79,15 +91,14 @@ function AddRoute() {
                       Strecke zum Tag hinzufügen
                     </Button>
                   </Grid.Col>
-                  <Grid.Col span={3} offset={3} >
+                  <Grid.Col span={3} offset={3}>
                     <ActionIcon
                       onClick={handelOnClickTrashIcon}
                       disabled={!selectedRoute}
                       size={"lg"}
-                      style={{marginTop:8}}
-                    
+                      style={{ marginTop: 8 }}
                     >
-                      <TrashIcon/>
+                      <TrashIcon />
                     </ActionIcon>
                   </Grid.Col>
                 </>
