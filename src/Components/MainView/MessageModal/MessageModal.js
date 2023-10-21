@@ -90,7 +90,7 @@ function MessageModal({ opened, msgContent }) {
       )}
       <Grid>
         <Grid.Col span={2}>
-          {(msgContent !==  "addressNameIsExisting") | (msgContent !==  "routeExistButHide")  && (
+          {(msgContent !==  "addressNameIsExisting") || (msgContent !==  "routeExistButHide")  && (
             <Button onClick={handelnOnClickOkBtn}>OK</Button>
           )}
         </Grid.Col>
