@@ -178,12 +178,16 @@ function useDatabases() {
     setIsNewDayRoute(true);
   };
 
-  const setSelectedRouteHideInRouteTblTrue = () => {
-    db.updateRouteTblHideById(selectedRoute.route_id);
+  const setSelectedRouteHideInRouteTbl = (hide) => {
+    db.updateRouteTblHideById(selectedRoute.route_id,hide);
     setIsNewRoute(true);
     setSelectedRoute();
     setSelectedDayRoute();
   };
+
+  const setHideInRouteTblByRoute = (route,hide) => {
+    
+  }
 
   return {
     addressesList,
@@ -203,7 +207,7 @@ function useDatabases() {
     deleteSelectedRoute,
     deleteSelectedDayRouteById,
     deleteDrivenRouteByRoute,
-    setSelectedRouteHideInRouteTblTrue,
+    setSelectedRouteHideInRouteTblTrue: setSelectedRouteHideInRouteTbl,
   };
 }
 

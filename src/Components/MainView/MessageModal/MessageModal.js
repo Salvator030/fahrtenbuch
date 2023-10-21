@@ -35,9 +35,16 @@ function MessageModal({ opened, msgContent }) {
           deleteSelectedRoute();
           setShowMassage(false);
         } else {
-          setSelectedRouteHideInRouteTblTrue();
+          setSelectedRouteHideInRouteTblTrue(1);
           setShowMassage(false);
         }
+        break;
+      }
+      case "routeExistButHide" : {
+
+        setShowMassage(false);
+
+        break;
       }
       default: {
       }
@@ -60,9 +67,12 @@ function MessageModal({ opened, msgContent }) {
           Diese Strecke ist bereits vorhanden, dennoch dem Tag hinzufügen?
         </Text>
       )}
-      {msgContent === "route exist" && (
+      {msgContent === "routeExist" && (
         <Text>Diese Strecke existiert bereits</Text>
       )}
+      {msgContent === "routeExistButHide" && <> <Text>Diese Strecke existiert bereits</Text>
+      <Text>Wird aber ausgeblendet!</Text></>}
+
       {msgContent === "addressNameIsExisting" && (
         <Text>Eine Addresse mit diesem Namen ist bereits vorhanden</Text>
       )}
@@ -80,8 +90,7 @@ function MessageModal({ opened, msgContent }) {
       )}
       <Grid>
         <Grid.Col span={2}>
-          {(msgContent === "routeIsSetInDay") |
-            (msgContent === "deleteRouteWarning") && (
+          {(msgContent !==  "addressNameIsExisting") | (msgContent !==  "routeExistButHide")  && (
             <Button onClick={handelnOnClickOkBtn}>OK</Button>
           )}
         </Grid.Col>

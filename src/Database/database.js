@@ -112,8 +112,12 @@ export async function insertRoutes(routes) {
   await populate.commit();
 }
 
-export async function updateRouteTblHideById(id) {
-  await query`UPDATE route_tbl SET hide = 1 WHERE route_id LIKE ${id};`;
+export async function updateRouteTblHideById(id,hide) {
+  await query`UPDATE route_tbl SET hide = ${hide} WHERE route_id LIKE ${id};`;
+}
+
+export async function updateRouteTblHideByRoute(route,hide) {
+  await query`UPDATE route_tbl SET hide = ${hide} WHERE startAdd_id = ${route.startAdd_id} AND  ;`;
 }
 
 export async function insertTestRoutes() {

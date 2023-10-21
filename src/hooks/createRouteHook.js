@@ -129,27 +129,23 @@ function useCraeteRoute() {
         distance: parseFloat(distance.replace(",", ".")),
         // date: `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`
       };
-      console.log(newRoute);
-      console.log(routesList);
-      console.log(
-        routesList.find(
-          (route) =>
-            (route.startAdd_id === newRoute.startAdd_id) &
-            (route.destAdd_id === newRoute.destAdd_id)
-        )
+
+      let route = routesList.find(
+        (route) =>
+          (route.startAdd_id === newRoute.startAdd_id) &
+          (route.destAdd_id === newRoute.destAdd_id)
       );
-      if (
-        routesList.find(
-          (route) =>
-            (route.startAdd_id === newRoute.startAdd_id) &
-            (route.destAdd_id === newRoute.destAdd_id)
-        ) === undefined
-      ) {
+
+      if (!route) {
         persistRoute(newRoute);
         setIsNewRoute(true);
         setShowCreateRouteView(false);
       } else {
-        setMassageContent("route exist");
+        if (route.hide === 1) {
+          setMassageContent("routeExistButHide");
+        } else {
+          setMassageContent("routeExist");
+        }
         setShowMassage(true);
       }
       setStartAddress();
