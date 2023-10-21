@@ -12,7 +12,7 @@ import useAddRoute from "../../../hooks/addRouteHook";
 import { sortByAddress } from "../../../asserts/helper";
 function RoutesCards() {
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { routesList, getRouteFullAddressesByRouteId } = useSharedDatabases();
+  const { routesList, getRouteFullAddressesByRouteId, selectedRo } = useSharedDatabases();
 
   const useSharedAddRoute = () => useBetween(useAddRoute);
   const { chipValue } = useSharedAddRoute();
@@ -23,9 +23,12 @@ function RoutesCards() {
 
   useEffect(() => {
     if (routesList) {
-         switch (chipValue) {
+
+      let list = routesList.filter((route => route.hide === 0))
+      switch (chipValue) {
+
         case "startAddName": {
-          routesList.sort((a, b) =>
+          list.sort((a, b) =>
             sortByAddress(
               getRouteFullAddressesByRouteId(a.route_id)[0].name,
               getRouteFullAddressesByRouteId(b.route_id)[0].name
@@ -34,7 +37,7 @@ function RoutesCards() {
           break;
         }
         case "destinationAddName": {
-          routesList.sort((a, b) =>
+          list.sort((a, b) =>
             sortByAddress(
               getRouteFullAddressesByRouteId(a.route_id)[1].name,
               getRouteFullAddressesByRouteId(b.route_id)[1].name
@@ -43,7 +46,7 @@ function RoutesCards() {
           break;
         }
         case "startAddStreet": {
-          routesList.sort((a, b) =>
+          list.sort((a, b) =>
             sortByAddress(
               getRouteFullAddressesByRouteId(a.route_id)[0].street,
               getRouteFullAddressesByRouteId(b.route_id)[0].street
@@ -52,7 +55,7 @@ function RoutesCards() {
           break;
         }
         case "destinationAddStreet": {
-          routesList.sort((a, b) =>
+          list.sort((a, b) =>
             sortByAddress(
               getRouteFullAddressesByRouteId(a.route_id)[1].street,
               getRouteFullAddressesByRouteId(b.route_id)[1].street
@@ -60,12 +63,14 @@ function RoutesCards() {
           );
           break;
         }
-        default: {}
+        default: {
+        }
       }
 
-      
-      const cardsList = routesList.map(
-        (route) => route && <RouteCard route={route} />
+
+      const cardsList = list.map(
+        (route) => route && <RouteCard route={route} key={route.route_id} />
+
       );
       setCards(cardsList);
     }

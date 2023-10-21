@@ -22,14 +22,14 @@ function DayRoutesCards() {
 
   useEffect(() => {
     if (routesByDateList) {
-      console.log(routesByDateList);
+   
       routesByDateList.sort((a, b) =>
         sortDrivenRouteByLogicalOrder(
           getRouteFullAddressesByRouteId(a.route_id),
           getRouteFullAddressesByRouteId(b.route_id)
         )
       );
-      console.log(routesByDateList);
+      
       const items = routesByDateList.map(
         (route) =>
           route && <DayRouteCard drivenRoute={route} key={route.dRoute_id} />

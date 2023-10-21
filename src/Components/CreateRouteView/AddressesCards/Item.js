@@ -20,8 +20,7 @@ function Item({ address }) {
   } = useSharedCreateRoute();
 
   const handelOnClick = (e) => {
-    console.log(e)
-        if (viewDescription === "start") {
+           if (viewDescription === "start") {
       setStartAddress(address);
       e.target.style.backgroundColor = "lightgreen";
       e.target.style.opacity = "0.2";

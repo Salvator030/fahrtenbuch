@@ -93,7 +93,8 @@ export async function getAllDisplayedRoutes() {
 }
 
 export async function deleteRouteById(id) {
-  await query`DELETE FROM route_tbl WHERE route_id LIKE ${id};`;
+  console.log(id)
+  await query`DELETE FROM route_tbl WHERE route_id = ${id};`;
 }
 export async function insertRoute(route) {
   console.log(route);

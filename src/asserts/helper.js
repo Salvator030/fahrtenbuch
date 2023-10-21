@@ -27,14 +27,11 @@ function sortDrivenRouteByLogicalOrder(drivenRouteA, drivenRouteB) {
   const drivenRouteA_destinationName = drivenRouteA[1].name.toUpperCase();
   const drivenRouteB_startName = drivenRouteB[0].name.toUpperCase();
   const drivenRouteB_destinationName = drivenRouteB[1].name.toUpperCase();
-  console.log(drivenRouteA_startName + " " + drivenRouteA_destinationName);
-  console.log(drivenRouteB_startName + " " + drivenRouteB_destinationName);
+
   if (drivenRouteA_destinationName === drivenRouteB_startName) {
-    console.log("===");
     return -1;
   }
   if (drivenRouteA_startName === drivenRouteB_destinationName) {
-    console.log("-1");
     return 1;
   }
   return 0;

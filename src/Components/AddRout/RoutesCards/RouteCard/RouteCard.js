@@ -23,13 +23,14 @@ function RouteCard({ route }) {
         ));
         setDestAdd(addressesList.find((add) => add.add_id === route.destAdd_id));
       }
-    })
+    },[addressesList,selectedRoute])
 
   const handleOnClick = (e) => {
     if (!selectedCard) {
       e.target.style.backgroundColor = "gray";
       setSelectedRoute(route);
       setSelectedCard(e);
+      console.log(selectedRoute)
       
     } else {
       console.log(route.route_id )
@@ -43,9 +44,12 @@ function RouteCard({ route }) {
         selectedCard.target.style.backgroundColor = "white";
         setSelectedCard(e);
         setSelectedRoute(route);
+        console.log(selectedRoute)
       }
     }
+
       e.target.style.opacity = 0.2;
+
   };
 
   console.log(startAdd);
@@ -85,7 +89,7 @@ function RouteCard({ route }) {
         </Grid.Col>
         <Grid.Col span={2}>
           <Title order={4} align="left">
-            Entvernung
+            Entfernung
           </Title>
           <Text align="left">{route.distance} KM</Text>
         </Grid.Col>

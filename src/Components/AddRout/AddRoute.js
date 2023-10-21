@@ -37,9 +37,6 @@ function AddRoute() {
   };
 
   const handelOnClickAddRouteToDayBtn = () => {
-    console.log(
-      routesByDateList.find((r) => r.route_id === selectedRoute.route_id)
-    );
     if (
       routesByDateList.find((r) => r.route_id === selectedRoute.route_id) ===
       undefined

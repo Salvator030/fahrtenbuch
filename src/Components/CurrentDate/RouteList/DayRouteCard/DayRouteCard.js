@@ -36,7 +36,6 @@ function DayRouteCard({ drivenRoute }) {
     e.target.style.opacity = 0.2;
 
   };
-console.log(route)
   
   return (
     <Card withBorder key={drivenRoute.dRoute_id}>

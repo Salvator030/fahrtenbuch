@@ -11,10 +11,9 @@ import "@mantine/core/styles.css";
 import { useEffect } from "react";
 
  function App() {
-   //  createTables();
-     // insertTestData();
-    // createTables();
-    //  insertTestData();
+    createTables();
+     insertTestData();
+
     
 
   
