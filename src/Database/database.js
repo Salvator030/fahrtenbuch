@@ -11,6 +11,7 @@ export async function queryCreateTableAddress() {
     plz varchar(5) NOT NULL,
     place varchar(50) NOT NULL,
     info varchar(255),
+    hide BOOLEAN,
     PRIMARY KEY(add_id)
 );`;
   console.log("Table address_tbl created");
@@ -69,12 +70,21 @@ export async function insertAddresses(addresses) {
   await populate.commit();
 }
 
+export async function deleteAddressById(id) {
+  console.log(id)
+  await query`DELETE FROM address_tbl WHERE add_id = ${id};`;
+}
+
+export async function updateAddressTblHideById(id,hide) {
+  await query`UPDATE address_tbl SET hide = ${hide} WHERE add_id LIKE ${id};`;
+}
+
 export async function insertTestAddress() {
   const populate = transaction();
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'Fam. A','Heuchler Straße','12a','12345','Blöd-Hausen', null);`;
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info)  VALUES ( 'Fam. Ch', 'Bimmel Bammel Weg', '666', '12345', 'Blöd-Hausen', 'Goßes schwarzes Haus');`;
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'J.Amt','Helferstr.', '4b', '00010',' Meuchel-Berg', null);`;
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'Arbeit', 'Buckelstraße', '34', '00100', 'Heuchel-Berg', 'Büro');`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'Fam. A','Heuchler Straße','12a','12345','Blöd-Hausen', null, 0);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info)  VALUES ( 'Fam. Ch', 'Bimmel Bammel Weg', '666', '12345', 'Blöd-Hausen', 'Goßes schwarzes Haus', 0);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'J.Amt','Helferstr.', '4b', '00010',' Meuchel-Berg', null, 0);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'Arbeit', 'Buckelstraße', '34', '00100', 'Heuchel-Berg', 'Büro', 0);`;
   try {
     await populate.commit();
   } catch ({ message }) {
