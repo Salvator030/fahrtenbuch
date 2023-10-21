@@ -10,16 +10,10 @@ function TableView() {
   const [dayDistance, setDayDistance] = useState();
 
   useEffect(() => {
-    console.log(routesByDateList);
     if (routesByDateList) {
-      console.log(routesByDateList);
       let distance = 0.0;
       routesByDateList.forEach((route) => {
-        console.log(route);
-        console.log(getDistanceById(route));
-        console.log(parseFloat(getDistanceById(route)));
         distance += parseFloat(getDistanceById(route));
-        console.log(distance);
       });
       setDayDistance(distance);
     }

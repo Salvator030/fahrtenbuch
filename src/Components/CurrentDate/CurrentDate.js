@@ -20,7 +20,7 @@ export default function CurrentDate() {
   const { setIsChangedMonth, routesByMonthList } = useSharedDatabase();
 
   const handelOnChangeDatePicker = (e) => {
-    console.log(e);
+   
   };
 
   useEffect(() => {});

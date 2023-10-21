@@ -155,12 +155,12 @@ function useDatabases() {
 
   const deleteSelectedRoute = () => {
     console.log(selectedRoute.route_id)
-  //   db.deleteRouteById(selectedRoute.route_id);
-  //   // setRoutesList(
-  //   //   routesList.filter((route) => route.route_id !== selectedRoute.route_id)
-  //   // );
-  //   setIsNewRoute(true);
-  //   setSelectedRoute();
+    db.deleteRouteById(selectedRoute.route_id);
+    // setRoutesList(
+    //   routesList.filter((route) => route.route_id !== selectedRoute.route_id)
+    // );
+    setIsNewRoute(true);
+    setSelectedRoute();
   };
 
   const deleteSelectedDayRouteById = () => {
@@ -181,6 +181,8 @@ function useDatabases() {
   const setSelectedRouteHideInRouteTblTrue = () => {
     db.updateRouteTblHideById(selectedRoute.route_id);
     setIsNewRoute(true);
+    setSelectedRoute();
+    setSelectedDayRoute();
   };
 
   return {

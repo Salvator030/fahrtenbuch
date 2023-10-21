@@ -12,7 +12,7 @@ import useAddRoute from "../../../hooks/addRouteHook";
 import { sortByAddress } from "../../../asserts/helper";
 function RoutesCards() {
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { routesList, getRouteFullAddressesByRouteId } = useSharedDatabases();
+  const { routesList, getRouteFullAddressesByRouteId, selectedRo } = useSharedDatabases();
 
   const useSharedAddRoute = () => useBetween(useAddRoute);
   const { chipValue } = useSharedAddRoute();
@@ -23,6 +23,7 @@ function RoutesCards() {
 
   useEffect(() => {
     if (routesList) {
+      console.log(routesList)
       let list = routesList.filter((route => route.hide === 0))
       switch (chipValue) {
         case "startAddName": {
@@ -66,7 +67,7 @@ function RoutesCards() {
       }
 
       const cardsList = list.map(
-        (route) => route && <RouteCard route={route} />
+        (route) => route && <RouteCard route={route} key={route.route_id} />
       );
       setCards(cardsList);
     }

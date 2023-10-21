@@ -5,15 +5,22 @@ import useDatabases from "../../../hooks/databaseHook";
 import useMainView from "../../../hooks/mainViewHook";
 function MessageModal({ opened, msgContent }) {
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { persistDrivenRoute, deleteSelectedDayRouteById,
-    deleteDrivenRouteByRoute, deleteSelectedRoute, setSelectedRouteHideInRouteTblTrue } = useSharedDatabases();
+  const {
+    persistDrivenRoute,
+    deleteSelectedDayRouteById,
+    deleteDrivenRouteByRoute,
+    deleteSelectedRoute,
+    setSelectedRouteHideInRouteTblTrue,
+  } = useSharedDatabases();
 
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setSaveAfterMassage } = useSharedMainView();
 
   const [checked, setChecked] = useState(false);
 
-  const toggleChecked = () => {setChecked(!checked);}
+  const toggleChecked = () => {
+    setChecked(!checked);
+  };
 
   const handelnOnClickOkBtn = () => {
     switch (msgContent) {
@@ -23,14 +30,11 @@ function MessageModal({ opened, msgContent }) {
         break;
       }
       case "deleteRouteWarning": {
-        if(checked) {
-          console.log("a")
+        if (checked) {
           deleteDrivenRouteByRoute();
           deleteSelectedRoute();
           setShowMassage(false);
-   
-        }else{
-          console.log("b")
+        } else {
           setSelectedRouteHideInRouteTblTrue();
           setShowMassage(false);
         }
@@ -65,7 +69,11 @@ function MessageModal({ opened, msgContent }) {
       {msgContent === "deleteRouteWarning" && (
         <>
           <Text>Soll die Strecke komplet gelöscht werden?</Text>
-          <Checkbox value={checked} onChange={toggleChecked} label="Strecke komplet Löschen" />
+          <Checkbox
+            value={checked}
+            onChange={toggleChecked}
+            label="Strecke komplet Löschen"
+          />
           <Text>!!! Wenn die Strecke komplet gelöscht wird,</Text>
           <Text> wird die Strecke auch aus den Tagen gelöscht !!!</Text>
         </>
