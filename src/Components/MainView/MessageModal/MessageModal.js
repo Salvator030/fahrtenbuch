@@ -13,11 +13,11 @@ function MessageModal({ opened, msgContent }) {
     deleteSelectedRoute,
     setSelectedRouteHideInRouteTblTrue,
     setAddressHideById,
-    deleteAddressById,
+    deleteAddressByIdAndHandelDbConsistent,
   } = useSharedDatabases();
 
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
-  const { startAddress, destinationAddress } = useSharedCreateRoute();
+  const { startAddress,setStartAddress, destinationAddress, setDestinationAddress } = useSharedCreateRoute();
 
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setSaveAfterMassage } = useSharedMainView();
@@ -51,17 +51,23 @@ function MessageModal({ opened, msgContent }) {
       }
 
       case "deleteAddressWarning": {
-        if (checkedAdd) {
+        if (checkedAdd) { 
           if (!destinationAddress) {
-            deleteAddressById(startAddress.add_id);
+            deleteAddressByIdAndHandelDbConsistent(startAddress.add_id);
+            setStartAddress();
           } else {
-            deleteAddressById(destinationAddress.add_id);
+            deleteAddressByIdAndHandelDbConsistent(destinationAddress.add_id);
+            setDestinationAddress();
           }
+          setCheckedAdd(false);
         }else{
           if (!destinationAddress) {
+            console.log(startAddress.add_id)
             setAddressHideById(startAddress.add_id, 1);
+            setStartAddress();
           } else {
-            deleteAddressById(destinationAddress.add_id, 1);
+            setAddressHideById(destinationAddress.add_id, 1);
+            setDestinationAddress();
           }
         }
         break;

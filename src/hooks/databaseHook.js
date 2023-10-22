@@ -190,9 +190,26 @@ function useDatabases() {
     setIsNewAddress(true);
   };
 
-  const deleteAddressById = (id) => {
+  const deleteAddressByIdAndHandelDbConsistent = (id) => {
+    const routes = routesList.filter(
+      (r) => (r.startAdd_id === id) || (r.destAdd_id === id)
+    );
+    console.log(routes);
+    if (routes) {
+      routes.map((r) => {
+        console.log(r)
+        db.deleteDrivenRouteByRoute(r);
+        return null;
+      });
+    }
+    db.deleteRouteByAddressId(id);
     db.deleteAddressById(id);
-    isNewAddress(true);  }
+     setIsNewDayRoute(true);
+ 
+    setIsNewRoute(true);
+   setIsNewAddress(true);
+   
+  };
 
   return {
     addressesList,
@@ -214,7 +231,7 @@ function useDatabases() {
     deleteDrivenRouteByRoute,
     setSelectedRouteHideInRouteTblTrue: setSelectedRouteHideInRouteTbl,
     setAddressHideById,
-    deleteAddressById
+    deleteAddressByIdAndHandelDbConsistent,
   };
 }
 

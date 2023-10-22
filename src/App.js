@@ -13,7 +13,7 @@ import { useEffect } from "react";
  function App() {
     createTables();
      insertTestData();
-
+setTimeout(()=>{},5000)
     
 
   

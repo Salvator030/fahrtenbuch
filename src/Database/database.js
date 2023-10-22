@@ -76,15 +76,17 @@ export async function deleteAddressById(id) {
 }
 
 export async function updateAddressTblHideById(id,hide) {
-  await query`UPDATE address_tbl SET hide = ${hide} WHERE add_id LIKE ${id};`;
+  try{
+  await query`UPDATE address_tbl SET hide = ${hide} WHERE add_id LIKE ${id};`;}
+  catch(e){console.error(e)}
 }
 
 export async function insertTestAddress() {
   const populate = transaction();
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'Fam. A','Heuchler Straße','12a','12345','Blöd-Hausen', null, 0);`;
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info)  VALUES ( 'Fam. Ch', 'Bimmel Bammel Weg', '666', '12345', 'Blöd-Hausen', 'Goßes schwarzes Haus', 0);`;
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'J.Amt','Helferstr.', '4b', '00010',' Meuchel-Berg', null, 0);`;
-  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info) VALUES ( 'Arbeit', 'Buckelstraße', '34', '00100', 'Heuchel-Berg', 'Büro', 0);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide) VALUES ( 'Fam. A','Heuchler Straße','12a','12345','Blöd-Hausen', null, 0);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide)  VALUES ( 'Fam. Ch', 'Bimmel Bammel Weg', '666', '12345', 'Blöd-Hausen', 'Goßes schwarzes Haus', 0);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide) VALUES ( 'J.Amt','Helferstr.', '4b', '00010',' Meuchel-Berg', null, 0);`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide) VALUES ( 'Arbeit', 'Buckelstraße', '34', '00100', 'Heuchel-Berg', 'Büro', 0);`;
   try {
     await populate.commit();
   } catch ({ message }) {
@@ -105,6 +107,12 @@ export async function getAllDisplayedRoutes() {
 export async function deleteRouteById(id) {
   console.log(id)
   await query`DELETE FROM route_tbl WHERE route_id = ${id};`;
+}
+
+export async function deleteRouteByAddressId(id){
+  console.log(id)
+  try{  await query`DELETE FROM route_tbl WHERE startAdd_id = ${id} OR destAdd_id = ${id};`;}
+  catch(e){console.error(e)}
 }
 export async function insertRoute(route) {
   console.log(route);
