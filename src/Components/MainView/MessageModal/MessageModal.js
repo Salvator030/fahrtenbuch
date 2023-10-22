@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useBetween } from "use-between";
 import useDatabases from "../../../hooks/databaseHook";
 import useMainView from "../../../hooks/mainViewHook";
+import useCraeteRoute from "../../../hooks/createRouteHook";
 function MessageModal({ opened, msgContent }) {
   const useSharedDatabases = () => useBetween(useDatabases);
   const {
@@ -11,7 +12,12 @@ function MessageModal({ opened, msgContent }) {
     deleteDrivenRouteByRoute,
     deleteSelectedRoute,
     setSelectedRouteHideInRouteTblTrue,
+    setAddressHideById,
+    deleteAddressById,
   } = useSharedDatabases();
+
+  const useSharedCreateRoute = () => useBetween(useCraeteRoute);
+  const { startAddress, destinationAddress } = useSharedCreateRoute();
 
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setSaveAfterMassage } = useSharedMainView();
@@ -25,34 +31,48 @@ function MessageModal({ opened, msgContent }) {
 
   const toggleCheckedAdd = () => {
     setCheckedAdd(!checkedAdd);
-  }
+  };
 
   const handelnOnClickOkBtn = () => {
     switch (msgContent) {
       case "routeIsSetInDay": {
         persistDrivenRoute();
-        setShowMassage(false);
+
         break;
       }
       case "deleteRouteWarning": {
         if (checked) {
           deleteDrivenRouteByRoute();
           deleteSelectedRoute();
-          setShowMassage(false);
         } else {
           setSelectedRouteHideInRouteTblTrue(1);
-          setShowMassage(false);
+        }
+        break;
+      }
+
+      case "deleteAddressWarning": {
+        if (checkedAdd) {
+          if (!destinationAddress) {
+            deleteAddressById(startAddress.add_id);
+          } else {
+            deleteAddressById(destinationAddress.add_id);
+          }
+        }else{
+          if (!destinationAddress) {
+            setAddressHideById(startAddress.add_id, 1);
+          } else {
+            deleteAddressById(destinationAddress.add_id, 1);
+          }
         }
         break;
       }
       case "routeExistButHide": {
-        setShowMassage(false);
-
         break;
       }
       default: {
       }
     }
+    setShowMassage(false);
   };
 
   const handelOnClickCancelBtn = () => {
