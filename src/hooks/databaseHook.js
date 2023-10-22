@@ -185,6 +185,12 @@ function useDatabases() {
     setSelectedDayRoute();
   };
 
+  const setRouteHide = (route_id, hide) => {
+    db.updateRouteTblHideById(route_id, hide);
+    setIsNewRoute(true);
+    setSelectedRoute();
+  }
+
   const setAddressHideById = (id, hide) => {
     db.updateAddressTblHideById(id, hide);
     setIsNewAddress(true);
@@ -231,6 +237,7 @@ function useDatabases() {
     deleteDrivenRouteByRoute,
     setSelectedRouteHideInRouteTblTrue: setSelectedRouteHideInRouteTbl,
     setAddressHideById,
+    setRouteHide,
     deleteAddressByIdAndHandelDbConsistent,
   };
 }

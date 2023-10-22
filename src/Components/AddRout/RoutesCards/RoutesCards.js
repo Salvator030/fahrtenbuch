@@ -12,10 +12,11 @@ import useAddRoute from "../../../hooks/addRouteHook";
 import { sortByAddress } from "../../../asserts/helper";
 function RoutesCards() {
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { routesList, getRouteFullAddressesByRouteId, selectedRo } = useSharedDatabases();
+  const { routesList, getRouteFullAddressesByRouteId, selectedRo } =
+    useSharedDatabases();
 
   const useSharedAddRoute = () => useBetween(useAddRoute);
-  const { chipValue } = useSharedAddRoute();
+  const { chipValue, sohwHideRoutes } = useSharedAddRoute();
 
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { setShowCreateRouteView } = useSharedCreateRoute();
@@ -23,60 +24,63 @@ function RoutesCards() {
 
   useEffect(() => {
     if (routesList) {
-
-      let list = routesList.filter((route => route.hide === 0))
-      console.log(list)
-      if(list){
-      switch (chipValue) {
-
-        case "startAddName": {
-          list.sort((a, b) =>
-            sortByAddress(
-              getRouteFullAddressesByRouteId(a.route_id)[0].name,
-              getRouteFullAddressesByRouteId(b.route_id)[0].name
-            )
-          );
-          break;
-        }
-        case "destinationAddName": {
-          list.sort((a, b) =>
-            sortByAddress(
-              getRouteFullAddressesByRouteId(a.route_id)[1].name,
-              getRouteFullAddressesByRouteId(b.route_id)[1].name
-            )
-          );
-          break;
-        }
-        case "startAddStreet": {
-          list.sort((a, b) =>
-            sortByAddress(
-              getRouteFullAddressesByRouteId(a.route_id)[0].street,
-              getRouteFullAddressesByRouteId(b.route_id)[0].street
-            )
-          );
-          break;
-        }
-        case "destinationAddStreet": {
-          list.sort((a, b) =>
-            sortByAddress(
-              getRouteFullAddressesByRouteId(a.route_id)[1].street,
-              getRouteFullAddressesByRouteId(b.route_id)[1].street
-            )
-          );
-          break;
-        }
-        default: {
-        }
+      let list;
+      if (sohwHideRoutes) {
+        list = routesList;
+      } else {
+        list = routesList.filter((route) => route.hide === 0);
       }
 
+      console.log(list);
+      if (list) {
+        switch (chipValue) {
+          case "startAddName": {
+            list.sort((a, b) =>
+              sortByAddress(
+                getRouteFullAddressesByRouteId(a.route_id)[0].name,
+                getRouteFullAddressesByRouteId(b.route_id)[0].name
+              )
+            );
+            break;
+          }
+          case "destinationAddName": {
+            list.sort((a, b) =>
+              sortByAddress(
+                getRouteFullAddressesByRouteId(a.route_id)[1].name,
+                getRouteFullAddressesByRouteId(b.route_id)[1].name
+              )
+            );
+            break;
+          }
+          case "startAddStreet": {
+            list.sort((a, b) =>
+              sortByAddress(
+                getRouteFullAddressesByRouteId(a.route_id)[0].street,
+                getRouteFullAddressesByRouteId(b.route_id)[0].street
+              )
+            );
+            break;
+          }
+          case "destinationAddStreet": {
+            list.sort((a, b) =>
+              sortByAddress(
+                getRouteFullAddressesByRouteId(a.route_id)[1].street,
+                getRouteFullAddressesByRouteId(b.route_id)[1].street
+              )
+            );
+            break;
+          }
+          default: {
+          }
+        }
 
-      const cardsList = list.map(
-        (route) => route && <RouteCard route={route} key={route.route_id} />
-
-      );
-      setCards(cardsList);}
+        const cardsList = list.map(
+          (route) => route && <RouteCard route={route} key={route.route_id} />
+        );
+        setCards(cardsList);
+      }
     }
-  }, [routesList, chipValue]);
+  }, [routesList, chipValue, sohwHideRoutes]);
 
   return (
     <>

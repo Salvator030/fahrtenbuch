@@ -18,19 +18,20 @@ import useMainView from "../../hooks/mainViewHook";
 import RouteIcon from "../Icons/RouteIcon";
 import classes from "./AddRoute.module.css";
 import TrashIcon from "../Icons/TrashIcon";
+import EyeOpenIcon from "../Icons/EyeOpenIcon";
+import EyeCloseIcon from "../Icons/EyeCloseIcon";
 
 function AddRoute() {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { setShowCreateRouteView } = useSharedCreateRoute();
   const useSharedAddRoute = () => useBetween(useAddRoute);
-  const { selectedRoute, chipValue, setChipValue } = useSharedAddRoute();
+  const { selectedRoute, chipValue, setChipValue, sohwHideRoutes, setSohwHideRoutes } = useSharedAddRoute();
   const useSharedDatabases = () => useBetween(useDatabases);
   const { routesList, routesByDateList, persistDrivenRoute } =
     useSharedDatabases();
 
   const useSharedMainView = () => useBetween(useMainView);
   const { setShowMassage, setMassageContent } = useSharedMainView();
-
 
   const handelOnClickNewRouteBtn = () => {
     setShowCreateRouteView(true);
@@ -53,6 +54,10 @@ function AddRoute() {
     setShowMassage(true);
   };
 
+  const handelOnClickEyeIcon = () => {
+setSohwHideRoutes(!sohwHideRoutes);
+  }
+
   return (
     <Accordion
       classNames={{
@@ -66,7 +71,11 @@ function AddRoute() {
         </Accordion.Control>
         <Accordion.Panel>
           <Stack>
-            <Chip.Group multiple={false} value={chipValue} onChange={setChipValue}>
+            <Chip.Group
+              multiple={false}
+              value={chipValue}
+              onChange={setChipValue}
+            >
               <Group justify="center">
                 <Chip value="startAddName">Startadresse Name</Chip>
                 <Chip value="startAddStreet">Startadresse Straße</Chip>
@@ -83,7 +92,7 @@ function AddRoute() {
               </Grid.Col>
               {routesList && (
                 <>
-                  <Grid.Col span={3}>
+                  <Grid.Col span={4}>
                     <Button
                       onClick={handelOnClickAddRouteToDayBtn}
                       disabled={!selectedRoute}
@@ -91,14 +100,18 @@ function AddRoute() {
                       Strecke zum Tag hinzufügen
                     </Button>
                   </Grid.Col>
-                  <Grid.Col span={3} offset={3}>
+                  <Grid.Col span={1}offset={3}>
                     <ActionIcon
                       onClick={handelOnClickTrashIcon}
                       disabled={!selectedRoute}
                       size={"lg"}
-                      style={{ marginTop: 8 }}
                     >
                       <TrashIcon />
+                    </ActionIcon>
+                  </Grid.Col>
+                  <Grid.Col span={1}>
+                    <ActionIcon onClick={handelOnClickEyeIcon}>
+                      {!sohwHideRoutes ? <EyeOpenIcon/> : <EyeCloseIcon/>}
                     </ActionIcon>
                   </Grid.Col>
                 </>

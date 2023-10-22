@@ -13,7 +13,7 @@ function useCraeteRoute() {
   const useSharedMainView = () => useBetween(useMainView);
 
   const { selectedDate } = useSharedCurrentRoute();
-  const { routesList, setIsNewRoute, persistRoute } = useSharedDatabases();
+  const { routesList, setIsNewRoute, persistRoute, setRouteHide } = useSharedDatabases();
   const { setMassageContent, setShowMassage } = useSharedMainView();
 
   const [startAddress, setStartAddress] = useState();
@@ -28,6 +28,7 @@ function useCraeteRoute() {
   const [selectedDestinationAddressCard, setSelectedDestinationAddressCard] =
     useState();
   const [showCreateRouteView, setShowCreateRouteView] = useState(false);
+  const [showHideAddress, setShowHideAddress] = useState(false);
 
   const distanceInputRef = useRef();
   const okBtnRef = useRef();
@@ -110,9 +111,13 @@ function useCraeteRoute() {
   useEffect(() => {}, [selectedDate]);
 
   const trashBtn = () => {
-   setMassageContent("deleteAddressWarning")
-   setShowMassage(true);
+    setMassageContent("deleteAddressWarning");
+    setShowMassage(true);
   };
+
+  const eyeIcon = () => {
+    setShowHideAddress(!showHideAddress);
+  }
 
   const okBtn = () => {
     if (viewDescription === "distance") {
@@ -169,6 +174,7 @@ function useCraeteRoute() {
   };
 
   return {
+    eyeIcon,
     okBtn,
     okBtnRef,
     backBtn,
@@ -192,6 +198,7 @@ function useCraeteRoute() {
     setShowCreateRouteView,
     setIsNewAddress,
     trashBtn,
+    showHideAddress, setShowHideAddress
   };
 }
 export default useCraeteRoute;

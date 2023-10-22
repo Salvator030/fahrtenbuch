@@ -10,6 +10,8 @@ import NewRoutePreView from "./NewRoutePreView/NewRoutePreView";
 import { DistanceInput } from "./DistanceInput/DistanceInput";
 import SaveQuestion from "./SaveQuestion/SaveQuestion";
 import TrashIcon from "../Icons/TrashIcon";
+import EyeOpenIcon from "../Icons/EyeOpenIcon";
+import EyeCloseIcon from "../Icons/EyeCloseIcon";
 
 export function CreateRouteView() {
   const [isAddNewAddress, setAddNewAddress] = useState(false);
@@ -18,10 +20,12 @@ export function CreateRouteView() {
   const {
     startAddress,
     viewDescription,
+    showHideRoutes,
+    eyeIcon,
     okBtn,
     okBtnRef,
     backBtn,
-    trashBtn
+    trashBtn,
   } = useSharedCreateRoute();
 
   const toggleAddNewAddress = () => {
@@ -40,9 +44,11 @@ export function CreateRouteView() {
     toggleAddNewAddress();
   };
 
- const handelOnClickTrashBtn = () => {
-  trashBtn();
- };
+  const handelOnClickTrashIcon = () => {
+    trashBtn();
+  };
+
+  const handelOnClickEyeIcon = () => {eyeIcon();};
 
   return (
     <>
@@ -72,10 +78,20 @@ export function CreateRouteView() {
               <Grid.Col span={2}>
                 {(viewDescription === "start" ||
                   viewDescription === "destination") && (
-                    // Not nice
-                 <ActionIcon onClick={handelOnClickTrashBtn} disabled={!startAddress} size={37} style={{top: 6}}>
-                  <TrashIcon/>
-                 </ActionIcon>
+                  // Not nice
+                  <>
+                    <ActionIcon onClick={handelOnClickEyeIcon}>
+                      {showHideRoutes ? <EyeCloseIcon /> : <EyeOpenIcon />}
+                    </ActionIcon>
+                    <ActionIcon
+                      onClick={handelOnClickTrashIcon}
+                      disabled={!startAddress}
+                      size={37}
+                      style={{ top: 6 }}
+                    >
+                      <TrashIcon />
+                    </ActionIcon>
+                  </>
                 )}
               </Grid.Col>
               <Grid.Col span={4}>
@@ -97,7 +113,7 @@ export function CreateRouteView() {
           </Grid.Col>
         </Grid>
       ) : (
-        <AddressInputView toggleAddNewAddress={toggleAddNewAddress}/>
+        <AddressInputView toggleAddNewAddress={toggleAddNewAddress} />
       )}
     </>
   );
