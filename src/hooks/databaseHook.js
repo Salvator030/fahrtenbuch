@@ -154,7 +154,7 @@ function useDatabases() {
   };
 
   const deleteSelectedRoute = () => {
-    console.log(selectedRoute.route_id)
+    console.log(selectedRoute.route_id);
     db.deleteRouteById(selectedRoute.route_id);
     // setRoutesList(
     //   routesList.filter((route) => route.route_id !== selectedRoute.route_id)
@@ -179,15 +179,37 @@ function useDatabases() {
   };
 
   const setSelectedRouteHideInRouteTbl = (hide) => {
-    db.updateRouteTblHideById(selectedRoute.route_id,hide);
+    db.updateRouteTblHideById(selectedRoute.route_id, hide);
     setIsNewRoute(true);
     setSelectedRoute();
     setSelectedDayRoute();
   };
 
-  const setHideInRouteTblByRoute = (route,hide) => {
-    
-  }
+  const setAddressHideById = (id, hide) => {
+    db.updateAddressTblHideById(id, hide);
+    setIsNewAddress(true);
+  };
+
+  const deleteAddressByIdAndHandelDbConsistent = (id) => {
+    const routes = routesList.filter(
+      (r) => (r.startAdd_id === id) || (r.destAdd_id === id)
+    );
+    console.log(routes);
+    if (routes) {
+      routes.map((r) => {
+        console.log(r)
+        db.deleteDrivenRouteByRoute(r);
+        return null;
+      });
+    }
+    db.deleteRouteByAddressId(id);
+    db.deleteAddressById(id);
+     setIsNewDayRoute(true);
+ 
+    setIsNewRoute(true);
+   setIsNewAddress(true);
+   
+  };
 
   return {
     addressesList,
@@ -208,6 +230,8 @@ function useDatabases() {
     deleteSelectedDayRouteById,
     deleteDrivenRouteByRoute,
     setSelectedRouteHideInRouteTblTrue: setSelectedRouteHideInRouteTbl,
+    setAddressHideById,
+    deleteAddressByIdAndHandelDbConsistent,
   };
 }
 

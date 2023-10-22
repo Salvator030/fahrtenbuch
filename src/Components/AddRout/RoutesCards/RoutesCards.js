@@ -25,6 +25,8 @@ function RoutesCards() {
     if (routesList) {
 
       let list = routesList.filter((route => route.hide === 0))
+      console.log(list)
+      if(list){
       switch (chipValue) {
 
         case "startAddName": {
@@ -72,7 +74,7 @@ function RoutesCards() {
         (route) => route && <RouteCard route={route} key={route.route_id} />
 
       );
-      setCards(cardsList);
+      setCards(cardsList);}
     }
   }, [routesList, chipValue]);
 

@@ -20,7 +20,9 @@ function AddressesCards() {
 
   useEffect(() => {
     if (addressesList) {
-      const items = addressesList.map(
+
+    const list = addressesList.filter(address => address.hide === 0);
+      const items = list.map(
         (address) => address && <Item address={address} key={address.add_id} />
       );
 
