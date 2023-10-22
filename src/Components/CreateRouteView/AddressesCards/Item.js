@@ -1,8 +1,10 @@
-import { Grid, Overlay, Stack, Text, Card } from "@mantine/core";
+import { Grid, Overlay, Stack, Text, Card, ActionIcon } from "@mantine/core";
 import classes from "./Cards.module.css";
 import useCraeteRoute from "../../../hooks/createRouteHook";
 import { useBetween } from "use-between";
 import { useEffect, useState } from "react";
+import useDatabases from "../../../hooks/databaseHook";
+import EyeOpenIcon from "../../Icons/EyeOpenIcon";
 
 function Item({ address }) {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
@@ -17,10 +19,14 @@ function Item({ address }) {
     setSelectedStartAddressCard,
     selectedDestinationAddressCard,
     setSelectedDestinationAddressCard,
+    showHideAddress,
   } = useSharedCreateRoute();
 
+  const useSharedDatabase = () => useBetween(useDatabases);
+  const { setAddressHideById } = useSharedDatabase();
+
   const handelOnClick = (e) => {
-           if (viewDescription === "start") {
+    if (viewDescription === "start") {
       setStartAddress(address);
       e.target.style.backgroundColor = "lightgreen";
       e.target.style.opacity = "0.2";
@@ -45,7 +51,10 @@ function Item({ address }) {
     }
   };
 
-  
+  const handelOnClickEyeIcon = () => {
+    setAddressHideById(address.add_id, 0);
+  };
+
   const getBg = () => {
     if (startAddress && startAddress.add_id === address.add_id) {
       return {
@@ -63,47 +72,55 @@ function Item({ address }) {
   const bg = getBg;
 
   return (
-    <Card
-      withBorder
-      padding="xs"
-      inheritPadding
-      classNames={{ root: classes.cardRoot }}
-      key={address.add_id}
-      ref={startAddressRef}
-    >
-      <Stack gap="xs">
-        <Grid>
-          <Grid.Col span="content">
-            {" "}
-            <Text>{address.name}</Text>
-          </Grid.Col>
-        </Grid>
-        <Grid>
-          <Grid.Col span="content">
-            <Text>{address.street}</Text>
-          </Grid.Col>
-          <Grid.Col span="content">
-            <Text>{address.hnr}</Text>
-          </Grid.Col>
-        </Grid>
-        <Grid>
-          <Grid.Col span="content">
-            <Text>{address.plz}</Text>
-          </Grid.Col>
-          <Grid.Col span="content">
-            <Text>{address.place}</Text>
-          </Grid.Col>
-        </Grid>
-        <Text>{address.info}</Text>
-      </Stack>
+    <>
+      <Card
+        withBorder
+        padding="xs"
+        inheritPadding
+        classNames={{ root: classes.cardRoot }}
+        key={address.add_id}
+        ref={startAddressRef}
+        style={address.hide === 1 && { backgroundColor: "lightblue" }}
+      >
+        <Stack gap="xs">
+          <Grid>
+            <Grid.Col span="content">
+              {" "}
+              <Text>{address.name}</Text>
+            </Grid.Col>
+          </Grid>
+          <Grid>
+            <Grid.Col span="content">
+              <Text>{address.street}</Text>
+            </Grid.Col>
+            <Grid.Col span="content">
+              <Text>{address.hnr}</Text>
+            </Grid.Col>
+          </Grid>
+          <Grid>
+            <Grid.Col span="content">
+              <Text>{address.plz}</Text>
+            </Grid.Col>
+            <Grid.Col span="content">
+              <Text>{address.place}</Text>
+            </Grid.Col>
+          </Grid>
+          <Text>{address.info}</Text>
+        </Stack>
 
-      <Overlay
-        backgroundOpacity={0}
-        id={address.add_id}
-        onClick={handelOnClick}
-        // style={bg}
-      />
-    </Card>
+        <Overlay
+          backgroundOpacity={0}
+          id={address.add_id}
+          onClick={handelOnClick}
+          // style={bg}
+        />
+      </Card>
+      {address.hide === 1 && (
+        <ActionIcon onClick={handelOnClickEyeIcon}>
+          <EyeOpenIcon />
+        </ActionIcon>
+      )}
+    </>
   );
 }
 
