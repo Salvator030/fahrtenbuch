@@ -23,12 +23,11 @@ function AddressesCards() {
 
   useEffect(() => {
     if (addressesList) {
-        let list;
-      if (    showHideAddress
-        ) {
+      let list;
+      if (showHideAddress) {
         list = addressesList;
       } else {
-      list = addressesList.filter((address) => address.hide === 0);
+        list = addressesList.filter((address) => address.hide === 0);
       }
       const items = list.map(
         (address) => address && <Item address={address} key={address.add_id} />
@@ -36,8 +35,7 @@ function AddressesCards() {
 
       setCardList(items);
     }
-  }, [addressesList,     showHideAddress
-  ]);
+  }, [addressesList, showHideAddress]);
 
   return (
     <>
