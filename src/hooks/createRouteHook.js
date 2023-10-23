@@ -29,6 +29,7 @@ function useCraeteRoute() {
     useState();
   const [showCreateRouteView, setShowCreateRouteView] = useState(false);
   const [showHideAddress, setShowHideAddress] = useState(false);
+  const [searchAddValue, setSearchAddValue] = useInputState("");
   
 
 
@@ -201,6 +202,7 @@ function useCraeteRoute() {
     setIsNewAddress,
     trashBtn,
     showHideAddress, setShowHideAddress,
+    searchAddValue, setSearchAddValue
    
   };
 }

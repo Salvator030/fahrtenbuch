@@ -10,7 +10,7 @@ import useDatabases from "../../../hooks/databaseHook";
 import { useEffect, useState } from "react";
 import RouteCard from "./RouteCard/RouteCard";
 import useAddRoute from "../../../hooks/addRouteHook";
-import { sortByAddress } from "../../../asserts/helper";
+import { sortByAlphAscending } from "../../../asserts/helper";
 function RoutesCards() {
   const useSharedDatabases = () => useBetween(useDatabases);
   const { routesList, getRouteFullAddressesByRouteId } = useSharedDatabases();
@@ -36,7 +36,7 @@ function RoutesCards() {
         switch (chipValue) {
           case "startAddName": {
             list.sort((a, b) =>
-              sortByAddress(
+            sortByAlphAscending(
                 getRouteFullAddressesByRouteId(a.route_id)[0].name,
                 getRouteFullAddressesByRouteId(b.route_id)[0].name
               )
@@ -51,7 +51,7 @@ function RoutesCards() {
           }
           case "destinationAddName": {
             list.sort((a, b) =>
-              sortByAddress(
+            sortByAlphAscending(
                 getRouteFullAddressesByRouteId(a.route_id)[1].name,
                 getRouteFullAddressesByRouteId(b.route_id)[1].name
               )
@@ -65,7 +65,7 @@ function RoutesCards() {
           }
           case "startAddStreet": {
             list.sort((a, b) =>
-              sortByAddress(
+            sortByAlphAscending(
                 getRouteFullAddressesByRouteId(a.route_id)[0].street,
                 getRouteFullAddressesByRouteId(b.route_id)[0].street
               )
@@ -78,7 +78,7 @@ function RoutesCards() {
           }
           case "destinationAddStreet": {
             list.sort((a, b) =>
-              sortByAddress(
+            sortByAlphAscending(
                 getRouteFullAddressesByRouteId(a.route_id)[1].street,
                 getRouteFullAddressesByRouteId(b.route_id)[1].street
               )
