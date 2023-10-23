@@ -22,13 +22,13 @@ export function AddressInputView({ toggleAddNewAddress }) {
   });
 
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { addressesList } = useSharedDatabases();
+  const { addressesList, setIsNewAddress } = useSharedDatabases();
 
-  const useSharedCreateRoute = () => useBetween(useCraeteRoute);
-  const { setIsNewAddress } = useSharedCreateRoute();
+  // const useSharedCreateRoute = () => useBetween(useCraeteRoute);
+  // const { setIsNewAddress } = useSharedCreateRoute();
 
   const useSharedMainView = () => useBetween(useMainView);
-  const {setShowMassage, setMassageContent } = useSharedMainView();
+  const { setShowMassage, setMassageContent } = useSharedMainView();
 
   const [nameValue, setNameValue] = useInputState("");
   const [streetValue, setStreetValue] = useInputState("");
@@ -84,28 +84,39 @@ export function AddressInputView({ toggleAddNewAddress }) {
       place: placeValue,
       info: infoValue === "" ? null : infoValue,
     };
-    console.log(add)
+    console.log(add);
     setNewAddress(add);
   }
 
   function handelOnClickSaveBtn() {
     checkInput();
-    console.log(newAddress)
+    console.log(nameValue);
+    console.log(streetValue);
+    console.log(hnrValue);
+    console.log(plzValue);
+    console.log(placeValue);
     if (!checks.includes(false)) {
       if (
         addressesList.find((address) => address.name === nameValue) ===
         undefined
-      ){
-        getNewAddress();
-        console.log(newAddress)
-      databaseHandler.persistNewAddress(newAddress);
-      setIsNewAddress(true);
-      cleanInputFields();
-      toggleAddNewAddress();
-    }else{
-      setMassageContent("addressNameIsExisting");
-      setShowMassage(true);
-    }
+      ) {
+        // getNewAddress();
+        console.log(newAddress);
+        databaseHandler.persistNewAddress({
+          name: nameValue,
+          street: streetValue,
+          hnr: hnrValue,
+          plz: plzValue,
+          place: placeValue,
+          info: infoValue,
+        });
+        setIsNewAddress(true);
+        cleanInputFields();
+        toggleAddNewAddress();
+      } else {
+        setMassageContent("addressNameIsExisting");
+        setShowMassage(true);
+      }
     }
   }
 

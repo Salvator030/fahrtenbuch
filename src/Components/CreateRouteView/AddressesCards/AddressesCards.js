@@ -16,7 +16,7 @@ function AddressesCards() {
     place: "place",
   };
   const useSharedDatabases = () => useBetween(useDatabases);
-  const { addressesList } = useSharedDatabases();
+  const { addressesList, isNewAddress, setIsNewAddress } = useSharedDatabases();
 
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { showHideAddress, searchAddValue } = useSharedCreateRoute();
@@ -36,10 +36,11 @@ function AddressesCards() {
       const items = list.map(
         (address) => address && <Item address={address} key={address.add_id} />
       );
+   
 
       setCardList(items);
     }
-  }, [addressesList, showHideAddress, searchAddValue]);
+  }, [addressesList, isNewAddress, showHideAddress, searchAddValue]);
 
   return (
     <>
