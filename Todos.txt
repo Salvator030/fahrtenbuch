@@ -17,8 +17,8 @@ x   15-feature sort addressList by name or street name
 17-feature show the info in route card by AddRoute
 18-feature change size of RouteCard
 x   19-bug when try to add a route, which exist but is hide. its go wrong. implement a question if hide route make show
-20-feature search by... function for routes
-21-feature search by.... function for address
+x   20-feature search by... function for routes
+x   21-feature search by.... function for address
 22-feature whenchange the month currentDate is set to the first of the month
 x   23-featre implement function to disable hide from address and route
 24-bug corection of the actionIcon style

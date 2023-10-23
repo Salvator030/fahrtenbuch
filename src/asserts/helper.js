@@ -8,7 +8,7 @@ function checkDistanceInput(value) {
   }
 }
 
-function sortByAddress(a, b) {
+function sortByAlphAscending(a, b) {
   const nameA = a.toUpperCase(); // ignore upper and lowercase
   const nameB = b.toUpperCase(); // ignore upper and lowercase
   if (nameA < nameB) {
@@ -37,4 +37,4 @@ function sortDrivenRouteByLogicalOrder(drivenRouteA, drivenRouteB) {
   return 0;
 }
 
-export { checkDistanceInput, sortByAddress, sortDrivenRouteByLogicalOrder };
+export { checkDistanceInput, sortByAlphAscending , sortDrivenRouteByLogicalOrder };

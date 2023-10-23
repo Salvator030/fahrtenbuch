@@ -1,4 +1,12 @@
-import { ActionIcon, Button, Center, Grid, Title } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Center,
+  Grid,
+  Stack,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import React, { useState } from "react";
 import { AddressInputView } from "./AddressInputView/AddressInputView";
 import "@mantine/core/styles.css";
@@ -21,6 +29,8 @@ export function CreateRouteView() {
     startAddress,
     viewDescription,
     showHideRoutes,
+    searchAddValue,
+    setSearchAddValue,
     eyeIcon,
     okBtn,
     okBtnRef,
@@ -48,7 +58,9 @@ export function CreateRouteView() {
     trashBtn();
   };
 
-  const handelOnClickEyeIcon = () => {eyeIcon();};
+  const handelOnClickEyeIcon = () => {
+    eyeIcon();
+  };
 
   return (
     <>
@@ -63,7 +75,16 @@ export function CreateRouteView() {
             </Title>
             <Center className={classes.viewDiv}>
               {(viewDescription === "start" ||
-                viewDescription === "destination") && <AddressesCards />}
+                viewDescription === "destination") && (
+                <Stack>
+                  <TextInput
+                    label="suche"
+                    value={searchAddValue}
+                    onChange={setSearchAddValue}
+                  />
+                  <AddressesCards />
+                </Stack>
+              )}
               {viewDescription === "distance" && <DistanceInput />}
               {viewDescription === "save" && <SaveQuestion />}
             </Center>

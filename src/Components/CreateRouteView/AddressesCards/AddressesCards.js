@@ -4,6 +4,7 @@ import Item from "./Item";
 import { useBetween } from "use-between";
 import useDatabases from "../../../hooks/databaseHook";
 import useCraeteRoute from "../../../hooks/createRouteHook";
+import { sortByAlphAscending } from "../../../asserts/helper";
 // import Card from "./Card";
 
 function AddressesCards() {
@@ -18,7 +19,7 @@ function AddressesCards() {
   const { addressesList } = useSharedDatabases();
 
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
-  const { showHideAddress } = useSharedCreateRoute();
+  const { showHideAddress, searchAddValue } = useSharedCreateRoute();
   const [cardList, setCardList] = useState();
 
   useEffect(() => {
@@ -29,13 +30,16 @@ function AddressesCards() {
       } else {
         list = addressesList.filter((address) => address.hide === 0);
       }
+
+      list.sort((a, b) => sortByAlphAscending(a.name, b.name));
+      list = list.filter((a) => a.name.toLowerCase().startsWith(searchAddValue.toLowerCase()));
       const items = list.map(
         (address) => address && <Item address={address} key={address.add_id} />
       );
 
       setCardList(items);
     }
-  }, [addressesList, showHideAddress]);
+  }, [addressesList, showHideAddress, searchAddValue]);
 
   return (
     <>
