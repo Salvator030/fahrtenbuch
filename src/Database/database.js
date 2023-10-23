@@ -57,7 +57,7 @@ export async function getAllAddress() {
 export async function insertAddress(address) {
   console.log(address);
   const populate = transaction();
-  populate`INSERT INTO address_tbl VALUES (null,${address.name}, ${address.street}, ${address.hnr}, ${address.plz}, ${address.place}, ${address.info})`;
+  populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide) VALUES (${address.name}, ${address.street}, ${address.hnr}, ${address.plz}, ${address.place}, ${address.info},0)`;
   await populate.commit();
 }
 
@@ -65,7 +65,7 @@ export async function insertAddresses(addresses) {
   const populate = transaction();
   addresses.forEach(
     (address) =>
-      populate`INSERT INTO address_tbl VALUES (null, ${address.name}, ${address.street}, ${address.hnr}, ${address.plz}, ${address.place}, ${address.info})`
+      populate`INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide) VALUES (${address.name}, ${address.street}, ${address.hnr}, ${address.plz}, ${address.place}, ${address.info},0)`
   );
   await populate.commit();
 }

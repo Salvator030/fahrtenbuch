@@ -84,17 +84,20 @@ export function AddressInputView({ toggleAddNewAddress }) {
       place: placeValue,
       info: infoValue === "" ? null : infoValue,
     };
+    console.log(add)
     setNewAddress(add);
   }
 
   function handelOnClickSaveBtn() {
     checkInput();
+    console.log(newAddress)
     if (!checks.includes(false)) {
       if (
         addressesList.find((address) => address.name === nameValue) ===
         undefined
       ){
         getNewAddress();
+        console.log(newAddress)
       databaseHandler.persistNewAddress(newAddress);
       setIsNewAddress(true);
       cleanInputFields();
