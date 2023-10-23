@@ -5,6 +5,7 @@ import {
   Chip,
   Group,
   Grid,
+  TextInput,
   Stack,
   Text,
 } from "@mantine/core";
@@ -24,8 +25,18 @@ import EyeCloseIcon from "../Icons/EyeCloseIcon";
 function AddRoute() {
   const useSharedCreateRoute = () => useBetween(useCraeteRoute);
   const { setShowCreateRouteView } = useSharedCreateRoute();
+
   const useSharedAddRoute = () => useBetween(useAddRoute);
-  const { selectedRoute, chipValue, setChipValue, sohwHideRoutes, setSohwHideRoutes } = useSharedAddRoute();
+  const {
+    selectedRoute,
+    chipValue,
+    setChipValue,
+    sohwHideRoutes,
+    setSohwHideRoutes,
+    searchValue,
+    setSearchValue,
+  } = useSharedAddRoute();
+
   const useSharedDatabases = () => useBetween(useDatabases);
   const { routesList, routesByDateList, persistDrivenRoute } =
     useSharedDatabases();
@@ -55,8 +66,8 @@ function AddRoute() {
   };
 
   const handelOnClickEyeIcon = () => {
-setSohwHideRoutes(!sohwHideRoutes);
-  }
+    setSohwHideRoutes(!sohwHideRoutes);
+  };
 
   return (
     <Accordion
@@ -83,6 +94,11 @@ setSohwHideRoutes(!sohwHideRoutes);
                 <Chip value="destinationAddStreet">Zieladresse Starße</Chip>
               </Group>
             </Chip.Group>
+            <TextInput
+              label="Suche"
+              value={searchValue}
+              onChange={setSearchValue}
+            />
             <RoutesCards />
             <Grid justify="flex-start">
               <Grid.Col span={3}>
@@ -100,7 +116,7 @@ setSohwHideRoutes(!sohwHideRoutes);
                       Strecke zum Tag hinzufügen
                     </Button>
                   </Grid.Col>
-                  <Grid.Col span={1}offset={3}>
+                  <Grid.Col span={1} offset={3}>
                     <ActionIcon
                       onClick={handelOnClickTrashIcon}
                       disabled={!selectedRoute}
@@ -111,7 +127,7 @@ setSohwHideRoutes(!sohwHideRoutes);
                   </Grid.Col>
                   <Grid.Col span={1}>
                     <ActionIcon onClick={handelOnClickEyeIcon}>
-                      {!sohwHideRoutes ? <EyeOpenIcon/> : <EyeCloseIcon/>}
+                      {!sohwHideRoutes ? <EyeOpenIcon /> : <EyeCloseIcon />}
                     </ActionIcon>
                   </Grid.Col>
                 </>
