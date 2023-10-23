@@ -46,7 +46,6 @@
   "nwbuilds": {
     "//": "https://nwutils.io/nw-builder/",
     "platforms": [
-      "osx64",
       "win32",
       "win64"
     ],
