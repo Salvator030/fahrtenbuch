@@ -6,18 +6,26 @@ import useDatabases from "../hooks/databaseHook";
 
 
 async function createTables() {
+  try{
  await db.queryCreateTableAddress();
 
   await db.queryCreateTableRoute();
 
   await db.queryCreateDrivenRoute()
-
+}catch(e){
+  console.log(e)
+  alert(e)
+}
 }
 
 async function insertTestData() {
   await db.insertTestAddress();
 
   await db.insertTestRoutes()
+  let addresses;
+  do{
+addresses = db.getAllAddress
+  }while(!addresses)
 
 }
 

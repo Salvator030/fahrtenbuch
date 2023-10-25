@@ -45,9 +45,9 @@ function RouteCard({ route }) {
       e.target.style.backgroundColor = "gray";
       setSelectedRoute(route);
       setSelectedCard(e);
-      console.log(selectedRoute);
+   
     } else {
-      console.log(route.route_id);
+   
 
       if (route.route_id === selectedRoute.route_id) {
         e.target.style.backgroundColor = "white";
@@ -58,7 +58,7 @@ function RouteCard({ route }) {
         selectedCard.target.style.backgroundColor = "white";
         setSelectedCard(e);
         setSelectedRoute(route);
-        console.log(selectedRoute);
+        
       }
     }
 
@@ -69,8 +69,7 @@ function RouteCard({ route }) {
     setRouteHide(route.route_id, 0);
   }
 
-  console.log(startAdd);
-  console.log(destAdd);
+
 
   return (
     <>

@@ -29,10 +29,9 @@ function TableView() {
        if (routesByMonthList) {
       let distance = 0.0;
       routesByMonthList.forEach((route) => {
-        console.log(getDistanceById(route));
-        console.log(parseFloat(getDistanceById(route)));
+   
         distance += parseFloat(getDistanceById(route));
-        console.log(distance);
+   
       });
       setMonthDistance(distance);
     }

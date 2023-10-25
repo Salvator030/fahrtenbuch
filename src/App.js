@@ -11,9 +11,9 @@ import "@mantine/core/styles.css";
 import { useEffect } from "react";
 
  function App() {
-    createTables();
-     insertTestData();
-setTimeout(()=>{},5000)
+    // createTables();
+    //  insertTestData();
+
     
 
   

@@ -31,14 +31,8 @@ export default function CurrentDate() {
     const [disabled, setDisabled] = useState();
    
     useEffect(() => {
-      routesByMonthList &&
-        setDisabled(
-          !routesByMonthList.find(
-            (route) =>
-              route.date ===
-              `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-          )
-        );
+    if  (routesByMonthList) {
+          setDisabled(true );}
     },[date]);
     
     return (

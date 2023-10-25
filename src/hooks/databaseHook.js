@@ -33,26 +33,27 @@ function useDatabases() {
 
   // fetch the content of tbl_address
   useEffect(() => {
-    async function fetchData() {
-      const list = await db.getAllAddress();
+    // async function fetchData() {
+      const list = db.getAllAddress();
       if (list) {
-        setAddressList(await list);
+        console.log(list)
+        setAddressList(list);
         setIsNewAddress(false);
       }
-    }
-    fetchData();
+    // }
+    // fetchData();
   }, [isNewAddress]);
 
   // fetch all displayed routes from tbl_route
   useEffect(() => {
-    async function fetchData() {
-      const list = await db.getAllRoutes();
+    // async function fetchData() {
+      const list = db.getAllRoutes();
       if (list) {
         setRoutesList(list);
         setIsNewRoute(false);
       }
-    }
-    fetchData();
+    // }
+    // fetchData();
   }, [isNewRoute]);
 
   // ----fetch the driven routes by a month ----
@@ -61,7 +62,7 @@ function useDatabases() {
     async function fetchData() {
       let list;
       if (isChangedMonth) {
-        list = await db.getDrivenRoutesByMonth(newMonth.year, newMonth.month);
+        list =  await db.getDrivenRoutesByMonth(newMonth.year, newMonth.month);
         setIsChangedMonth(false);
         setIsNewDayRoute(false);
       }
@@ -85,20 +86,20 @@ function useDatabases() {
 
   //---- fetch content of the Route by a day
   useEffect(() => {
-    async function fetchData() {
+    // async function fetchData() {
       if (selectedDate || isNewDayRoute) {
         const date = `${selectedDate.getFullYear()}-${
           selectedDate.getMonth() + 1
         }-${selectedDate.getDate()}`;
-        const list = await db.getDrivenRoutesByDate(date);
-        if (await list) {
+        const list =  db.getDrivenRoutesByDate(date);
+        if ( list) {
           console.log(list);
           setRoutesByDateList(list);
         }
         setIsNewDayRoute(false);
       }
-    }
-    fetchData();
+    // }
+    // fetchData();
   }, [selectedDate, isNewDayRoute]);
 
   const persistRoute = (route) => {
@@ -136,6 +137,7 @@ function useDatabases() {
   };
 
   const getFullAddressByID = (id) => {
+    console.log(addressesList)
     return addressesList.find((item) => item.add_id === id);
   };
 

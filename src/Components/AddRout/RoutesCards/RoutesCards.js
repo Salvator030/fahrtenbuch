@@ -31,8 +31,7 @@ function RoutesCards() {
         list = routesList.filter((route) => route.hide === 0);
       }
 
-      console.log(list);
-      if (list) {
+          if (list) {
         switch (chipValue) {
           case "startAddName": {
             list.sort((a, b) =>

@@ -4,7 +4,7 @@ function EyeCloseIcon({ size, style, ...others }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="icon icon-tabler icon-tabler-eye-closed"
+      className="icon icon-tabler icon-tabler-eye-closed"
       width="24"
       height="24"
       viewBox="0 0 24 24"

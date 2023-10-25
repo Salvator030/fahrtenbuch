@@ -62,7 +62,7 @@ function MessageModal({ opened, msgContent }) {
           setCheckedAdd(false);
         }else{
           if (!destinationAddress) {
-            console.log(startAddress.add_id)
+      
             setAddressHideById(startAddress.add_id, 1);
             setStartAddress();
           } else {
