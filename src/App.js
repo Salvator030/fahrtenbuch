@@ -14,7 +14,8 @@ import { useEffect } from "react";
     // createTables();
     //  insertTestData();
 
-    
+    var dirname = require('./util').dirname;
+console.log(dirname)
 
   
 

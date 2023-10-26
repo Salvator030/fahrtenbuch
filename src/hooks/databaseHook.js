@@ -33,6 +33,8 @@ function useDatabases() {
 
   // fetch the content of tbl_address
   useEffect(() => {
+    var dirname = require('../util').dirname;
+    console.log(dirname);
     // async function fetchData() {
       const list = db.getAllAddress();
       if (list) {
