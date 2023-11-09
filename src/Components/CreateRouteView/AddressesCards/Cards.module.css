@@ -1,8 +1,0 @@
-.cardRoot {
-    margin-bottom: 8px;
-    
-
-    &:hover {
-       background-color: lightgray;
-    }
-}
