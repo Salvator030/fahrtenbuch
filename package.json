@@ -1,64 +1,39 @@
 {
   "name": "fahrtenbuch",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
-  "dependencies": {
-    "@mantine/core": "^7.0.0",
-    "@mantine/dates": "^7.0.0",
-    "@mapbox/node-pre-gyp": "^1.0.11",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "nw-react-scripts": "5.1.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-imask": "^7.1.3",
-    "sqlite-tag-spawned": "^0.6.0",
-    "use-between": "^1.3.5",
-    "web-vitals": "^2.1.4"
-  },
   "scripts": {
-    "start": "nw-react-scripts start",
-    "build": "nw-react-scripts build",
-    "test": "nw-react-scripts test",
-    "eject": "nw-react-scripts eject",
-    "pretest": "node test/support/createdb.js"
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "lint": "eslint .",
+    "start": "react-native start",
+    "test": "jest",
+    "windows": "react-native run-windows"
   },
-  "eslintConfig": {
-    "extends": [
-      "nw-react-app",
-      "nw-react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "main": "index.html",
-  "nwbuilds": {
-    "//": "https://nwutils.io/nw-builder/",
-    "platforms": [
-      "win32",
-      "win64"
-    ],
-    "version": "latest",
-    "flavor": "normal",
-    "outDir": "./out",
-    "cacheDir": "./cache",
-    "app": {
-      "name": "fahrtenbuch",
-      "icon": "./src/logo.icns"
-    }
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.72.6",
+    "react-native-windows": "0.72.19"
   },
   "devDependencies": {
-    "mocha": "^10.2.0"
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "@react-native/eslint-config": "^0.72.2",
+    "@react-native/metro-config": "^0.72.11",
+    "@tsconfig/react-native": "^3.0.0",
+    "@types/react": "^18.0.24",
+    "@types/react-test-renderer": "^18.0.0",
+    "babel-jest": "^29.2.1",
+    "eslint": "^8.19.0",
+    "jest": "^29.2.1",
+    "metro-react-native-babel-preset": "0.76.8",
+    "prettier": "^2.4.1",
+    "react-test-renderer": "18.2.0",
+    "typescript": "4.8.4",
+    "metro-config": "^0.76.8"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
