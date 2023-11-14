@@ -14,7 +14,7 @@ export default function Accordion({title, items}) {
   };
   return (
     <View style={styles.root}>
-      <TouchableOpacity ref={this} style={styles.row} onPress={toggleExpand}>
+      <TouchableOpacity style={styles.row} onPress={toggleExpand}>
         <Text style={[styles.title, styles.font]}>{title}</Text>
       </TouchableOpacity>
       <View style={styles.parentHr} />

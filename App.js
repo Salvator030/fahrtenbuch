@@ -8,7 +8,7 @@
 import React from 'react';
 import MainView from './src/Components/MainView/MainView';
 
-function App(): JSX.Element {
+function App() {
   return <MainView />;
 }
 

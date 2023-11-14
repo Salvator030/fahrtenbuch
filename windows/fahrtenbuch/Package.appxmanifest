@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="e69a77af-8a24-4360-9543-1375f1a74640"
+    Name="3e0015d9-d9f4-4a73-9c7b-0855fa4eb73b"
     Publisher="CN=Dot"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="e69a77af-8a24-4360-9543-1375f1a74640" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="3e0015d9-d9f4-4a73-9c7b-0855fa4eb73b" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>fahrtenbuch</DisplayName>
