@@ -6,7 +6,7 @@
     <CppWinRTOptimized>true</CppWinRTOptimized>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <MinimalCoreWin>true</MinimalCoreWin>
-    <ProjectGuid>{f44de229-5f45-4b2f-867f-4d4eeb89d02c}</ProjectGuid>
+    <ProjectGuid>{acfdabdb-8c31-432d-aae2-c0b2f8249346}</ProjectGuid>
     <ProjectName>fahrtenbuch</ProjectName>
     <RootNamespace>fahrtenbuch</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
