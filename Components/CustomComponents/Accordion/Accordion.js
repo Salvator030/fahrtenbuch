@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import React, {TouchableOpacity, Text, View} from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 export default function Accordion({title, items}) {
   const [expanded, setExpanded] = useState(false);
   const [data, setData] = useState([]);
@@ -14,8 +14,13 @@ export default function Accordion({title, items}) {
   };
   return (
     <View style={styles.root}>
-      <TouchableOpacity style={styles.row} onPress={toggleExpand}>
+      <TouchableOpacity ref={this} style={styles.row} onPress={toggleExpand}>
         <Text style={[styles.title, styles.font]}>{title}</Text>
+        <Icon
+          name={expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
+          size={30}
+          color="darkgray"
+        />
       </TouchableOpacity>
       <View style={styles.parentHr} />
       {expanded && <View>{data}</View>}

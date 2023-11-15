@@ -1,6 +1,7 @@
 import React, {View, ScrollView, Button} from 'react-native';
 import Grid from '../../CustomComponents/Grid/Grid';
 
+
 const styles = {
   root: {height: 400, width: 300, borderColor: 'black', borderWidth: 1},
   container: {
@@ -30,6 +31,7 @@ export default function CurrentDayRoutes() {
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>{itemsList}</ScrollView>
       </View>
+  
     </View>
   );
 }

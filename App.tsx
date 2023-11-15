@@ -6,9 +6,9 @@
  */
 
 import React from 'react';
-import MainView from './src/Components/MainView/MainView';
+import MainView from './Components/MainView/MainView';
 
-function App() {
+function App(): JSX.Element {
   return <MainView />;
 }
 

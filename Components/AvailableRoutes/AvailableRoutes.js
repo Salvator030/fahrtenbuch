@@ -1,5 +1,5 @@
 import React, {Text} from 'react-native';
-import Accordion from '../CustomComponents/Accordion/Accordion.js';
+import Accordion from '../CustomComponents/Accordion/Accordion';
 
 const example = [<Text>a</Text>];
 
