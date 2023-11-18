@@ -17,9 +17,9 @@ export default function Accordion({title, items}) {
       <TouchableOpacity ref={this} style={styles.row} onPress={toggleExpand}>
         <Text style={[styles.title, styles.font]}>{title}</Text>
         <Icon
-          name={expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
+          name={expanded ? 'radio-button-off' : 'radio-button-off'}
           size={30}
-          color="darkgray"
+          color="black"
         />
       </TouchableOpacity>
       <View style={styles.parentHr} />
