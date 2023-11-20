@@ -59,4 +59,21 @@
   <ItemGroup>
     <Page Include="MainPage.xaml" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\MaterialIcons.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+    <Font Include="Assets\Ionicons.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+    <Font Include="Assets\FontAwesome.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+    <Font Include="Assets\FontAwesome5_Regular.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+    <Font Include="Assets\FontAwesome5_Brands.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+  </ItemGroup>
 </Project>

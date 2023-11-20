@@ -2,7 +2,8 @@ import React, {Text, View, ScrollView} from 'react-native';
 import Accordion from '../CustomComponents/Accordion/Accordion';
 import Grid from '../CustomComponents/Grid/Grid';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import TrashIcon from 'react-native-vector-icons/Ionicons';
+import PlusIcon from 'react-native-vector-icons/FontAwesome';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
 
 const styles = {
@@ -37,8 +38,8 @@ export default function AvailableRoutes() {
           item: (
             <ButtonIcon
               title="Neue Strecke"
-              Icon={Icon}
-              iconName="address-card"
+              Icon={PlusIcon}
+              iconName="plus"
               onClick={handelOnClickNewRouteBtn}
             />
           ),
@@ -46,7 +47,11 @@ export default function AvailableRoutes() {
         {
           style: styles.col1,
           item: (
-            <ButtonIcon title="Strecke Löschen" Icon={Icon} iconName="route" />
+            <ButtonIcon
+              title="Strecke Löschen"
+              Icon={TrashIcon}
+              iconName="trash"
+            />
           ),
         },
       ],

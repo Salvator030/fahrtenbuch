@@ -60,7 +60,8 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings"></ImportGroup>
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -158,6 +159,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Font Include="Assets\FontAwesome.ttf" />
+    <Font Include="Assets\FontAwesome5_Brands.ttf" />
+    <Font Include="Assets\FontAwesome5_Regular.ttf" />
+    <Font Include="Assets\Ionicons.ttf" />
+    <Font Include="Assets\MaterialIcons.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ReactNativeWindowsTargets">

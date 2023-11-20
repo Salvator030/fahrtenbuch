@@ -1,7 +1,7 @@
 import React, {View, ScrollView, Button} from 'react-native';
 import Grid from '../../CustomComponents/Grid/Grid';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
-import Icon from 'react-native-vector-icons/EvilIcons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const styles = {
   root: {height: 400, width: 300},
