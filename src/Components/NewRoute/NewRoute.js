@@ -1,10 +1,14 @@
 import React, {View, StyleSheet, Text} from 'react-native';
+import {Modal, Popup} from 'react-native-windows';
 import ScrollArea from '../CustomComponents/ScrollArea/ScrollArea';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Grid from '../CustomComponents/Grid/Grid';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import useNewRoute from '../../stores/newRouteStore';
+import NewAddressModal from './NewAddressModal/NewAddressModal';
+import useNewAddressModal from '../../stores/newAddresModalStore';
+import {useBetween} from 'use-between';
 
 const styles = StyleSheet.create({
   root: {alignSelf: 'center', height: 800, width: 600},
@@ -23,7 +27,11 @@ const styles = StyleSheet.create({
   headline: {fontSize: 18, fontWeight: 'bold'},
 });
 export default function NewRoute() {
-  const {handelOnClickBackBtn} = useNewRoute();
+  const useShareNewRoute = () => useBetween(useNewRoute);
+  const {handelOnClickBackBtn, handelOnClickNewAddressBtn} = useShareNewRoute();
+  const useShareNewAddressModal = () => useBetween(useNewAddressModal);
+  const {modalVisible} = useShareNewAddressModal();
+
   const rowsAndCols = [
     {
       style: styles.row,
@@ -50,6 +58,7 @@ export default function NewRoute() {
               Icon={Icon2}
               title="neue Adresse"
               iconName="address-card-o"
+              onClick={handelOnClickNewAddressBtn}
             />
           ),
         },
@@ -61,6 +70,9 @@ export default function NewRoute() {
       <Text style={styles.headline}>Neue Strecke</Text>
       <ScrollArea />
       <Grid rowsAndCols={rowsAndCols} style={styles.gridStyle} />
+      <Popup isOpen={modalVisible}>
+        <NewAddressModal />
+      </Popup>
     </View>
   );
 }
