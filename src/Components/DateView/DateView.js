@@ -24,9 +24,9 @@ export default function DateView() {
     {
       style: styles.row,
       cols: [
-        {style: styles.col1, item: <CalenderView />},
-        {style: styles.col2, item: <CurrentDayDetailsView />},
-        {style: styles.col3, item: <CurrentDayRoutes />},
+        {style: styles.col1, item: <CalenderView />, key: 'col1'},
+        {style: styles.col2, item: <CurrentDayDetailsView />, key: 'col2'},
+        {style: styles.col3, item: <CurrentDayRoutes />, key: 'col3'},
       ],
     },
   ];

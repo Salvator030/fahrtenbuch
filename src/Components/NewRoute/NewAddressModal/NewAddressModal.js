@@ -16,8 +16,18 @@ import useNewAddressModal from '../../../stores/newAddresModalStore';
 const styles = {
   root: {
     padding: 16,
+    backgroundColor: '#0000005d',
+    alignItems: 'center',
+    alignContent: 'center',
+    height: 900,
+    width: 800,
+  },
+  dialog: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    alignContent: 'center',
+    padding: 16,
     backgroundColor: 'white',
-    alignSelf: 'center',
     height: 400,
     width: 300,
   },
@@ -36,6 +46,8 @@ const styles = {
   col3: {flex: 3, marginHorizontal: 'auto'},
   col4: {flex: 8, marginHorizontal: 'auto'},
   headline: {marginBottom: 8, fontSize: 18, fontWeight: 'bold'},
+  infoText: {height: 150},
+  text: {height: 32},
 };
 
 export default function NewAddressModal() {
@@ -48,7 +60,7 @@ export default function NewAddressModal() {
       cols: [
         {
           style: styles.col1,
-          item: <TextInput placeholder="Name" />,
+          item: <TextInput placeholder="Name" style={styles.text} />,
         },
       ],
     },
@@ -57,11 +69,11 @@ export default function NewAddressModal() {
       cols: [
         {
           style: styles.col4,
-          item: <TextInput placeholder="Straße" />,
+          item: <TextInput placeholder="Straße" style={styles.text} />,
         },
         {
           style: styles.col3,
-          item: <TextInput placeholder="Hnr" />,
+          item: <TextInput placeholder="Hnr" style={styles.text} />,
         },
       ],
     },
@@ -70,11 +82,11 @@ export default function NewAddressModal() {
       cols: [
         {
           style: styles.col3,
-          item: <TextInput placeholder="PLZ" />,
+          item: <TextInput placeholder="PLZ" style={styles.text} />,
         },
         {
           style: styles.col2,
-          item: <TextInput placeholder="Ort" />,
+          item: <TextInput placeholder="Ort" style={styles.text} />,
         },
       ],
     },
@@ -83,7 +95,9 @@ export default function NewAddressModal() {
       cols: [
         {
           style: styles.col,
-          item: <TextInput multiline placeholder="Info" />,
+          item: (
+            <TextInput multiline placeholder="Info" style={styles.infoText} />
+          ),
         },
       ],
     },
@@ -111,8 +125,10 @@ export default function NewAddressModal() {
 
   return (
     <View style={styles.root}>
-      <Text style={styles.headline}>Neue Addresse</Text>
-      <Grid style={styles.gridStyle} rowsAndCols={rowsAndCols} />
+      <View style={styles.dialog}>
+        <Text style={styles.headline}>Neue Addresse</Text>
+        <Grid style={styles.gridStyle} rowsAndCols={rowsAndCols} />
+      </View>
     </View>
   );
 }
