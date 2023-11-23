@@ -1,11 +1,5 @@
-import React, {
-  Button,
-  Modal,
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-} from 'react-native';
+import {Button, Modal, View, StyleSheet, Text, TextInput} from 'react-native';
+import React from 'react';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Grid from '../../CustomComponents/Grid/Grid';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -122,6 +116,13 @@ export default function NewAddressModal() {
       ],
     },
   ];
+
+  const [nameValue, setNameValue] = React.useInputState('');
+  const [streetValue, setStreetValue] = React.useInputState('');
+  const [hnrValue, setHnrValue] = React.useInputState('');
+  const [plzValue, setPlzValue] = React.useInputState('0');
+  const [placeValue, setPlaceValue] = React.useInputState('');
+  const [infoValue, setInfoValue] = React.useInputState('');
 
   return (
     <View style={styles.root}>
