@@ -17,5 +17,5 @@ export const getAllAddresses = async () => {
 
 export const saveNewAddress = async address => {
   const db = await database.getDBConnection();
-  db.saveAddress(address);
+  return await database.saveAddress(db, address);
 };

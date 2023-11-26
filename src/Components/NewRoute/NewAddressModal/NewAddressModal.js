@@ -50,71 +50,33 @@ export default function NewAddressModal() {
   const {
     nameValue,
     setNameValue,
-    // nameRef,
+    nameError,
     streetValue,
     setStreetValue,
-    // streetRef,
+    streetError,
     hnrValue,
     setHnrValue,
-    // hnrRef,
+    hnrError,
     plzValue,
     setPlzValue,
-    // plzRef,
+    plzError,
     placeValue,
     setPlaceValue,
-    // placeRef,
+    placeError,
     infoValue,
+    infoError,
     setInfoValue,
     handelOnClickBackBtn,
+    handelOnClickSaveBtn,
+    checkNameInput,
+    checkStreetInput,
+    checkHnrInput,
+    checkPlzInput,
+    checkPlaceInput,
+    checkInfoInput,
+
     // handelOnClickSaveBtn,
   } = useShareNewAddressModal();
-
-  const [checkList] = useState([true]);
-  const [error, setError] = useState('');
-  const nameRef = useRef();
-  const streetRef = useRef();
-  const hnrRef = useRef(null);
-  const plzRef = useRef(null);
-  const placeRef = useRef(null);
-
-  function checkNameInput() {
-    console.log(nameRef);
-    const v = /^[\w\säüöß.,-]+$/;
-    console.log(v.test(nameValue));
-    let e;
-    if (nameValue && !v.test(nameValue)) {
-      setError(nameValue);
-      setNameValue('');
-      checkList[0] = false;
-    } else {
-      setError('');
-      checkList[0] = true;
-    }
-
-    console.log(checkList);
-    // for (let i = 0; i < 5; i++) {
-    //
-    //   if (refs[i].current.value === '') {
-    //     checks[i] = false;
-    //     refs[i].current.element.style.borderColor = 'red';
-    //   } else {
-    //     checks[i] = true;
-    //     refs[i].current.style.borderColor = 'black';
-    //   }
-    // }
-
-    // if (plzRef.current.element.value === '') {
-    //   checks[4] = false;
-    //   plzRef.current.element.style.borderColor = 'red';
-    // } else {
-    //   checks[4] = true;
-    //   plzRef.current.element.style.borderColor = 'black';
-    // }
-  }
-
-  const handelOnClickSaveBtn = () => {
-    console.log(nameRef._root);
-  };
 
   return (
     <View style={styles.root}>
@@ -124,36 +86,33 @@ export default function NewAddressModal() {
           <View style={styles.row}>
             <View style={styles.col1}>
               <TextInput
-                ref={nameRef}
-                placeholder={checkList[0] ? 'Name' : error}
-                placeholderTextColor={checkList[0] ? 'black' : 'red'}
+                placeholder={!nameError ? 'Name' : nameError}
+                placeholderTextColor={!nameError ? 'gray' : 'red'}
                 value={nameValue}
                 onChangeText={setNameValue}
-                style={
-                  checkList[0]
-                    ? [styles.text, styles.textColorBlack]
-                    : [styles.text, styles.textColorRed]
-                }
                 onEndEditing={checkNameInput}
+                style={styles.text}
               />
             </View>
           </View>
           <View style={styles.row}>
             <View style={styles.col4}>
               <TextInput
-                placeholder="Straße"
+                placeholder={!streetError ? 'Straße' : streetError}
+                placeholderTextColor={!streetError ? 'gray' : 'red'}
                 value={streetValue}
                 onChangeText={setStreetValue}
-                ref={streetRef}
+                onEndEditing={checkStreetInput}
                 style={styles.text}
               />
             </View>
             <View style={styles.col3}>
               <TextInput
-                placeholder="Hnr"
+                placeholder={!hnrError ? 'Hnr' : hnrError}
+                placeholderTextColor={!hnrError ? 'gray' : 'red'}
                 value={hnrValue}
                 onChangeText={setHnrValue}
-                ref={hnrRef}
+                onEndEditing={checkHnrInput}
                 style={styles.text}
               />
             </View>
@@ -161,19 +120,21 @@ export default function NewAddressModal() {
           <View style={styles.row}>
             <View style={styles.col3}>
               <TextInput
-                placeholder="PLZ"
+                placeholder={!plzError ? 'PLZ' : plzError}
+                placeholderTextColor={!plzError ? 'gray' : 'red'}
                 value={plzValue}
                 onChangeText={setPlzValue}
-                ref={plzRef}
+                onEndEditing={checkPlzInput}
                 style={styles.text}
               />
             </View>
             <View style={styles.col2}>
               <TextInput
-                placeholder="Ort"
+                placeholder={!placeError ? 'Ort' : placeError}
+                placeholderTextColor={!placeError ? 'gray' : 'red'}
                 value={placeValue}
                 onChangeText={setPlaceValue}
-                ref={placeRef}
+                onEndEditing={checkPlaceInput}
                 style={styles.text}
               />
             </View>
@@ -182,9 +143,11 @@ export default function NewAddressModal() {
             <View style={styles.col2}>
               <TextInput
                 multiline
-                placeholder="Info"
+                placeholder={infoError ? 'Info' : infoError}
+                placeholderTextColor={!infoError ? 'gray' : 'red'}
                 value={infoValue}
                 onChangeText={setInfoValue}
+                onEndEditing={checkInfoInput}
                 style={styles.infoText}
               />
             </View>

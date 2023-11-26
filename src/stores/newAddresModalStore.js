@@ -8,17 +8,112 @@ export default function useNewAddressModal() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [nameValue, setNameValue] = useState('');
+  const [nameError, setNameError] = useState('');
   const [streetValue, setStreetValue] = useState('');
+  const [streetError, setStreetError] = useState('');
   const [hnrValue, setHnrValue] = useState('');
+  const [hnrError, setHnrError] = useState('');
   const [plzValue, setPlzValue] = useState('');
+  const [plzError, setPlzError] = useState('');
   const [placeValue, setPlaceValue] = useState('');
+  const [placeError, setPlaceError] = useState('');
   const [infoValue, setInfoValue] = useState('');
+  const [infoError, setInfoError] = useState('');
+  const [checks] = useState([false, false, false, false, false, true]);
+  const checkNameInput = () => {
+    const v = /^[\w\säüöß.,-]+$/;
+    console.log(v.test(nameValue));
+    if (nameValue && !v.test(nameValue)) {
+      setNameError(nameValue);
+      setNameValue('');
+      checks[0] = false;
+    } else {
+      setNameError('');
+      checks[0] = true;
+    }
+    console.log(checks);
+  };
 
-  const nameRef = useRef(null);
-  const streetRef = useRef(null);
-  const hnrRef = useRef(null);
-  const plzRef = useRef(null);
-  const placeRef = useRef(null);
+  const checkStreetInput = () => {
+    const v = /^[\w\säüöß.,-]+$/;
+    console.log(v.test(streetValue));
+    if (streetValue && !v.test(streetValue)) {
+      setStreetError(streetValue);
+      setStreetValue('');
+      checks[1] = false;
+    } else {
+      setStreetError('');
+      checks[1] = true;
+    }
+  };
+  const checkHnrInput = () => {
+    const v = /^\d{1,4}[A-Za-z]?$/;
+    console.log(v.test(hnrValue));
+    if (hnrValue && !v.test(hnrValue)) {
+      setHnrError(hnrValue);
+      setHnrValue('');
+      checks[2] = false;
+    } else {
+      setHnrError('');
+      checks[2] = true;
+    }
+    console.log(checks);
+  };
+
+  const checkPlzInput = () => {
+    const v = /^\d{5}$/;
+    console.log(v.test(plzValue));
+    if (plzValue && !v.test(plzValue)) {
+      setPlzError(plzValue);
+      setPlzValue('');
+      checks[3] = false;
+    } else {
+      setPlzError('');
+      checks[3] = true;
+    }
+    console.log(checks);
+  };
+
+  const checkPlaceInput = () => {
+    const v = /^[\w\säüöß.,-]+$/;
+    console.log(v.test(placeValue));
+    if (placeValue && !v.test(placeValue)) {
+      setPlaceError(placeValue);
+      setPlaceValue('');
+      checks[4] = false;
+    } else {
+      setPlaceError('');
+      checks[4] = true;
+    }
+    console.log(checks);
+  };
+
+  const checkInfoInput = () => {
+    const v = /^[\w\säüöß.,-]+$/;
+    console.log(v.test(infoValue));
+    if (infoValue && !v.test(infoValue)) {
+      setInfoError(infoValue);
+      setInfoValue('');
+      checks[5] = false;
+    } else {
+      setInfoError('');
+      checks[5] = true;
+    }
+    console.log(checks);
+  };
+
+  const getNewAddress = () => {
+    const address = {
+      name: nameValue,
+      street: streetValue,
+      hnr: hnrValue,
+      plz: plzValue,
+      place: placeValue,
+      info: infoValue ? infoValue : null,
+    };
+
+    return address;
+  };
 
   function cleanInputFields() {
     setNameValue('');
@@ -29,58 +124,52 @@ export default function useNewAddressModal() {
     setInfoValue('');
   }
 
-  var checks = [false, false, false, false, false];
-  const refs = [nameRef, streetRef, hnrRef, plzRef, placeRef];
-
-  function checkInput() {
-    console.log(refs[1].current.element);
-    // for (let i = 0; i < 5; i++) {
-    //   
-    //   if (refs[i].current.value === '') {
-    //     checks[i] = false;
-    //     refs[i].current.element.style.borderColor = 'red';
-    //   } else {
-    //     checks[i] = true;
-    //     refs[i].current.style.borderColor = 'black';
-    //   }
-    // }
-
-    // if (plzRef.current.element.value === '') {
-    //   checks[4] = false;
-    //   plzRef.current.element.style.borderColor = 'red';
-    // } else {
-    //   checks[4] = true;
-    //   plzRef.current.element.style.borderColor = 'black';
-    // }
-  }
-
   const toggleModalVisible = () => setModalVisible(!modalVisible);
-  const handelOnClickBackBtn = () => toggleModalVisible();
+  const handelOnClickBackBtn = () => {
+    cleanInputFields();
+    toggleModalVisible();
+  };
   const handelOnClickSaveBtn = () => {
-    checkInput();
+    if (!checks.includes(false)) {
+      try {
+        saveNewAddress(getNewAddress());
+        cleanInputFields();
+        toggleModalVisible();
+      } catch (e) {
+        console.error(e);
+      }
+    }
   };
 
   return {
     modalVisible,
+    toggleModalVisible,
     nameValue,
     setNameValue,
-    nameRef,
+    nameError,
     streetValue,
     setStreetValue,
-    streetRef,
+    streetError,
     hnrValue,
     setHnrValue,
-    hnrRef,
+    hnrError,
     plzValue,
     setPlzValue,
-    plzRef,
+    plzError,
     placeValue,
     setPlaceValue,
-    placeRef,
+    placeError,
     infoValue,
+    infoError,
+    setInfoError,
     setInfoValue,
-    toggleModalVisible,
     handelOnClickBackBtn,
     handelOnClickSaveBtn,
+    checkNameInput,
+    checkStreetInput,
+    checkHnrInput,
+    checkPlzInput,
+    checkPlaceInput,
+    checkInfoInput,
   };
 }

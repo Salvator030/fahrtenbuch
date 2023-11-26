@@ -70,13 +70,24 @@ export const getAllEntriesInTable = async (db, tableName) => {
 };
 
 export const deleteEntreById = async (db, tableName, id) => {
-  const deleteQuery = `DELETE FROM ${tableName} WHERE add_id = ${id};`;
-  return db.executeSql(deleteQuery);
+  try {
+    const deleteQuery = `DELETE FROM ${tableName} WHERE add_id = ${id};`;
+    return db.executeSql(deleteQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to delete entire ${id} from ${tableName} !!!`);
+  }
 };
 
 // --querys for address_tbl
 
 export const saveAddress = async (db, address) => {
-  const insertQuery = `INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide) VALUES (${address.name}, ${address.street}, ${address.hnr}, ${address.plz}, ${address.place}, ${address.info}, 0)`;
-  return db.executeSql(insertQuery);
+  console.log(address);
+  try {
+    const insertQuery = `INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide) VALUES ('${address.name}','${address.street}','${address.hnr}','${address.plz}','${address.place}','${address.info}',0)`;
+    return db.executeSql(insertQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to save Address !!!');
+  }
 };

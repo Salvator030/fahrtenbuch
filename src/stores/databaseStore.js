@@ -22,7 +22,7 @@ export default function useDatabase() {
 
   const saveNewAddress = address => {
     database.saveNewAddress(address);
-    setNewAddress(address);
+    console.log(setNewAddress(address));
   };
 
   return {saveNewAddress};
