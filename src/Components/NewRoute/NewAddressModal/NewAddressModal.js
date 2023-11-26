@@ -1,5 +1,5 @@
 import {Button, Modal, View, StyleSheet, Text, TextInput} from 'react-native';
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Grid from '../../CustomComponents/Grid/Grid';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -28,7 +28,6 @@ const styles = {
   gridStyle: {
     flex: 12,
     marginHorizontal: 'auto',
-    backgroundColor: 'black',
   },
   row: {
     flexDirection: 'row',
@@ -42,93 +41,136 @@ const styles = {
   headline: {marginBottom: 8, fontSize: 18, fontWeight: 'bold'},
   infoText: {height: 150},
   text: {height: 32},
+  textColorBlack: {color: 'black'},
+  textColorRed: {color: 'red'},
 };
 
 export default function NewAddressModal() {
   const useShareNewAddressModal = () => useBetween(useNewAddressModal);
-  const {handelOnClickBackBtn} = useShareNewAddressModal();
+  const {
+    nameValue,
+    setNameValue,
+    nameError,
+    streetValue,
+    setStreetValue,
+    streetError,
+    hnrValue,
+    setHnrValue,
+    hnrError,
+    plzValue,
+    setPlzValue,
+    plzError,
+    placeValue,
+    setPlaceValue,
+    placeError,
+    infoValue,
+    infoError,
+    setInfoValue,
+    handelOnClickBackBtn,
+    handelOnClickSaveBtn,
+    checkNameInput,
+    checkStreetInput,
+    checkHnrInput,
+    checkPlzInput,
+    checkPlaceInput,
+    checkInfoInput,
 
-  const rowsAndCols = [
-    {
-      style: styles.row,
-      cols: [
-        {
-          style: styles.col1,
-          item: <TextInput placeholder="Name" style={styles.text} />,
-        },
-      ],
-    },
-    {
-      style: styles.row,
-      cols: [
-        {
-          style: styles.col4,
-          item: <TextInput placeholder="Straße" style={styles.text} />,
-        },
-        {
-          style: styles.col3,
-          item: <TextInput placeholder="Hnr" style={styles.text} />,
-        },
-      ],
-    },
-    {
-      style: styles.row,
-      cols: [
-        {
-          style: styles.col3,
-          item: <TextInput placeholder="PLZ" style={styles.text} />,
-        },
-        {
-          style: styles.col2,
-          item: <TextInput placeholder="Ort" style={styles.text} />,
-        },
-      ],
-    },
-    {
-      style: styles.row,
-      cols: [
-        {
-          style: styles.col,
-          item: (
-            <TextInput multiline placeholder="Info" style={styles.infoText} />
-          ),
-        },
-      ],
-    },
-    {
-      style: styles.row,
-      cols: [
-        {
-          style: styles.col1,
-          item: (
-            <ButtonIcon
-              Icon={Icon}
-              title="zurück"
-              iconName="arrow-back"
-              onClick={handelOnClickBackBtn}
-            />
-          ),
-        },
-        {
-          style: styles.col1,
-          item: <ButtonIcon Icon={Icon2} title="ok" iconName="check" />,
-        },
-      ],
-    },
-  ];
-
-  const [nameValue, setNameValue] = React.useInputState('');
-  const [streetValue, setStreetValue] = React.useInputState('');
-  const [hnrValue, setHnrValue] = React.useInputState('');
-  const [plzValue, setPlzValue] = React.useInputState('0');
-  const [placeValue, setPlaceValue] = React.useInputState('');
-  const [infoValue, setInfoValue] = React.useInputState('');
+    // handelOnClickSaveBtn,
+  } = useShareNewAddressModal();
 
   return (
     <View style={styles.root}>
       <View style={styles.dialog}>
         <Text style={styles.headline}>Neue Addresse</Text>
-        <Grid style={styles.gridStyle} rowsAndCols={rowsAndCols} />
+        <View style={styles.gridStyle}>
+          <View style={styles.row}>
+            <View style={styles.col1}>
+              <TextInput
+                placeholder={!nameError ? 'Name' : nameError}
+                placeholderTextColor={!nameError ? 'gray' : 'red'}
+                value={nameValue}
+                onChangeText={setNameValue}
+                onEndEditing={checkNameInput}
+                style={styles.text}
+              />
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.col4}>
+              <TextInput
+                placeholder={!streetError ? 'Straße' : streetError}
+                placeholderTextColor={!streetError ? 'gray' : 'red'}
+                value={streetValue}
+                onChangeText={setStreetValue}
+                onEndEditing={checkStreetInput}
+                style={styles.text}
+              />
+            </View>
+            <View style={styles.col3}>
+              <TextInput
+                placeholder={!hnrError ? 'Hnr' : hnrError}
+                placeholderTextColor={!hnrError ? 'gray' : 'red'}
+                value={hnrValue}
+                onChangeText={setHnrValue}
+                onEndEditing={checkHnrInput}
+                style={styles.text}
+              />
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.col3}>
+              <TextInput
+                placeholder={!plzError ? 'PLZ' : plzError}
+                placeholderTextColor={!plzError ? 'gray' : 'red'}
+                value={plzValue}
+                onChangeText={setPlzValue}
+                onEndEditing={checkPlzInput}
+                style={styles.text}
+              />
+            </View>
+            <View style={styles.col2}>
+              <TextInput
+                placeholder={!placeError ? 'Ort' : placeError}
+                placeholderTextColor={!placeError ? 'gray' : 'red'}
+                value={placeValue}
+                onChangeText={setPlaceValue}
+                onEndEditing={checkPlaceInput}
+                style={styles.text}
+              />
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.col2}>
+              <TextInput
+                multiline
+                placeholder={infoError ? 'Info' : infoError}
+                placeholderTextColor={!infoError ? 'gray' : 'red'}
+                value={infoValue}
+                onChangeText={setInfoValue}
+                onEndEditing={checkInfoInput}
+                style={styles.infoText}
+              />
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.col1}>
+              <ButtonIcon
+                Icon={Icon}
+                title="zurück"
+                iconName="arrow-back"
+                onClick={handelOnClickBackBtn}
+              />
+            </View>
+            <View style={styles.col1}>
+              <ButtonIcon
+                Icon={Icon2}
+                title="ok"
+                iconName="check"
+                onClick={handelOnClickSaveBtn}
+              />
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   );

@@ -12,10 +12,10 @@ export const implementDatabase = async () => {
 
 export const getAllAddresses = async () => {
   const db = await database.getDBConnection();
-  return await db.getAllEntriesInTable(db, addressTable);
+  return await database.getAllEntriesInTable(db, addressTable);
 };
 
 export const saveNewAddress = async address => {
   const db = await database.getDBConnection();
-  db.saveAddress(address);
+  return await database.saveAddress(db, address);
 };
