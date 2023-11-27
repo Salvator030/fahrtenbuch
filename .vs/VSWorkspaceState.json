@@ -1,10 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\windows",
-    "\\windows\\fahrtenbuch",
-    "\\windows\\fahrtenbuch\\Assets"
+    "\\windows"
   ],
-  "SelectedNode": "\\windows\\fahrtenbuch\\Assets\\Wide310x150Logo.scale-200.png",
+  "SelectedNode": "\\windows\\fahrtenbuch.sln",
   "PreviewInSolutionExplorer": false
 }
