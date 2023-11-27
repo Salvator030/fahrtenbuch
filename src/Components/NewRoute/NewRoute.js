@@ -1,5 +1,6 @@
-import React, {View, StyleSheet, Text} from 'react-native';
-import {Modal, Popup} from 'react-native-windows';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet, Text} from 'react-native';
+import {Popup} from 'react-native-windows';
 import ScrollArea from '../CustomComponents/ScrollArea/ScrollArea';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Grid from '../CustomComponents/Grid/Grid';
@@ -9,6 +10,8 @@ import useNewRoute from '../../stores/newRouteStore';
 import NewAddressModal from './NewAddressModal/NewAddressModal';
 import useNewAddressModal from '../../stores/newAddresModalStore';
 import {useBetween} from 'use-between';
+import useDatabase from '../../stores/databaseStore';
+import AddressCard from './AddressCard/AddressCard';
 
 const styles = StyleSheet.create({
   root: {alignSelf: 'center', height: 800, width: 600},
@@ -31,6 +34,10 @@ export default function NewRoute() {
   const {handelOnClickBackBtn, handelOnClickNewAddressBtn} = useShareNewRoute();
   const useShareNewAddressModal = () => useBetween(useNewAddressModal);
   const {modalVisible} = useShareNewAddressModal();
+  const useShareDatabase = () => useBetween(useDatabase);
+  const {addresses} = useShareDatabase();
+
+  const [cards, setCards] = useState([]);
 
   const rowsAndCols = [
     {
@@ -65,10 +72,18 @@ export default function NewRoute() {
       ],
     },
   ];
+
+  useEffect(() => {
+    console.log(addresses);
+    const cardsList = addresses.map(address => (
+      <AddressCard key={('add', address.add_id)} address={address} />
+    ));
+    setCards(cardsList);
+  }, [addresses]);
   return (
     <View style={styles.root}>
       <Text style={styles.headline}>Neue Strecke</Text>
-      <ScrollArea />
+      <ScrollArea itemsList={cards} />
       <Grid rowsAndCols={rowsAndCols} style={styles.gridStyle} />
       <Popup isOpen={modalVisible}>
         <NewAddressModal />

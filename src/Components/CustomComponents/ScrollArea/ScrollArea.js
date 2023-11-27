@@ -17,7 +17,6 @@ const styles = {
     flex: 1,
   },
   scrollView: {
-    marginHorizontal: 8,
     borderColor: 'black',
     borderWidth: 1,
   },

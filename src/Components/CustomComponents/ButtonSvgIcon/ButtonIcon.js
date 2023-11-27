@@ -10,10 +10,11 @@ export default function ButtonIcon({
   size,
   color,
 }) {
+  console.log(title);
   return (
-    <View style={btnStyle}>
-      <TouchableOpacity ref={this} onPress={onClick}>
-        <Text style={txtStyle}>{title ? title : null}</Text>
+    <View style={btnStyle ? btnStyle : {height: size, width: size}}>
+      <TouchableOpacity onPress={onClick}>
+        <Text style={title ? txtStyle : {height: 0}}>{title}</Text>
         <Icon
           name={iconName}
           size={size ? size : 30}

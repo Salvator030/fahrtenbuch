@@ -3,7 +3,6 @@ import * as database from '../database/databaseHandler';
 
 export default function useDatabase() {
   const [addresses, setAddresses] = useState([]);
-  const [newAddress, setNewAddress] = useState({});
 
   const loadAddressesCallback = useCallback(async () => {
     try {
@@ -18,12 +17,12 @@ export default function useDatabase() {
 
   useEffect(() => {
     loadAddressesCallback();
-  }, [loadAddressesCallback, newAddress]); // triggering by new Addresses is a Workaround
+  }, [loadAddressesCallback]); // triggering by new Addresses is a Workaround
 
   const saveNewAddress = address => {
     database.saveNewAddress(address);
-    console.log(setNewAddress(address));
+    loadAddressesCallback();
   };
 
-  return {saveNewAddress};
+  return {addresses, saveNewAddress};
 }
