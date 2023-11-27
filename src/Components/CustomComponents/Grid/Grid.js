@@ -20,5 +20,9 @@ export default function Grid({gridStyle, rowsAndCols}) {
     return <Row style={row.style}>{col}</Row>;
   });
 
-  return <View style={gridStyle ? gridStyle : null}>{items}</View>;
+  return (
+    <View style={{margin: 8}}>
+      <View style={gridStyle ? gridStyle : null}>{items}</View>
+    </View>
+  );
 }

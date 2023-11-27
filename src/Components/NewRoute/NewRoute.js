@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, Button} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Button} from 'react-native';
 import {Popup} from 'react-native-windows';
 import ScrollArea from '../CustomComponents/ScrollArea/ScrollArea';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
@@ -12,29 +12,40 @@ import useNewAddressModal from '../../stores/newAddresModalStore';
 import {useBetween} from 'use-between';
 import useDatabase from '../../stores/databaseStore';
 import AddressCard from './AddressCard/AddressCard';
+import {sortByAlphabetAscending} from '../../asserts/sortHelper';
 
 const styles = StyleSheet.create({
-  root: {alignSelf: 'center', height: 800, width: 600},
+  root: {alignSelf: 'center', height: 800, width: 300},
 
   gridStyle: {
-    flex: 12,
+    flex: 4,
     marginHorizontal: 'auto',
+    margin: 17,
   },
   row: {
     flexDirection: 'row',
   },
+  col: {flex: 1, marginHorizontal: 'auto'},
   col1: {flex: 2, marginHorizontal: 'auto'},
   col2: {flex: 2, marginHorizontal: 'auto'},
   col3: {flex: 8, marginHorizontal: 'auto'},
 
   searchTag: {
-    width: 75,
+    width: 50,
+    alignSelf: 'center',
+    // alignContent: 'center',
+    alignItems: 'center',
     borderRadius: 25,
+  },
+  searchTagBackgroundWhite: {
     backgroundColor: 'white',
   },
+  searchTagBackgroundGray: {
+    backgroundColor: 'lightgray',
+  },
 
-  text: {marginLeft: 8},
-  headline: {fontSize: 18, fontWeight: 'bold'},
+  text: {textAlign: 'center', paddingLeft: 8},
+  headline: {fontSize: 18, fontWeight: 'bold', marginTop: 8, marginBottom: 16},
 });
 export default function NewRoute() {
   const useShareNewRoute = () => useBetween(useNewRoute);
@@ -45,34 +56,83 @@ export default function NewRoute() {
   const {addresses} = useShareDatabase();
 
   const [cards, setCards] = useState([]);
+  const handelOnClickNamePill = () => {
+    setSortValue('name');
+  };
+
+  const handelOnClickStreetPill = () => {
+    setSortValue('street');
+  };
+
+  const handelOnClickPlzPill = () => {
+    setSortValue('plz');
+  };
+
+  const handelOnClickPlacePill = () => {
+    setSortValue('place');
+  };
+
+  const [sortValue, setSortValue] = useState('name');
 
   const rowsAndCols1 = [
     {
       style: styles.row,
       cols: [
         {
-          style: styles.col1,
+          style: styles.col,
           item: (
-            <View style={styles.searchTag}>
+            <TouchableOpacity
+              onPress={handelOnClickNamePill}
+              style={
+                sortValue === 'name'
+                  ? [styles.searchTag, styles.searchTagBackgroundGray]
+                  : [styles.searchTag, styles.searchTagBackgroundWhite]
+              }>
               <Text styles={styles.text}>Name</Text>
-            </View>
+            </TouchableOpacity>
           ),
         },
         {
-          style: styles.col1,
+          style: styles.col,
           item: (
-            <View style={styles.searchTag}>
-              <Text>Straße</Text>
-            </View>
+            <TouchableOpacity
+              onPress={handelOnClickStreetPill}
+              style={
+                sortValue === 'street'
+                  ? [styles.searchTag, styles.searchTagBackgroundGray]
+                  : [styles.searchTag, styles.searchTagBackgroundWhite]
+              }>
+              <Text styles={styles.text}>Straße</Text>
+            </TouchableOpacity>
           ),
         },
         {
-          style: styles.col1,
-          item: <Button title="PLZ" />,
+          style: styles.col,
+          item: (
+            <TouchableOpacity
+              onPress={handelOnClickPlzPill}
+              style={
+                sortValue === 'plz'
+                  ? [styles.searchTag, styles.searchTagBackgroundGray]
+                  : [styles.searchTag, styles.searchTagBackgroundWhite]
+              }>
+              <Text styles={styles.text}>PLZ</Text>
+            </TouchableOpacity>
+          ),
         },
         {
-          style: styles.col1,
-          item: <Button title="Ort" />,
+          style: styles.col,
+          item: (
+            <TouchableOpacity
+              onPress={handelOnClickPlacePill}
+              style={
+                sortValue === 'place'
+                  ? [styles.searchTag, styles.searchTagBackgroundGray]
+                  : [styles.searchTag, styles.searchTagBackgroundWhite]
+              }>
+              <Text styles={styles.text}>Ort</Text>
+            </TouchableOpacity>
+          ),
         },
       ],
     },
@@ -114,11 +174,56 @@ export default function NewRoute() {
 
   useEffect(() => {
     console.log(addresses);
+
+    switch (sortValue) {
+      case 'name': {
+        addresses.sort((a, b) => sortByAlphabetAscending(a.name, b.name));
+        // list = list.filter(route =>
+        //   getRouteFullAddressesByRouteId(route.route_id)[0].name.startsWith(
+        //     searchValue,
+        //   ),
+        // );
+
+        break;
+      }
+      case 'street': {
+        addresses.sort((a, b) => sortByAlphabetAscending(a.street, b.street));
+
+        // list = list.filter(route =>
+        //   getRouteFullAddressesByRouteId(route.route_id)[1].name.startsWith(
+        //     searchValue,
+        //   ),
+        // );
+
+        break;
+      }
+      case 'plz': {
+        addresses.sort((a, b) => sortByAlphabetAscending(a.plz, b.plz));
+        // list = list.filter(route =>
+        //   getRouteFullAddressesByRouteId(route.route_id)[0].street.startsWith(
+        //     searchValue,
+        //   ),
+        // );
+        break;
+      }
+      case 'place': {
+        addresses.sort((a, b) => sortByAlphabetAscending(a.place, b.place));
+        // list = list.filter(route =>
+        //   getRouteFullAddressesByRouteId(route.route_id)[1].street.startsWith(
+        //     searchValue,
+        //   ),
+        // );
+        break;
+      }
+      default: {
+      }
+    }
     const cardsList = addresses.map(address => (
       <AddressCard key={('add', address.add_id)} address={address} />
     ));
     setCards(cardsList);
-  }, [addresses]);
+  }, [addresses, sortValue]);
+
   return (
     <View style={styles.root}>
       <Text style={styles.headline}>Neue Strecke</Text>
