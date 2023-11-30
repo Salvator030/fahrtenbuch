@@ -1,11 +1,11 @@
 import {Button, Modal, View, StyleSheet, Text, TextInput} from 'react-native';
 import React, {useState, useRef} from 'react';
-import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
-import Grid from '../../CustomComponents/Grid/Grid';
+import ButtonIcon from '../../../CustomComponents/ButtonSvgIcon/ButtonIcon';
+import Grid from '../../../CustomComponents/Grid/Grid';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {useBetween} from 'use-between';
-import useNewAddressModal from '../../../stores/newAddresModalStore';
+import useNewAddressModal from '../../../../stores/newAddresModalStore';
 
 const styles = {
   root: {

@@ -9,18 +9,22 @@ import React, {
 import Grid from '../../CustomComponents/Grid/Grid';
 import ScrollArea from '../../CustomComponents/ScrollArea/ScrollArea';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
-import NewAddressModal from '../NewAddressModal/NewAddressModal';
+import NewAddressModal from './NewAddressModal/NewAddressModal';
 import useAddresses from '../../../stores/addressesStore';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {useBetween} from 'use-between';
 import useNewAddressModal from '../../../stores/newAddresModalStore';
+import useNewRoute from '../../../stores/newRouteStore';
 
 const styles = StyleSheet.create({
+  root: {
+    height: 550,
+    width: 300,
+  },
   gridStyle: {
     flex: 4,
     marginHorizontal: 'auto',
-    margin: 17,
   },
   row: {
     flexDirection: 'row',
@@ -28,7 +32,7 @@ const styles = StyleSheet.create({
   col: {flex: 1, marginHorizontal: 'auto'},
   col1: {flex: 2, marginHorizontal: 'auto'},
   col2: {flex: 2, marginHorizontal: 'auto'},
-  col3: {flex: 8, marginHorizontal: 'auto'},
+  col3: {flex: 2, marginHorizontal: 'auto'},
 
   searchTag: {
     width: 50,
@@ -51,10 +55,14 @@ const styles = StyleSheet.create({
 export default function Addresses() {
   const useShareNewAddressModal = () => useBetween(useNewAddressModal);
   const {modalVisible} = useShareNewAddressModal();
+  const useShareNewRoute = () => useBetween(useNewRoute);
+  const {viewDescription, startAddress, destinationAddress} =
+    useShareNewRoute();
 
   const {
     sortValue,
     handelOnClickBackBtn,
+    handelOnClickNextBtn,
     searchValue,
     setSearchValue,
     cards,
@@ -152,9 +160,36 @@ export default function Addresses() {
           item: (
             <ButtonIcon
               Icon={Icon2}
-              title="neue Adresse"
+              title="neue Adr."
               iconName="address-card-o"
               onClick={handelOnClickNewAddressBtn}
+            />
+          ),
+        },
+        {
+          style: styles.col3,
+          item: (
+            <ButtonIcon
+              Icon={Icon}
+              title="weiter"
+              iconName="arrow-forward"
+              onClick={handelOnClickNextBtn}
+              disabled={
+                viewDescription === 'startAddress'
+                  ? startAddress === 0
+                    ? true
+                    : false
+                  : destinationAddress === 0
+                  ? true
+                  : false
+              }
+              color={
+                viewDescription === 'startAddress'
+                  ? startAddress === 0
+                    ? 'gray'
+                    : 'black'
+                  : destinationAddress === 0 && 'gray'
+              }
             />
           ),
         },
@@ -162,7 +197,12 @@ export default function Addresses() {
     },
   ];
   return (
-    <View>
+    <View style={styles.root}>
+      <Text>
+        {viewDescription === 'startAddress'
+          ? 'Start Addresse'
+          : 'Ziel Addresse'}
+      </Text>
       <Grid rowsAndCols={rowsAndCols1} style={styles.gridStyle} />
       <TextInput
         placeholder="Suche"

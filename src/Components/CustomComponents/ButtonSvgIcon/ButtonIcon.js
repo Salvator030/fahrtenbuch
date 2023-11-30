@@ -1,4 +1,4 @@
-import React, {TouchableOpacity, Text, View} from 'react-native';
+import React, {TouchableWithoutFeedback, Text, View} from 'react-native';
 
 export default function ButtonIcon({
   btnStyle,
@@ -9,18 +9,23 @@ export default function ButtonIcon({
   iconName,
   size,
   color,
+  disabled,
 }) {
   console.log(title);
   return (
     <View style={btnStyle ? btnStyle : {height: size, width: size}}>
-      <TouchableOpacity onPress={onClick}>
-        <Text style={title ? txtStyle : {height: 0}}>{title}</Text>
-        <Icon
-          name={iconName}
-          size={size ? size : 30}
-          color={color ? color : 'black'}
-        />
-      </TouchableOpacity>
+      <TouchableWithoutFeedback
+        onPress={onClick}
+        disabled={disabled ? disabled : false}>
+        <View>
+          <Text style={title ? txtStyle : {height: 0}}>{title}</Text>
+          <Icon
+            name={iconName}
+            size={size ? size : 30}
+            color={color ? color : 'black'}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 }

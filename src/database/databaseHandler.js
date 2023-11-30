@@ -10,6 +10,8 @@ export const implementDatabase = async () => {
   await database.createDrivenRouteTable(db);
 };
 
+// --- addresses
+
 export const getAllAddresses = async () => {
   const db = await database.getDBConnection();
   return await database.getAllEntriesInTable(db, addressTable);
@@ -18,4 +20,11 @@ export const getAllAddresses = async () => {
 export const saveNewAddress = async address => {
   const db = await database.getDBConnection();
   return await database.saveAddress(db, address);
+};
+
+// --- routes
+
+export const getAllRoutes = async () => {
+  const db = await database.getDBConnection();
+  return await database.getAllEntriesInTable(db, routeTable);
 };
