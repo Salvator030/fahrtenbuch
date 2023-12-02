@@ -79,6 +79,15 @@ export const deleteEntreById = async (db, tableName, id) => {
   }
 };
 
+export const deleteTable = async (db, tableName) => {
+  try {
+    const query = `drop table ${tableName}`;
+    await db.executeSql(query);
+  } catch (e) {
+    throw Error(`Failed to delete ${tableName}`);
+  }
+};
+
 // --querys for address_tbl
 
 export const saveAddress = async (db, address) => {

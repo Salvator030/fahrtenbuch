@@ -6,10 +6,12 @@ export default function useDatabase() {
   const [routes, setRoutes] = useState([]);
 
   const loadAddressesCallback = useCallback(async () => {
+    console.log('getAddresses');
     try {
       const addressesResult = await database.getAllAddresses();
       if (addressesResult.length) {
         setAddresses(addressesResult);
+        console.log(addressesResult);
       }
     } catch (error) {
       console.error(error);
@@ -17,10 +19,12 @@ export default function useDatabase() {
   }, []);
 
   const loadRoutesCallback = useCallback(async () => {
+    console.log('getRoutes');
     try {
       const routesResult = await database.getAllRoutes();
       if (routesResult.length) {
         setRoutes(routesResult);
+        console.log(routesResult);
       }
     } catch (error) {
       console.error(error);
@@ -49,5 +53,11 @@ export default function useDatabase() {
     loadRoutesCallback();
   };
 
-  return {addresses, saveNewAddress, getFullAddressById, routes, saveNewRoute};
+  return {
+    addresses,
+    saveNewAddress,
+    getFullAddressById,
+    routes,
+    saveNewRoute,
+  };
 }

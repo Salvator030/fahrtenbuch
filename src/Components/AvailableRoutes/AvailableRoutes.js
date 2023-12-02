@@ -8,14 +8,14 @@ import useAvailableRoutes from '../../stores/availableRoutesStor';
 
 const styles = {
   gridStyle: {
-    flex: 0,
-    marginHorizontal: 'auto',
-    backgroundColor: 'black',
+    flex: 12,
   },
   row: {
     flexDirection: 'row',
+    marginLeft: 16,
+    marginRight: 16,
   },
-  col1: {flex: 0.5, marginHorizontal: 'auto'},
+  col1: {flex: 2, marginHorizontal: 'auto'},
   container: {
     flex: 1,
   },
@@ -27,9 +27,28 @@ const styles = {
 };
 
 export default function AvailableRoutes() {
-  const {handelOnClickNewRouteBtn} = useAvailableRoutes();
+  const {routesCards, handelOnClickNewRouteBtn} = useAvailableRoutes();
 
-  const rowsAndCols = [
+  const discription = [
+    {
+      style: styles.row,
+      cols: [
+        {
+          style: styles.col1,
+          item: <Text>Von</Text>,
+        },
+        {
+          style: styles.col1,
+          item: <Text>Nach</Text>,
+        },
+        {
+          style: styles.col1,
+          item: <Text>Entfernung</Text>,
+        },
+      ],
+    },
+  ];
+  const buttons = [
     {
       style: styles.row,
       cols: [
@@ -59,12 +78,13 @@ export default function AvailableRoutes() {
   ];
 
   const example = [
+    <Grid rowsAndCols={discription} style={styles.gridStyle} />,
     <View style={{height: 300, width: '100%', alignSelf: 'center'}}>
       <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>{}</ScrollView>
+        <ScrollView style={styles.scrollView}>{routesCards}</ScrollView>
       </View>
     </View>,
-    <Grid rowsAndCols={rowsAndCols} style={styles.gridStyle} />,
+    <Grid rowsAndCols={buttons} style={styles.gridStyle} />,
   ];
   return <Accordion title="Verfügbare Strecken" items={example} />;
 }

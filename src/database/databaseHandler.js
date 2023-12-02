@@ -11,6 +11,10 @@ export const implementDatabase = async () => {
 };
 
 // --- addresses
+export const deleteAddressTable = async () => {
+  const db = await database.getDBConnection();
+  database.deleteTable(db, addressTable);
+};
 
 export const getAllAddresses = async () => {
   const db = await database.getDBConnection();
@@ -23,6 +27,10 @@ export const saveNewAddress = async address => {
 };
 
 // --- routes
+export const deleteRouteTable = async () => {
+  const db = await database.getDBConnection();
+  database.deleteTable(db, routeTable);
+};
 
 export const getAllRoutes = async () => {
   const db = await database.getDBConnection();
