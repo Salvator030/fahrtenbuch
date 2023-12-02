@@ -65,7 +65,7 @@ export const getAllEntriesInTable = async (db, tableName) => {
     return entries;
   } catch (error) {
     console.error(error);
-    throw Error('Failed to get todoItems !!!');
+    throw Error(`Failed to get Items form ${tableName} !!!`);
   }
 };
 
@@ -82,12 +82,21 @@ export const deleteEntreById = async (db, tableName, id) => {
 // --querys for address_tbl
 
 export const saveAddress = async (db, address) => {
-  console.log(address);
   try {
     const insertQuery = `INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide) VALUES ('${address.name}','${address.street}','${address.hnr}','${address.plz}','${address.place}','${address.info}',0)`;
     return db.executeSql(insertQuery);
   } catch (error) {
     console.error(error);
     throw Error('Failed to save Address !!!');
+  }
+};
+
+export const saveRoute = async (db, route) => {
+  try {
+    const insertQuery = `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`;
+    return db.executeSql(insertQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to save Route !!!');
   }
 };

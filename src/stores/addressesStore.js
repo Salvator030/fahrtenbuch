@@ -1,10 +1,11 @@
 import React, {use, useEffect, useState} from 'react';
-import AddressCard from '../Components/NewRoute/AddressCard/AddressCard';
+import AddressCard from '../Components/NewRoute/Addresses/AddressCard/AddressCard';
 import {sortByAlphabetAscending} from '../asserts/sortHelper';
 import {useBetween} from 'use-between';
 import useDatabase from './databaseStore';
 import useMainView from './MainViewStore';
 import useNewAddressModal from './newAddresModalStore';
+import useNewRoute from './newRouteStore';
 
 export default function useAddresses() {
   const [sortValue, setSortValue] = useState('name');
@@ -17,9 +18,25 @@ export default function useAddresses() {
   const {toggleCreateNewRoute} = useShareMainView();
   const useShareNewAddressModal = () => useBetween(useNewAddressModal);
   const {toggleModalVisible} = useShareNewAddressModal();
+  const useShareNewRoute = () => useBetween(useNewRoute);
+  const {
+    viewDescription,
+    setViewDescription,
+    setStartAddressId,
+    setDestinationAddressId,
+  } = useShareNewRoute();
 
   const handelOnClickBackBtn = () => {
-    toggleCreateNewRoute();
+    viewDescription === 'startAddress'
+      ? (setStartAddressId(0), toggleCreateNewRoute())
+      : setDestinationAddressId(0),
+      setViewDescription('startAddress');
+  };
+
+  const handelOnClickNextBtn = () => {
+    viewDescription === 'startAddress'
+      ? setViewDescription('destinationAddress')
+      : setViewDescription('distance');
   };
 
   const handelOnClickNewAddressBtn = () => {
@@ -43,7 +60,6 @@ export default function useAddresses() {
   };
 
   useEffect(() => {
-    console.log(addresses);
     let list = addresses;
     switch (sortValue) {
       case 'name': {
@@ -100,6 +116,7 @@ export default function useAddresses() {
     setSearchValue,
     cards,
     handelOnClickBackBtn,
+    handelOnClickNextBtn,
     handelOnClickNewAddressBtn,
     handelOnClickNamePill,
     handelOnClickStreetPill,

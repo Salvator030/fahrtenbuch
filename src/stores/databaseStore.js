@@ -3,6 +3,7 @@ import * as database from '../database/databaseHandler';
 
 export default function useDatabase() {
   const [addresses, setAddresses] = useState([]);
+  const [routes, setRoutes] = useState([]);
 
   const loadAddressesCallback = useCallback(async () => {
     try {
@@ -15,14 +16,38 @@ export default function useDatabase() {
     }
   }, []);
 
+  const loadRoutesCallback = useCallback(async () => {
+    try {
+      const routesResult = await database.getAllRoutes();
+      if (routesResult.length) {
+        setRoutes(routesResult);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   useEffect(() => {
     loadAddressesCallback();
-  }, [loadAddressesCallback]); // triggering by new Addresses is a Workaround
+  }, [loadAddressesCallback]);
+
+  useEffect(() => {
+    loadRoutesCallback();
+  }, [loadRoutesCallback]);
 
   const saveNewAddress = address => {
     database.saveNewAddress(address);
     loadAddressesCallback();
   };
 
-  return {addresses, saveNewAddress};
+  const getFullAddressById = id => {
+    return addresses.find(address => address.add_id === id);
+  };
+
+  const saveNewRoute = route => {
+    database.saveNewRoute(route);
+    loadRoutesCallback();
+  };
+
+  return {addresses, saveNewAddress, getFullAddressById, routes, saveNewRoute};
 }

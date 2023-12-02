@@ -1,37 +1,36 @@
-import React, {Text, View} from 'react-native';
+import React, {View, StyleSheet, Text} from 'react-native';
 
-const styles = {
+const styles = StyleSheet.create({
+  textInput: {width: 75, alignSelf: 'center'},
   root: {
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingBottom: 8,
-    backgroundColor: 'lightgray',
-
-    borderColor: 'black',
-    borderWidth: 1,
-    marginBottom: 16,
-    marginLeft: 8,
-    marginRight: 8,
+    minHeight: 90,
+    width: 300,
+  },
+  container: {
+    height: 500,
+    marginHorizontal: 'auto',
   },
   gridStyle: {
     flex: 12,
-    marginHorizontal: 'auto',
+    height: 800,
+  },
+  gridStyleBtn: {
+    flex: 12,
+  },
+  rowInput: {
+    flexDirection: 'row',
+    marginTop: 'auto',
+    marginBottom: 'auto',
   },
   row: {
     flexDirection: 'row',
-    marginTop: 4,
+    marginTop: 8,
   },
   col1: {flex: 1, marginHorizontal: 'auto'},
-  col2: {flex: 9, marginHorizontal: 'auto'},
-  col3: {flex: 3, marginHorizontal: 'auto'},
-  col4: {flex: 8, marginHorizontal: 'auto'},
-
+  col2: {flex: 2, marginHorizontal: 'auto'},
   text: {marginRight: 8},
-  addresName: {marginRight: 8, fontSize: 16, fontWeight: 'bold'},
-  icon: {height: 20, width: 20},
-};
+});
 export default function AddressCard({address}) {
-  console.log(address);
   return (
     <View style={styles.root}>
       <View style={styles.gridStyle}>
@@ -56,13 +55,13 @@ export default function AddressCard({address}) {
             <Text>{address.place}</Text>
           </View>
         </View>
-        {address.info !== '' && (
+        {/* {address.info !== '' && (
           <View style={styles.row}>
             <View>
               <Text>{address.info}</Text>
             </View>
           </View>
-        )}
+        )} */}
       </View>
     </View>
   );
