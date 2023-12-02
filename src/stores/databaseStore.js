@@ -21,7 +21,6 @@ export default function useDatabase() {
       const routesResult = await database.getAllRoutes();
       if (routesResult.length) {
         setRoutes(routesResult);
-        console.log(routesResult);
       }
     } catch (error) {
       console.error(error);

@@ -30,10 +30,6 @@ export default function useNewRoute() {
     toggleCreateNewRoute();
   };
 
-  useEffect(() => {
-    console.log('newRouteStrore startAddressid', startAddressId);
-  }, [startAddressId]);
-
   return {
     viewDescription,
     setViewDescription,

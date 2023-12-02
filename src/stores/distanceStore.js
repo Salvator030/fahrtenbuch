@@ -16,14 +16,11 @@ export default function useDistance() {
 
   const checkDistance = () => {
     const tempDistance = distanceInputValue.trim().replace(',', '.');
-    console.log(tempDistance);
     if (isNaN(tempDistance)) {
-      console.log('if');
       setError('Bitte eine Zahl eingeben');
       setDistanceInputValue('');
       return false;
     } else {
-      console.log('else');
       setError('');
       setDistance(parseFloat(tempDistance));
       return true;

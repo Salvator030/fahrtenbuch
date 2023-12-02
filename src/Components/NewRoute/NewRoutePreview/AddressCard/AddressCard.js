@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   text: {marginRight: 8},
 });
 export default function AddressCard({address}) {
-  console.log(address);
   return (
     <View style={styles.root}>
       <View style={styles.gridStyle}>

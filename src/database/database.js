@@ -92,7 +92,6 @@ export const saveAddress = async (db, address) => {
 };
 
 export const saveRoute = async (db, route) => {
-  console.log(route);
   try {
     const insertQuery = `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`;
     return db.executeSql(insertQuery);
