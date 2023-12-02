@@ -5,18 +5,19 @@ import {useBetween} from 'use-between';
 import useDistance from '../../../stores/distanceStore';
 
 const styles = StyleSheet.create({
-  textInput: {width: 75, alignSelf: 'center'},
+  textInput: {width: 150, alignSelf: 'center'},
   root: {
-    height: 550,
+    height: 950,
     width: 300,
+    alignSelf: 'center',
   },
   container: {
     height: 500,
     marginHorizontal: 'auto',
   },
   gridStyle: {
-    he: 400,
     flex: 12,
+    height: 800,
   },
   gridStyleBtn: {
     flex: 12,
@@ -30,16 +31,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 8,
   },
-  col1: {flex: 1, marginHorizontal: 'auto'},
-  col2: {flex: 2, marginHorizontal: 'auto'},
+  col1: {flex: 1, marginHorizontal: 'auto', alignSelf: 'center'},
+  col2: {flex: 2, marginHorizontal: 'auto', alignSelf: 'center'},
+  col3: {flex: 4, marginHorizontal: 'auto', alignSelf: 'center'},
 });
 export default function Distance() {
   const useShareDistance = () => useBetween(useDistance);
   const {
     distanceInputValue,
     setDistanceInputValue,
+    checkDistance,
     handelOnClickBackBtn,
     handelOnClickNextBtn,
+    error,
   } = useShareDistance();
   return (
     <View style={styles.root}>
@@ -47,22 +51,22 @@ export default function Distance() {
 
       <View style={styles.gridStyle}>
         <View style={styles.rowInput}>
-          <View style={styles.col1}>
+          <View style={styles.col2}>
             <TextInput
               style={styles.textInput}
               value={distanceInputValue}
               onChangeText={setDistanceInputValue}
-              placeholder={'0'}
+              placeholder={!error ? '0' : error}
             />
           </View>
-          <View style={styles.col2}>
+          <View style={styles.col1}>
             <Text>KM</Text>
           </View>
         </View>
       </View>
       <View style={styles.gridStyleBtn}>
         <View style={styles.row}>
-          <View style={styles.col1}>
+          <View style={styles.col2}>
             <ButtonIcon
               Icon={Icon}
               title="zurück"
@@ -70,6 +74,7 @@ export default function Distance() {
               onClick={handelOnClickBackBtn}
             />
           </View>
+          <View style={styles.col3} />
           <View style={styles.col2}>
             <ButtonIcon
               Icon={Icon}

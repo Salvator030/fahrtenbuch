@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
 import useMainView from './MainViewStore';
 
@@ -6,17 +6,21 @@ export default function useNewRoute() {
   const useShareMainView = () => useBetween(useMainView);
   const {toggleCreateNewRoute} = useShareMainView();
   const [viewDescription, setViewDescription] = useState('startAddress');
-  const [startAddress, setStartAddress] = useState(0);
-  const [destinationAddress, setDestinationAddress] = useState(0);
+  const [startAddressId, setStartAddressId] = useState(0);
+  const [destinationAddressId, setDestinationAddressId] = useState(0);
   const [distance, setDistance] = useState(0);
 
   const createNewRoute = () => {
-    return {startAddress, destinationAddress, distance};
+    return {
+      startAdd_id: startAddressId,
+      destAdd_id: destinationAddressId,
+      distance: distance,
+    };
   };
 
   const clearNewRoute = () => {
-    setStartAddress(0);
-    setDestinationAddress(0);
+    setStartAddressId(0);
+    setDestinationAddressId(0);
     setDistance(0);
   };
 
@@ -26,13 +30,17 @@ export default function useNewRoute() {
     toggleCreateNewRoute();
   };
 
+  useEffect(() => {
+    console.log('newRouteStrore startAddressid', startAddressId);
+  }, [startAddressId]);
+
   return {
     viewDescription,
     setViewDescription,
-    startAddress,
-    setStartAddress,
-    destinationAddress,
-    setDestinationAddress,
+    startAddressId,
+    setStartAddressId,
+    destinationAddressId,
+    setDestinationAddressId,
     distance,
     setDistance,
     createNewRoute,

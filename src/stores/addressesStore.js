@@ -22,19 +22,18 @@ export default function useAddresses() {
   const {
     viewDescription,
     setViewDescription,
-    setStartAddress,
-    setDestinationAddress,
+    setStartAddressId,
+    setDestinationAddressId,
   } = useShareNewRoute();
 
   const handelOnClickBackBtn = () => {
     viewDescription === 'startAddress'
-      ? (setStartAddress(0), toggleCreateNewRoute())
-      : setDestinationAddress(0),
+      ? (setStartAddressId(0), toggleCreateNewRoute())
+      : setDestinationAddressId(0),
       setViewDescription('startAddress');
   };
 
   const handelOnClickNextBtn = () => {
-    console.log('next');
     viewDescription === 'startAddress'
       ? setViewDescription('destinationAddress')
       : setViewDescription('distance');
@@ -61,7 +60,6 @@ export default function useAddresses() {
   };
 
   useEffect(() => {
-    console.log(addresses);
     let list = addresses;
     switch (sortValue) {
       case 'name': {

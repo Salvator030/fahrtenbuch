@@ -11,7 +11,6 @@ export default function ButtonIcon({
   color,
   disabled,
 }) {
-  console.log(title);
   return (
     <View style={btnStyle ? btnStyle : {height: size, width: size}}>
       <TouchableWithoutFeedback

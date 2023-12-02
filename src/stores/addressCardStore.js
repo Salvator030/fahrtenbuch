@@ -3,16 +3,13 @@ import {useBetween} from 'use-between';
 
 export default function useAddressCard() {
   const useShareNewRoute = () => useBetween(useNewRoute);
-  const {viewDescription, setStartAddress, setDestinationAddress} =
+  const {viewDescription, setStartAddressId, setDestinationAddressId} =
     useShareNewRoute();
 
   const handelOnPressAddressCard = address => {
-    console.log(address.add_id);
-    console.log(viewDescription);
     viewDescription === 'startAddress'
-      ? setStartAddress(address.add_id)
-      : setDestinationAddress(address.add_id);
-    //     console.log(selectedCardID);'
+      ? setStartAddressId(address.add_id)
+      : setDestinationAddressId(address.add_id);
   };
 
   return {handelOnPressAddressCard};

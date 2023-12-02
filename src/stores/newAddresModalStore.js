@@ -22,7 +22,7 @@ export default function useNewAddressModal() {
   const [checks] = useState([false, false, false, false, false, true]);
   const checkNameInput = () => {
     const v = /^[\w\säüöß.,-]+$/;
-    console.log(v.test(nameValue));
+
     if (nameValue && !v.test(nameValue)) {
       setNameError(nameValue);
       setNameValue('');
@@ -31,12 +31,11 @@ export default function useNewAddressModal() {
       setNameError('');
       checks[0] = true;
     }
-    console.log(checks);
   };
 
   const checkStreetInput = () => {
     const v = /^[\w\säüöß.,-]+$/;
-    console.log(v.test(streetValue));
+
     if (streetValue && !v.test(streetValue)) {
       setStreetError(streetValue);
       setStreetValue('');
@@ -48,7 +47,7 @@ export default function useNewAddressModal() {
   };
   const checkHnrInput = () => {
     const v = /^\d{1,4}[A-Za-z]?$/;
-    console.log(v.test(hnrValue));
+
     if (hnrValue && !v.test(hnrValue)) {
       setHnrError(hnrValue);
       setHnrValue('');
@@ -57,12 +56,11 @@ export default function useNewAddressModal() {
       setHnrError('');
       checks[2] = true;
     }
-    console.log(checks);
   };
 
   const checkPlzInput = () => {
     const v = /^\d{5}$/;
-    console.log(v.test(plzValue));
+
     if (plzValue && !v.test(plzValue)) {
       setPlzError(plzValue);
       setPlzValue('');
@@ -71,12 +69,11 @@ export default function useNewAddressModal() {
       setPlzError('');
       checks[3] = true;
     }
-    console.log(checks);
   };
 
   const checkPlaceInput = () => {
     const v = /^[\w\säüöß.,-]+$/;
-    console.log(v.test(placeValue));
+
     if (placeValue && !v.test(placeValue)) {
       setPlaceError(placeValue);
       setPlaceValue('');
@@ -85,12 +82,11 @@ export default function useNewAddressModal() {
       setPlaceError('');
       checks[4] = true;
     }
-    console.log(checks);
   };
 
   const checkInfoInput = () => {
     const v = /^[\w\säüöß.,-]+$/;
-    console.log(v.test(infoValue));
+
     if (infoValue && !v.test(infoValue)) {
       setInfoError(infoValue);
       setInfoValue('');
@@ -99,7 +95,6 @@ export default function useNewAddressModal() {
       setInfoError('');
       checks[5] = true;
     }
-    console.log(checks);
   };
 
   const getNewAddress = () => {

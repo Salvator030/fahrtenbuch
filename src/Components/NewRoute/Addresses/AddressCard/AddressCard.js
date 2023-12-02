@@ -45,21 +45,19 @@ const styles = StyleSheet.create({
   icon: {height: 20, width: 20},
 });
 export default function AddressCard({address}) {
-  console.log(address);
-
   const useShareAddressCard = () => useBetween(useAddressCard);
   const {handelOnPressAddressCard} = useShareAddressCard();
   const useShareNewRoute = () => useBetween(useNewRoute);
-  const {startAddress, destinationAddress} = useShareNewRoute();
+  const {startAddressId, destinationAddressId} = useShareNewRoute();
 
   // useEffect(() => {}, [startAddress, destinationAddress]);
   return (
     <TouchableWithoutFeedback onPress={() => handelOnPressAddressCard(address)}>
       <View
         style={
-          startAddress === address.add_id
+          startAddressId === address.add_id
             ? [styles.root, styles.rootSelectedBackgroundStart]
-            : destinationAddress === address.add_id
+            : destinationAddressId === address.add_id
             ? [styles.root, styles.rootSelectedBackgroundDestination]
             : [styles.root, styles.rootDefaultBackground]
         }>

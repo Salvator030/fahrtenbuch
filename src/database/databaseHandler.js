@@ -28,3 +28,8 @@ export const getAllRoutes = async () => {
   const db = await database.getDBConnection();
   return await database.getAllEntriesInTable(db, routeTable);
 };
+
+export const saveNewRoute = async route => {
+  const db = await database.getDBConnection();
+  return await database.saveRoute(db, route);
+};

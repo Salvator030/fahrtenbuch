@@ -19,8 +19,9 @@ import useNewRoute from '../../../stores/newRouteStore';
 
 const styles = StyleSheet.create({
   root: {
-    height: 550,
+    height: 950,
     width: 300,
+    alignSelf: 'center',
   },
   gridStyle: {
     flex: 4,
@@ -56,7 +57,7 @@ export default function Addresses() {
   const useShareNewAddressModal = () => useBetween(useNewAddressModal);
   const {modalVisible} = useShareNewAddressModal();
   const useShareNewRoute = () => useBetween(useNewRoute);
-  const {viewDescription, startAddress, destinationAddress} =
+  const {viewDescription, startAddressId, destinationAddressId} =
     useShareNewRoute();
 
   const {
@@ -176,19 +177,19 @@ export default function Addresses() {
               onClick={handelOnClickNextBtn}
               disabled={
                 viewDescription === 'startAddress'
-                  ? startAddress === 0
+                  ? startAddressId === 0
                     ? true
                     : false
-                  : destinationAddress === 0
+                  : destinationAddressId === 0
                   ? true
                   : false
               }
               color={
                 viewDescription === 'startAddress'
-                  ? startAddress === 0
+                  ? startAddressId === 0
                     ? 'gray'
                     : 'black'
-                  : destinationAddress === 0 && 'gray'
+                  : destinationAddressId === 0 && 'gray'
               }
             />
           ),

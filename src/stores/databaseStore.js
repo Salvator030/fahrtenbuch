@@ -21,6 +21,7 @@ export default function useDatabase() {
       const routesResult = await database.getAllRoutes();
       if (routesResult.length) {
         setRoutes(routesResult);
+        console.log(routesResult);
       }
     } catch (error) {
       console.error(error);
@@ -40,10 +41,14 @@ export default function useDatabase() {
     loadAddressesCallback();
   };
 
+  const getFullAddressById = id => {
+    return addresses.find(address => address.add_id === id);
+  };
+
   const saveNewRoute = route => {
     database.saveNewRoute(route);
     loadRoutesCallback();
   };
 
-  return {addresses, saveNewAddress, routes, saveNewRoute};
+  return {addresses, saveNewAddress, getFullAddressById, routes, saveNewRoute};
 }

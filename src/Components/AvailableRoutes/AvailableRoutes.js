@@ -59,7 +59,7 @@ export default function AvailableRoutes() {
   ];
 
   const example = [
-    <View style={{height: 300, width: '100%'}}>
+    <View style={{height: 300, width: '100%', alignSelf: 'center'}}>
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>{}</ScrollView>
       </View>
