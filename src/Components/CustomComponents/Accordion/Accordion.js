@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react';
 import React, {TouchableOpacity, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-export default function Accordion({title, items}) {
+export default function Accordion({title, items, children}) {
   const [expanded, setExpanded] = useState(false);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    setData(items.map((item, i) => <View key={i}>{item}</View>));
-  }, [items]);
+  // useEffect(() => {
+  //   setData(items.map((item, i) => <View key={i}>{item}</View>));
+  // }, [items]);
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -23,7 +23,7 @@ export default function Accordion({title, items}) {
         />
       </TouchableOpacity>
       <View style={styles.parentHr} />
-      {expanded && <View>{data}</View>}
+      {expanded && <View>{children}</View>}
     </View>
   );
 }

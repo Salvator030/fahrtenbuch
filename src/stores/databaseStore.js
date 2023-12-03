@@ -11,8 +11,8 @@ export default function useDatabase() {
       const addressesResult = await database.getAllAddresses();
       if (addressesResult.length) {
         setAddresses(addressesResult);
-        console.log(addressesResult);
       }
+      console.log(addressesResult);
     } catch (error) {
       console.error(error);
     }

@@ -76,7 +76,7 @@ export default function useAddresses() {
         list.sort((a, b) => sortByAlphabetAscending(a.street, b.street));
         if (searchValue !== '') {
           list = list.filter(address =>
-            address.street.toLowerCase().startsWith(searchValue),
+            address.street.toLowerCase().startsWith(searchValue.toLowerCase()),
           );
         }
 
@@ -86,7 +86,7 @@ export default function useAddresses() {
         list.sort((a, b) => sortByAlphabetAscending(a.plz, b.plz));
         if (searchValue !== '') {
           list = list.filter(address =>
-            address.plz.toLowerCase().startsWith(searchValue),
+            address.plz.toLowerCase().startsWith(searchValue.toLowerCase()),
           );
         }
         break;
@@ -95,7 +95,7 @@ export default function useAddresses() {
         list.sort((a, b) => sortByAlphabetAscending(a.place, b.place));
         if (searchValue !== '') {
           list = list.filter(address =>
-            address.place.toLowerCase().startsWith(searchValue),
+            address.place.toLowerCase().startsWith(searchValue.toLowerCase()),
           );
         }
         break;
