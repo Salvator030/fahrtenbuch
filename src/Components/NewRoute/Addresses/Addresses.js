@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
-  col: {flex: 1, marginHorizontal: 'auto'},
+
   col1: {flex: 2, marginHorizontal: 'auto'},
   col2: {flex: 2, marginHorizontal: 'auto'},
   col3: {flex: 2, marginHorizontal: 'auto'},
