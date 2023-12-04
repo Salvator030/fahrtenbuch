@@ -109,3 +109,13 @@ export const saveRoute = async (db, route) => {
     throw Error('Failed to save Route !!!');
   }
 };
+
+export const saveDrivenRoute = async (db, drivenRoute) => {
+  try {
+    const insertQuery = `INSERT INTO drivenRoute_tbl (date,route_id) VALUES ('${drivenRoute.date}',${drivenRoute.route_id})`;
+    return db.executeSql(insertQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to save drivenRoute !!!');
+  }
+};

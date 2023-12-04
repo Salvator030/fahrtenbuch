@@ -9,6 +9,7 @@ import {useBetween} from 'use-between';
 import {
   deleteAddressTable,
   deleteRouteTable,
+  deleteDrivenRouteTable,
 } from '../../database/databaseHandler';
 export default function MainView() {
   const useShareMainView = () => useBetween(useMainView);
@@ -25,6 +26,7 @@ export default function MainView() {
       )}
       <Button onPress={deleteAddressTable} title="d. address" />
       <Button onPress={deleteRouteTable} title="d. route" />
+      <Button onPress={deleteDrivenRouteTable} title="d. drivenRoute" />
     </>
   );
 }

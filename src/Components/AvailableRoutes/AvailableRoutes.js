@@ -10,11 +10,16 @@ import Grid from '../CustomComponents/Grid/Grid';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import TrashIcon from 'react-native-vector-icons/Ionicons';
 import PlusIcon from 'react-native-vector-icons/FontAwesome';
+import RouteIcon from 'react-native-vector-icons/MaterialIcons';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
 import {useEffect} from 'react';
+import {useBetween} from 'use-between';
 
 const styles = {
   gridStyle: {
+    flex: 12,
+  },
+  gridStyleBtn: {
     flex: 12,
   },
   row: {
@@ -39,7 +44,8 @@ const styles = {
     backgroundColor: 'lightgray',
   },
   container: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
   },
   scrollView: {
     marginHorizontal: 8,
@@ -49,14 +55,17 @@ const styles = {
 };
 
 export default function AvailableRoutes() {
+  const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
   const {
     routesCards,
     sortValue,
     searchValue,
     setSearchValue,
+    selectedRoute,
     handelOnClickPill,
     handelOnClickNewRouteBtn,
-  } = useAvailableRoutes();
+    handelOnClickAddDrivenRouteBtn,
+  } = useShareAvaibleRoutes();
 
   // const [items, setItems] = useState([]);
 
@@ -202,55 +211,8 @@ export default function AvailableRoutes() {
       ],
     },
   ];
-  const buttons = [
-    {
-      style: styles.row,
-      cols: [
-        {
-          style: styles.col1,
-          item: (
-            <ButtonIcon
-              title="Neue Strecke"
-              Icon={PlusIcon}
-              iconName="plus"
-              onClick={handelOnClickNewRouteBtn}
-            />
-          ),
-        },
-        {
-          style: styles.col1,
-          item: (
-            <ButtonIcon
-              title="Strecke Löschen"
-              Icon={TrashIcon}
-              iconName="trash"
-            />
-          ),
-        },
-      ],
-    },
-  ];
 
-  // setItems[
-  //   (
-  //     <View>
-  //       <Grid rowsAndCols={pills} style={styles.gridStyle} />
-  //       <TextInput
-  //         value={searchValue}
-  //         onChangeText={setSearchValue}
-  //         placeholder="Suchen"
-  //       />
-  //       <Grid rowsAndCols={discription} style={styles.gridStyle} />
-  //       <View style={{height: 300, width: '100%', alignSelf: 'center'}}>
-  //         <View style={styles.container}>
-  //           <ScrollView style={styles.scrollView}>{routesCards}</ScrollView>
-  //         </View>
-  //       </View>
-  //       <Grid rowsAndCols={buttons} style={styles.gridStyle} />
-  //     </View>
-  //   )
-  // ];
-
+  console.log(selectedRoute === 0);
   return (
     <Accordion title="Verfügbare Strecken">
       <View>
@@ -266,7 +228,39 @@ export default function AvailableRoutes() {
             <ScrollView style={styles.scrollView}>{routesCards}</ScrollView>
           </View>
         </View>
-        <Grid rowsAndCols={buttons} style={styles.gridStyle} />
+        <View style={styles.container}>
+          <View style={styles.gridStyleBtn}>
+            <View style={styles.row}>
+              <View style={styles.col1}>
+                <ButtonIcon
+                  title="Strecke hinzufügen"
+                  Icon={RouteIcon}
+                  iconName="route"
+                  onClick={handelOnClickAddDrivenRouteBtn}
+                  disabled={selectedRoute === 0}
+                  color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                />
+              </View>
+              <View style={styles.col1}>
+                <ButtonIcon
+                  title="Neue Strecke"
+                  Icon={PlusIcon}
+                  iconName="plus"
+                  onClick={handelOnClickNewRouteBtn}
+                />
+              </View>
+              <View style={styles.col1}>
+                <ButtonIcon
+                  title="Strecke Löschen"
+                  Icon={TrashIcon}
+                  iconName="trash"
+                  disabled={selectedRoute === 0}
+                  color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                />
+              </View>
+            </View>
+          </View>
+        </View>
       </View>
     </Accordion>
   );

@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
+import {useBetween} from 'use-between';
+import useCalender from '../../../stores/calenderStore';
 export default function CalenderView() {
-  const [selectedStartDate, setSelectedStartDate] = useState(null);
-  const startDate = selectedStartDate ? selectedStartDate.toString() : '';
+  const useShareCalender = () => useBetween(useCalender);
+  const {selectedDate, changeSelectedDate} = useShareCalender();
   return (
     <View>
       <CalendarPicker
-        onDateChange={setSelectedStartDate}
+        selectedStartDate={selectedDate}
+        onDateChange={changeSelectedDate}
         width={400}
         height={400}
       />

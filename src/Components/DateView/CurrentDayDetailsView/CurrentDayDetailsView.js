@@ -1,6 +1,8 @@
 import React from 'react';
 import {FlatList, Text, View} from 'react-native';
 import Grid from '../../CustomComponents/Grid/Grid';
+import {useBetween} from 'use-between';
+import useCalender from '../../../stores/calenderStore';
 
 const styles = {
   root: {marginTop: 2},
@@ -35,9 +37,17 @@ const rowsAndCols = [
 ];
 
 export default function CurrentDayDetailsView() {
+  const useShareCalender = () => useBetween(useCalender);
+  const {selectedDate} = useShareCalender();
   return (
     <View style={styles.root}>
-      <Text style={styles.textDate}>00.00.0000</Text>
+      <Text style={styles.textDate}>
+        {selectedDate.getDate() +
+          '.' +
+          selectedDate.getMonth() +
+          '.' +
+          selectedDate.getFullYear()}
+      </Text>
       <Grid gridStyle={styles.gridStyle} rowsAndCols={rowsAndCols} />
     </View>
   );
