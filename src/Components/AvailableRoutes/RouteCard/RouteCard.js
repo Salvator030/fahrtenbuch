@@ -1,5 +1,12 @@
-import React, {View, StyleSheet, Text} from 'react-native';
+import React, {
+  View,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import Address from './Address/Address';
+import {useBetween} from 'use-between';
+import useAvailableRoutes from '../../../stores/availableRoutesStor';
 
 const styles = StyleSheet.create({
   textInput: {width: 75, alignSelf: 'center'},
@@ -14,6 +21,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginRight: 8,
   },
+  selected: {backgroundColor: 'lightgray'},
   container: {
     height: 500,
     marginHorizontal: 'auto',
@@ -44,25 +52,31 @@ const styles = StyleSheet.create({
   },
   text: {marginRight: 8},
 });
-export default function RoteCard({startAdd, destAdd, distance}) {
-  console.log(startAdd);
-  console.log(destAdd);
-  return (
-    <View style={styles.root}>
-      <View style={styles.gridStyle}>
-        <View style={styles.row}>
-          <View style={styles.col2}>
-            <Address address={startAdd} />
-          </View>
+export default function RoteCard({id, startAdd, destAdd, distance}) {
+  const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
+  const {selectedRoute, handelOnClickRouteCard} = useShareAvaibleRoutes();
 
-          <View style={styles.col2}>
-            <Address address={destAdd} />
-          </View>
-          <View style={styles.col3}>
-            <Text>{distance} KM</Text>
+  return (
+    <TouchableWithoutFeedback onPress={() => handelOnClickRouteCard(id)}>
+      <View
+        style={
+          selectedRoute === id ? [styles.root, styles.selected] : styles.root
+        }>
+        <View style={styles.gridStyle}>
+          <View style={styles.row}>
+            <View style={styles.col2}>
+              <Address address={startAdd} />
+            </View>
+
+            <View style={styles.col2}>
+              <Address address={destAdd} />
+            </View>
+            <View style={styles.col3}>
+              <Text>{distance} KM</Text>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
