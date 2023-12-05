@@ -5,15 +5,18 @@ import useDatabase from '../../../../stores/databaseStore';
 const styles = StyleSheet.create({
   root: {
     height: 50,
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingBottom: 8,
+    padding: 8,
     borderColor: 'black',
     borderWidth: 1,
     marginBottom: 16,
     marginLeft: 8,
     marginRight: 8,
   },
+  row: {
+    flexDirection: 'row',
+    marginTop: 8,
+  },
+  col1: {flex: 1, marginHorizontal: 'auto'},
 });
 export default function DrivenRoutesCards({drivenRoute}) {
   console.log(drivenRoute);
@@ -43,7 +46,7 @@ export default function DrivenRoutesCards({drivenRoute}) {
               <Text>{destAddName}</Text>
             </View>
             <View style={styles.col1}>
-              <Text>{distance}</Text>
+              <Text>{distance} KM</Text>
             </View>
           </View>
         </View>

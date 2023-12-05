@@ -1,4 +1,4 @@
-import React, {View, ScrollView, Button} from 'react-native';
+import React, {View, ScrollView, Text, Button} from 'react-native';
 import Grid from '../../CustomComponents/Grid/Grid';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -23,21 +23,33 @@ const styles = {
   },
   row: {
     flexDirection: 'row',
+    marginLeft: 24,
+    marginRight: 24,
   },
-  col: {flex: 3, marginTop: 16},
+  col1: {flex: 1, marginHorizontal: 'auto'},
 };
 
 export default function CurrentDayRoutes() {
   const useShareCurrentDayRoutes = () => useBetween(useCurrentDayRoutes);
-  const {drivenRouteCards} = useShareCurrentDayRoutes();
+  const {drivenRoutesCards, test} = useShareCurrentDayRoutes();
 
-  useEffect(() => {
-    console.log('drivenRoutesCards', drivenRouteCards);
-  }, [drivenRouteCards]);
   return (
     <View style={styles.root}>
+      <View style={styles.gridStyleBtn}>
+        <View style={styles.row}>
+          <View style={styles.col1}>
+            <Text>Start</Text>
+          </View>
+          <View style={styles.col1}>
+            <Text>Ziel</Text>
+          </View>
+          <View style={styles.col1}>
+            <Text>Entfernung</Text>
+          </View>
+        </View>
+      </View>
       <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>{drivenRouteCards}</ScrollView>
+        <ScrollView style={styles.scrollView}>{drivenRoutesCards}</ScrollView>
       </View>
       <ButtonIcon title="Löschen" Icon={Icon} iconName="trash" />
     </View>

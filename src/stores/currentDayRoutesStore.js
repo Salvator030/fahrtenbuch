@@ -20,5 +20,6 @@ export default function useCurrentDayRoutes() {
     setDrivenRoutesCards(cards);
   }, [drivenRoutes]);
 
+  console.log('d', drivenRoutesCards.length);
   return {drivenRoutesCards};
 }
