@@ -19,23 +19,6 @@ const styles = {
   text: {fontSize: 16},
 };
 
-const rowsAndCols = [
-  {
-    style: styles.row,
-    cols: [
-      {style: styles.col, item: <Text style={styles.text}>anz</Text>},
-      {style: styles.col, item: <Text style={styles.text}>0</Text>},
-    ],
-  },
-  {
-    style: styles.row,
-    cols: [
-      {style: styles.col, item: <Text style={styles.text}>km</Text>},
-      {style: styles.col, item: <Text style={styles.text}>0</Text>},
-    ],
-  },
-];
-
 export default function CurrentDayDetailsView() {
   const useShareCalender = () => useBetween(useCalender);
   const {selectedDate} = useShareCalender();
@@ -48,7 +31,24 @@ export default function CurrentDayDetailsView() {
           '.' +
           selectedDate.getFullYear()}
       </Text>
-      <Grid gridStyle={styles.gridStyle} rowsAndCols={rowsAndCols} />
+      <View gridStyle={styles.gridStyle}>
+        <View style={styles.row}>
+          <View style={styles.col}>
+            <Text style={styles.text}>anz</Text>
+          </View>
+          <View style={styles.col}>
+            <Text style={styles.text}>0</Text>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.col}>
+            <Text style={styles.text}>km</Text>
+          </View>
+          <View style={styles.col}>
+            <Text style={styles.text}>0</Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 }

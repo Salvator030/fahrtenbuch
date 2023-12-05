@@ -212,7 +212,6 @@ export default function AvailableRoutes() {
     },
   ];
 
-  console.log(selectedRoute === 0);
   return (
     <Accordion title="Verfügbare Strecken">
       <View>

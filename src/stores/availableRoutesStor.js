@@ -22,7 +22,6 @@ export default function useAvailableRoutes() {
   const {selectedDate} = useShareCalender();
 
   useEffect(() => {
-    console.log('r: ', routes);
     if (routes) {
       let list = routes;
 
@@ -53,7 +52,6 @@ export default function useAvailableRoutes() {
           );
           if (searchValue !== '') {
             list = list.filter(route => {
-              console.log(searchValue);
               getFullAddressById(route.startAdd_id)
                 .street.toLowerCase()
                 .startsWith(searchValue.toLowerCase());
@@ -174,13 +172,11 @@ export default function useAvailableRoutes() {
           />
         );
       });
-
       setRoutesCards(cards);
     }
   }, [routes, sortValue, searchValue, getFullAddressById]);
 
   const createNewDrivenRoute = () => {
-    console.log(selectedRoute);
     const date = `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`;
     return {date: date, route_id: selectedRoute};
   };

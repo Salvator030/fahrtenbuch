@@ -13,7 +13,7 @@ export default function useDatabase() {
       if (addressesResult.length) {
         setAddresses(addressesResult);
       }
-      console.log(addressesResult);
+      console.log('addressesResult', addressesResult);
     } catch (error) {
       console.error(error);
     }
@@ -25,8 +25,8 @@ export default function useDatabase() {
       const routesResult = await database.getAllRoutes();
       if (routesResult.length) {
         setRoutes(routesResult);
-        console.log(routesResult);
       }
+      console.log('routesResult', routesResult);
     } catch (error) {
       console.error(error);
     }
@@ -38,8 +38,8 @@ export default function useDatabase() {
       const drivenRoutesResult = await database.getAllDrivenRoutes();
       if (drivenRoutesResult.length) {
         setDrivenRoutes(drivenRoutesResult);
-        console.log(drivenRoutesResult);
       }
+      console.log('drivenRoutesResult', drivenRoutesResult);
     } catch (error) {
       console.error(error);
     }
@@ -73,9 +73,12 @@ export default function useDatabase() {
     loadRoutesCallback();
   };
 
+  const getFullRouteById = id => {
+    return routes.find(route => route.route_id === id);
+  };
+
   // --- drivenRoute
   const saveNewDrivenRoute = drivenRoute => {
-    console.log(drivenRoute);
     database.saveNewDrivenRoute(drivenRoute);
     loadDrivenRoutesCallback();
   };
@@ -86,6 +89,8 @@ export default function useDatabase() {
     getFullAddressById,
     routes,
     saveNewRoute,
+    getFullRouteById,
+    drivenRoutes,
     saveNewDrivenRoute,
   };
 }

@@ -55,8 +55,7 @@ const styles = StyleSheet.create({
 export default function RoteCard({id, startAdd, destAdd, distance}) {
   const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
   const {selectedRoute, handelOnClickRouteCard} = useShareAvaibleRoutes();
-  console.log(id);
-  console.log(selectedRoute);
+
   return (
     <TouchableWithoutFeedback onPress={() => handelOnClickRouteCard(id)}>
       <View

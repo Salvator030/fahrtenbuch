@@ -24,9 +24,9 @@ export default function MainView() {
       ) : (
         <NewRoute />
       )}
-      <Button onPress={deleteAddressTable} title="d. address" />
+      {/* <Button onPress={deleteAddressTable} title="d. address" />
       <Button onPress={deleteRouteTable} title="d. route" />
-      <Button onPress={deleteDrivenRouteTable} title="d. drivenRoute" />
+      <Button onPress={deleteDrivenRouteTable} title="d. drivenRoute" /> */}
     </>
   );
 }

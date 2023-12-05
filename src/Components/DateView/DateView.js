@@ -20,19 +20,21 @@ const styles = {
 };
 
 export default function DateView() {
-  const rowsAndCols = [
-    {
-      style: styles.row,
-      cols: [
-        {style: styles.col1, item: <CalenderView />, key: 'col1'},
-        {style: styles.col2, item: <CurrentDayDetailsView />, key: 'col2'},
-        {style: styles.col3, item: <CurrentDayRoutes />, key: 'col3'},
-      ],
-    },
-  ];
   return (
     <View style={styles.root}>
-      <Grid gridStyle={styles.gridStyle} rowsAndCols={rowsAndCols} />
+      <View style={styles.gridStyle}>
+        <View style={styles.row}>
+          <View style={styles.col1}>
+            <CalenderView />
+          </View>
+          <View style={styles.col2}>
+            <CurrentDayDetailsView />
+          </View>
+          <View style={styles.col3}>
+            <CurrentDayRoutes />
+          </View>
+        </View>
+      </View>
     </View>
   );
 }
