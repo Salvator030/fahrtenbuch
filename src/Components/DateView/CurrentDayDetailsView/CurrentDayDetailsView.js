@@ -3,6 +3,7 @@ import {FlatList, Text, View} from 'react-native';
 import Grid from '../../CustomComponents/Grid/Grid';
 import {useBetween} from 'use-between';
 import useCalender from '../../../stores/calenderStore';
+import useDatabase from '../../../stores/databaseStore';
 
 const styles = {
   root: {marginTop: 2},
@@ -22,6 +23,15 @@ const styles = {
 export default function CurrentDayDetailsView() {
   const useShareCalender = () => useBetween(useCalender);
   const {selectedDate} = useShareCalender();
+  const useShareDatabase = () => useBetween(useDatabase);
+  const {drivenRoutesByDate} = useShareDatabase();
+
+  const getDistanceByDaryRoutes = () => {
+    let distance = 0;
+    drivenRoutesByDate.forEach(route => (distance += route.distance));
+    return distance;
+  };
+
   return (
     <View style={styles.root}>
       <Text style={styles.textDate}>
@@ -37,7 +47,7 @@ export default function CurrentDayDetailsView() {
             <Text style={styles.text}>anz</Text>
           </View>
           <View style={styles.col}>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>{drivenRoutesByDate.length}</Text>
           </View>
         </View>
         <View style={styles.row}>
@@ -45,7 +55,7 @@ export default function CurrentDayDetailsView() {
             <Text style={styles.text}>km</Text>
           </View>
           <View style={styles.col}>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>{getDistanceByDaryRoutes()}</Text>
           </View>
         </View>
       </View>

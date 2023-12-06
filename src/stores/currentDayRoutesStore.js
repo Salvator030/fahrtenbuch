@@ -8,7 +8,7 @@ import {sortDrivenRouteByLogicalOrder} from '../asserts/sortHelper';
 
 export default function useCurrentDayRoutes() {
   const useShareDatabase = () => useBetween(useDatabase);
-  const {drivenRoutes, getFullAddressById, getFullRouteById} =
+  const {drivenRoutesByDate, getFullAddressById, getFullRouteById} =
     useShareDatabase();
   const useShareCalendar = () => useBetween(useCalender);
   const {selectedDate} = useShareCalendar();
@@ -17,12 +17,12 @@ export default function useCurrentDayRoutes() {
 
   useEffect(() => {
     console.log('selectedDate', selectedDate);
-    let list = drivenRoutes;
-    list = list.filter(
-      route =>
-        route.date ===
-        `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`,
-    );
+    let list = drivenRoutesByDate;
+    // list = list.filter(
+    //   route =>
+    //     route.date ===
+    //     `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`,
+    // );
     list.sort((a, b) => {
       const routeA = [
         getFullAddressById(getFullRouteById(a.route_id).startAdd_id),
@@ -41,7 +41,7 @@ export default function useCurrentDayRoutes() {
 
     console.log('cards', cards.length);
     setDrivenRoutesCards(cards);
-  }, [drivenRoutes, getFullAddressById, getFullRouteById, selectedDate]);
+  }, [drivenRoutesByDate, getFullAddressById, getFullRouteById, selectedDate]);
 
   console.log('d', drivenRoutesCards.length);
   return {drivenRoutesCards};
