@@ -1,10 +1,16 @@
 import {useState, useCallback, useEffect} from 'react';
 import * as database from '../database/databaseHandler';
+import {useBetween} from 'use-between';
+import useCalender from './calenderStore';
 
 export default function useDatabase() {
+  const useShareCalender = () => useBetween(useCalender);
+  const {selectedDate} = useShareCalender();
+
   const [addresses, setAddresses] = useState([]);
   const [routes, setRoutes] = useState(undefined);
   const [drivenRoutes, setDrivenRoutes] = useState([]);
+  const [drivenRoutesByDate, setDrivenRoutesByDate] = useState([]);
 
   const loadAddressesCallback = useCallback(async () => {
     console.log('getAddresses');
@@ -57,6 +63,16 @@ export default function useDatabase() {
     loadDrivenRoutesCallback();
   }, [loadDrivenRoutesCallback]);
 
+  useEffect(() => {
+    let items = drivenRoutes.filter(
+      route =>
+        route.date ===
+        `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`,
+    );
+    items = items.map(route => getFullRouteById(route.route_id));
+    setDrivenRoutesByDate(items);
+  }, [drivenRoutes, getFullRouteById, selectedDate]);
+
   // --- address
   const saveNewAddress = address => {
     database.saveNewAddress(address);
@@ -73,9 +89,12 @@ export default function useDatabase() {
     loadRoutesCallback();
   };
 
-  const getFullRouteById = id => {
-    return routes.find(route => route.route_id === id);
-  };
+  const getFullRouteById = useCallback(
+    id => {
+      return routes.find(route => route.route_id === id);
+    },
+    [routes],
+  );
 
   // --- drivenRoute
   const saveNewDrivenRoute = drivenRoute => {
@@ -90,7 +109,7 @@ export default function useDatabase() {
     routes,
     saveNewRoute,
     getFullRouteById,
-    drivenRoutes,
+    drivenRoutesByDate,
     saveNewDrivenRoute,
   };
 }
