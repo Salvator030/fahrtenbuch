@@ -82,6 +82,10 @@ export default function useDatabase() {
     return addresses.find(address => address.add_id === id);
   };
 
+  const deleteAddress = add_id => {
+    database.deleteDrivenRoute(add_id);
+    loadAddressesCallback();
+  };
   // --- route
   const saveNewRoute = route => {
     database.saveNewRoute(route);
@@ -95,11 +99,16 @@ export default function useDatabase() {
     [routes],
   );
 
+  const deleteRoute = route_id => {
+    database.deleteDrivenRoute(route_id);
+    loadRoutesCallback();
+  };
   // --- drivenRoute
   const saveNewDrivenRoute = drivenRoute => {
     database.saveNewDrivenRoute(drivenRoute);
     loadDrivenRoutesCallback();
   };
+
   const deleteDrivenRoute = dRoute_id => {
     database.deleteDrivenRoute(dRoute_id);
     loadDrivenRoutesCallback();
@@ -114,6 +123,8 @@ export default function useDatabase() {
     getFullRouteById,
     drivenRoutesByDate,
     saveNewDrivenRoute,
+    deleteAddress,
+    deleteRoute,
     deleteDrivenRoute,
   };
 }

@@ -25,6 +25,10 @@ export const saveNewAddress = async address => {
   const db = await database.getDBConnection();
   return await database.saveAddress(db, address);
 };
+export const deleteAddres = async add_id => {
+  const db = await database.getDBConnection();
+  return await database.deleteAddressById(db, add_id);
+};
 
 // --- routes
 export const deleteRouteTable = async () => {
@@ -40,6 +44,10 @@ export const getAllRoutes = async () => {
 export const saveNewRoute = async route => {
   const db = await database.getDBConnection();
   return await database.saveRoute(db, route);
+};
+export const deleteRoute = async route_id => {
+  const db = await database.getDBConnection();
+  return await database.deleteRouteById(db, route_id);
 };
 
 // --- drivenRoute

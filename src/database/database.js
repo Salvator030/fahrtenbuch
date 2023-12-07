@@ -100,6 +100,17 @@ export const saveAddress = async (db, address) => {
   }
 };
 
+export const deleteAdressById = async (db, id) => {
+  try {
+    const deleteQuery = `DELETE FROM address_tbl WHERE add_id = ${id};`;
+    return db.executeSql(deleteQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to delete address ${id}  !!!`);
+  }
+};
+
+// --- Route
 export const saveRoute = async (db, route) => {
   try {
     const insertQuery = `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`;
@@ -107,6 +118,16 @@ export const saveRoute = async (db, route) => {
   } catch (error) {
     console.error(error);
     throw Error('Failed to save Route !!!');
+  }
+};
+
+export const deleteRouteById = async (db, id) => {
+  try {
+    const deleteQuery = `DELETE FROM route_tbl WHERE add_id = ${id};`;
+    return db.executeSql(deleteQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to delete route ${id}  !!!`);
   }
 };
 
