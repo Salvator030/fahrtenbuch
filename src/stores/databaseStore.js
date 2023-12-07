@@ -69,7 +69,6 @@ export default function useDatabase() {
         route.date ===
         `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`,
     );
-    items = items.map(route => getFullRouteById(route.route_id));
     setDrivenRoutesByDate(items);
   }, [drivenRoutes, getFullRouteById, selectedDate]);
 
@@ -101,6 +100,10 @@ export default function useDatabase() {
     database.saveNewDrivenRoute(drivenRoute);
     loadDrivenRoutesCallback();
   };
+  const deleteDrivenRoute = dRoute_id => {
+    database.deleteDrivenRoute(dRoute_id);
+    loadDrivenRoutesCallback();
+  };
 
   return {
     addresses,
@@ -111,5 +114,6 @@ export default function useDatabase() {
     getFullRouteById,
     drivenRoutesByDate,
     saveNewDrivenRoute,
+    deleteDrivenRoute,
   };
 }

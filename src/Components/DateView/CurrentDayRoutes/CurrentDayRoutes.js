@@ -3,6 +3,7 @@ import Grid from '../../CustomComponents/Grid/Grid';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useCurrentDayRoutes from '../../../stores/currentDayRoutesStore';
+import useDatabase from '../../../stores/databaseStore';
 import {useBetween} from 'use-between';
 import {useEffect} from 'react';
 
@@ -31,8 +32,10 @@ const styles = {
 
 export default function CurrentDayRoutes() {
   const useShareCurrentDayRoutes = () => useBetween(useCurrentDayRoutes);
-  const {drivenRoutesCards, test} = useShareCurrentDayRoutes();
+  const {drivenRoutesCards, selectedDrivenRoute, handelOnClickDeleteBtn} =
+    useShareCurrentDayRoutes();
 
+  console.log('x', selectedDrivenRoute);
   return (
     <View style={styles.root}>
       <View style={styles.gridStyleBtn}>
@@ -51,7 +54,15 @@ export default function CurrentDayRoutes() {
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>{drivenRoutesCards}</ScrollView>
       </View>
-      <ButtonIcon title="Löschen" Icon={Icon} iconName="trash" />
+
+      <ButtonIcon
+        title="Löschen"
+        Icon={Icon}
+        iconName="trash"
+        color={selectedDrivenRoute === 0 ? 'lightgray' : 'black'}
+        disabled={selectedDrivenRoute === 0 ? true : false}
+        onClick={handelOnClickDeleteBtn}
+      />
     </View>
   );
 }

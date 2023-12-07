@@ -160,7 +160,7 @@ export default function useAvailableRoutes() {
         default: {
         }
       }
-      console.log('setCards');
+
       const cards = list.map(route => {
         return (
           <RouteCard
