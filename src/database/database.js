@@ -119,3 +119,13 @@ export const saveDrivenRoute = async (db, drivenRoute) => {
     throw Error('Failed to save drivenRoute !!!');
   }
 };
+
+export const deleteDrivenRouteById = async (db, id) => {
+  try {
+    const deleteQuery = `DELETE FROM drivenRoute_tbl WHERE dRoute_id = ${id};`;
+    return db.executeSql(deleteQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to delete drivenRoute ${id}  !!!`);
+  }
+};

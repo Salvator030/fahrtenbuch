@@ -57,3 +57,8 @@ export const saveNewDrivenRoute = async drivenRoute => {
   const db = await database.getDBConnection();
   return await database.saveDrivenRoute(db, drivenRoute);
 };
+
+export const deleteDrivenRoute = async dRoute_id => {
+  const db = await database.getDBConnection();
+  return await database.deleteDrivenRouteById(db, dRoute_id);
+};

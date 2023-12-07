@@ -8,21 +8,27 @@ import {sortDrivenRouteByLogicalOrder} from '../asserts/sortHelper';
 
 export default function useCurrentDayRoutes() {
   const useShareDatabase = () => useBetween(useDatabase);
-  const {drivenRoutesByDate, getFullAddressById, getFullRouteById} =
-    useShareDatabase();
+  const {
+    drivenRoutesByDate,
+    getFullAddressById,
+    getFullRouteById,
+    deleteDrivenRoute,
+  } = useShareDatabase();
   const useShareCalendar = () => useBetween(useCalender);
   const {selectedDate} = useShareCalendar();
 
+  const [selectedDrivenRoute, setSelectedDrivenRoute] = useState(0);
   const [drivenRoutesCards, setDrivenRoutesCards] = useState([]);
 
+  const handelOnClickDrivenRouteCard = dRoute_id => {
+    setSelectedDrivenRoute(dRoute_id);
+  };
+
+  const handelOnClickDeleteBtn = () => {
+    deleteDrivenRoute(selectedDrivenRoute);
+  };
   useEffect(() => {
-    console.log('selectedDate', selectedDate);
     let list = drivenRoutesByDate;
-    // list = list.filter(
-    //   route =>
-    //     route.date ===
-    //     `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`,
-    // );
     list.sort((a, b) => {
       const routeA = [
         getFullAddressById(getFullRouteById(a.route_id).startAdd_id),
@@ -32,17 +38,20 @@ export default function useCurrentDayRoutes() {
         getFullAddressById(getFullRouteById(b.route_id).startAdd_id),
         getFullAddressById(getFullRouteById(b.route_id).destAdd_id),
       ];
-      console.log(routeA);
+
       return sortDrivenRouteByLogicalOrder(routeA, routeB);
     });
     let cards = list.map(route => (
       <DrivenRoutesCards key={route.dRoute_id} drivenRoute={route} />
     ));
 
-    console.log('cards', cards.length);
     setDrivenRoutesCards(cards);
   }, [drivenRoutesByDate, getFullAddressById, getFullRouteById, selectedDate]);
 
-  console.log('d', drivenRoutesCards.length);
-  return {drivenRoutesCards};
+  return {
+    drivenRoutesCards,
+    selectedDrivenRoute,
+    handelOnClickDrivenRouteCard,
+    handelOnClickDeleteBtn,
+  };
 }

@@ -19,13 +19,13 @@ export function sortDrivenRouteByLogicalOrder(drivenRouteA, drivenRouteB) {
   const drivenRouteB_destinationName = drivenRouteB[1].name.toUpperCase();
 
   if (drivenRouteA_destinationName === drivenRouteB_startName) {
-    console.log('up');
+    ('up');
     return -1;
   }
   if (drivenRouteA_startName === drivenRouteB_destinationName) {
-    console.log('down');
+    ('down');
     return 1;
   }
-  console.log('nothing');
+  ('nothing');
   return 0;
 }

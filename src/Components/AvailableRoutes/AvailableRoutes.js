@@ -12,7 +12,6 @@ import TrashIcon from 'react-native-vector-icons/Ionicons';
 import PlusIcon from 'react-native-vector-icons/FontAwesome';
 import RouteIcon from 'react-native-vector-icons/MaterialIcons';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
-import {useEffect} from 'react';
 import {useBetween} from 'use-between';
 
 const styles = {
@@ -212,7 +211,6 @@ export default function AvailableRoutes() {
     },
   ];
 
-  console.log('routesCards', routesCards.length);
   return (
     <Accordion title="Verfügbare Strecken">
       <View>
