@@ -11,9 +11,14 @@ import {
   deleteRouteTable,
   deleteDrivenRouteTable,
 } from '../../database/databaseHandler';
+import useWarningModal from '../../stores/warningModalStore';
 export default function MainView() {
   const useShareMainView = () => useBetween(useMainView);
   const {createNewRoute} = useShareMainView();
+
+  const useShareWarningModel = () => useBetween(useWarningModal);
+  const {showWarningModal} = useShareWarningModel();
+
   return (
     <>
       {!createNewRoute ? (
@@ -24,6 +29,7 @@ export default function MainView() {
       ) : (
         <NewRoute />
       )}
+      {/* {showWarningModal && <WarningModal />} */}
       {/* <Button onPress={deleteAddressTable} title="d. address" />
       <Button onPress={deleteRouteTable} title="d. route" />
       <Button onPress={deleteDrivenRouteTable} title="d. drivenRoute" /> */}
