@@ -71,7 +71,7 @@ export default function AvailableRoutes() {
   } = useShareAvaibleRoutes();
 
   const useShareDatabase = () => useBetween(useDatabase);
-  const {routes} = useShareDatabase();
+  const {routesAreHidden} = useShareDatabase();
   // const [items, setItems] = useState([]);
 
   const pills = [
@@ -264,13 +264,13 @@ export default function AvailableRoutes() {
                 />
               </View>
               <View style={styles.col1}>
-                {hideRoutes ? (
+                {hideRoutes && routesAreHidden ? (
                   <ButtonIcon
                     title="Strecken einblenden"
                     Icon={Icon}
                     iconName="eye"
-                    // disabled={selectedRoute === 0}
-                    // color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                    disabled={!routesAreHidden}
+                    color={!routesAreHidden ? 'lightgray' : 'black'}
                     onClick={toggleHideRoutes}
                   />
                 ) : (
@@ -278,8 +278,8 @@ export default function AvailableRoutes() {
                     title="Strecken ausblenden"
                     Icon={Icon}
                     iconName="eye-off"
-                    // disabled={selectedRoute === 0}
-                    // color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                    disabled={!routesAreHidden}
+                    color={!routesAreHidden ? 'lightgray' : 'black'}
                     onClick={toggleHideRoutes}
                   />
                 )}

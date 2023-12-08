@@ -11,6 +11,7 @@ export default function useDatabase() {
   const [routes, setRoutes] = useState(undefined);
   const [drivenRoutes, setDrivenRoutes] = useState([]);
   const [drivenRoutesByDate, setDrivenRoutesByDate] = useState([]);
+  const [routesAreHidden, setRoutesAreHidden] = useState(false);
 
   const loadAddressesCallback = useCallback(async () => {
     console.log('getAddresses');
@@ -31,7 +32,14 @@ export default function useDatabase() {
       const routesResult = await database.getAllRoutes();
       if (routesResult.length) {
         setRoutes(routesResult);
+        const temp =
+          routesResult.filter(route => route.hide === 1).length > 0
+            ? true
+            : false;
+        console.log('temp', temp);
+        setRoutesAreHidden(temp);
       }
+
       console.log('routesResult', routesResult);
     } catch (error) {
       console.error(error);
@@ -150,5 +158,6 @@ export default function useDatabase() {
     deleteRoute,
     deleteDrivenRoute,
     setRouteHide,
+    routesAreHidden,
   };
 }
