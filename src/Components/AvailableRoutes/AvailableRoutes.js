@@ -8,7 +8,7 @@ import React, {
 import Accordion from '../CustomComponents/Accordion/Accordion';
 import Grid from '../CustomComponents/Grid/Grid';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
-import TrashIcon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import PlusIcon from 'react-native-vector-icons/FontAwesome';
 import RouteIcon from 'react-native-vector-icons/MaterialIcons';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
@@ -65,6 +65,8 @@ export default function AvailableRoutes() {
     handelOnClickNewRouteBtn,
     handelOnClickAddDrivenRouteBtn,
     handelOnClickDeleteRoueBtn,
+    hideRoutes,
+    toggleHideRoutes,
   } = useShareAvaibleRoutes();
 
   // const [items, setItems] = useState([]);
@@ -251,12 +253,33 @@ export default function AvailableRoutes() {
               <View style={styles.col1}>
                 <ButtonIcon
                   title="Strecke Löschen"
-                  Icon={TrashIcon}
+                  Icon={Icon}
                   iconName="trash"
                   disabled={selectedRoute === 0}
                   color={selectedRoute === 0 ? 'lightgray' : 'black'}
                   onClick={handelOnClickDeleteRoueBtn}
                 />
+              </View>
+              <View style={styles.col1}>
+                {hideRoutes ? (
+                  <ButtonIcon
+                    title="Strecken einblenden"
+                    Icon={Icon}
+                    iconName="eye"
+                    // disabled={selectedRoute === 0}
+                    // color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                    onClick={toggleHideRoutes}
+                  />
+                ) : (
+                  <ButtonIcon
+                    title="Strecken ausblenden"
+                    Icon={Icon}
+                    iconName="eye-off"
+                    // disabled={selectedRoute === 0}
+                    // color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                    onClick={toggleHideRoutes}
+                  />
+                )}
               </View>
             </View>
           </View>

@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     height: 500,
     marginHorizontal: 'auto',
   },
+  hide: {backgroundColor: 'gray'},
   gridStyle: {
     flex: 12,
     height: 800,
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   },
   text: {marginRight: 8},
 });
-export default function RoteCard({id, startAdd, destAdd, distance}) {
+export default function RoteCard({id, startAdd, destAdd, distance, hide}) {
   const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
   const {selectedRoute, handelOnClickRouteCard} = useShareAvaibleRoutes();
 
@@ -60,7 +61,11 @@ export default function RoteCard({id, startAdd, destAdd, distance}) {
     <TouchableWithoutFeedback onPress={() => handelOnClickRouteCard(id)}>
       <View
         style={
-          selectedRoute === id ? [styles.root, styles.selected] : styles.root
+          selectedRoute === id
+            ? [styles.root, styles.selected]
+            : hide === 1
+            ? [styles.root, styles.hide]
+            : styles.root
         }>
         <View style={styles.gridStyle}>
           <View style={styles.row}>

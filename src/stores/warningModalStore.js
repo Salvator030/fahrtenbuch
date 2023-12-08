@@ -24,7 +24,7 @@ export default function useWarningModal() {
       if (deleteCheckboxValue) {
         deleteRoute(selectedRoute);
       } else {
-        setRouteHide(selectedRoute);
+        setRouteHide(selectedRoute, 1);
       }
       setSelectedRoute(0);
     }
