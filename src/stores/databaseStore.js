@@ -56,19 +56,28 @@ export default function useDatabase() {
   }, [loadAddressesCallback]);
 
   useEffect(() => {
-    loadRoutesCallback();
+    const fetch = async () => {
+      await loadRoutesCallback();
+    };
+    fetch();
   }, [loadRoutesCallback]);
 
   useEffect(() => {
-    loadDrivenRoutesCallback();
+    const fetch = async () => {
+      await loadDrivenRoutesCallback();
+    };
+    fetch();
   }, [loadDrivenRoutesCallback]);
 
   useEffect(() => {
+    console.log('useEffekt, setDrivenRoutesByDate', drivenRoutes);
     let items = drivenRoutes.filter(
       route =>
         route.date ===
         `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`,
     );
+
+    console.log('useEffekt, setDrivenRoutesByDate', items);
     setDrivenRoutesByDate(items);
   }, [drivenRoutes, getFullRouteById, selectedDate]);
 
