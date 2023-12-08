@@ -68,6 +68,7 @@ export default function Addresses() {
     setSearchValue,
     cards,
     handelOnClickNewAddressBtn,
+    handelOnClickDeleteBtn,
     handelOnClickNamePill,
     handelOnClickStreetPill,
     handelOnClickPlzPill,
@@ -154,7 +155,30 @@ export default function Addresses() {
         },
         {
           style: styles.col2,
-          item: <ButtonIcon Icon={Icon} title="löschen" iconName="trash" />,
+          item: (
+            <ButtonIcon
+              Icon={Icon}
+              title="löschen"
+              iconName="trash"
+              disabled={
+                viewDescription === 'startAddress'
+                  ? startAddressId === 0
+                    ? true
+                    : false
+                  : destinationAddressId === 0
+                  ? true
+                  : false
+              }
+              color={
+                viewDescription === 'startAddress'
+                  ? startAddressId === 0
+                    ? 'gray'
+                    : 'black'
+                  : destinationAddressId === 0 && 'gray'
+              }
+              onClick={handelOnClickDeleteBtn}
+            />
+          ),
         },
         {
           style: styles.col3,

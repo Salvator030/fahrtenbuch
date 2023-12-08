@@ -6,6 +6,7 @@ import useDatabase from './databaseStore';
 import useMainView from './MainViewStore';
 import useNewAddressModal from './newAddresModalStore';
 import useNewRoute from './newRouteStore';
+import useWarningModal from './warningModalStore';
 
 export default function useAddresses() {
   const [sortValue, setSortValue] = useState('name');
@@ -14,15 +15,24 @@ export default function useAddresses() {
 
   const useShareDatabase = () => useBetween(useDatabase);
   const {addresses} = useShareDatabase();
+
   const useShareMainView = () => useBetween(useMainView);
-  const {toggleCreateNewRoute} = useShareMainView();
+  const {toggleCreateNewRoute, toggleShowWarning} = useShareMainView();
+
   const useShareNewAddressModal = () => useBetween(useNewAddressModal);
   const {toggleModalVisible} = useShareNewAddressModal();
+
+  const useShareWarningModal = () => useBetween(useWarningModal);
+  const {setWarningDescription, setSelectedAddressesWarning} =
+    useShareWarningModal();
+
   const useShareNewRoute = () => useBetween(useNewRoute);
   const {
     viewDescription,
     setViewDescription,
+    startAddressId,
     setStartAddressId,
+    destinationAddressId,
     setDestinationAddressId,
   } = useShareNewRoute();
 
@@ -37,6 +47,16 @@ export default function useAddresses() {
     viewDescription === 'startAddress'
       ? setViewDescription('destinationAddress')
       : setViewDescription('distance');
+  };
+
+  const handelOnClickDeleteBtn = () => {
+    setWarningDescription('deleteAddress');
+    if (viewDescription === 'startAddress') {
+      setSelectedAddressesWarning(startAddressId);
+    } else {
+      setSelectedAddressesWarning(destinationAddressId);
+    }
+    toggleShowWarning();
   };
 
   const handelOnClickNewAddressBtn = () => {
@@ -118,6 +138,7 @@ export default function useAddresses() {
     handelOnClickBackBtn,
     handelOnClickNextBtn,
     handelOnClickNewAddressBtn,
+    handelOnClickDeleteBtn,
     handelOnClickNamePill,
     handelOnClickStreetPill,
     handelOnClickPlzPill,
