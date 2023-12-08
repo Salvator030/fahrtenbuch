@@ -13,6 +13,7 @@ import PlusIcon from 'react-native-vector-icons/FontAwesome';
 import RouteIcon from 'react-native-vector-icons/MaterialIcons';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
 import {useBetween} from 'use-between';
+import useDatabase from '../../stores/databaseStore';
 
 const styles = {
   gridStyle: {
@@ -69,6 +70,8 @@ export default function AvailableRoutes() {
     toggleHideRoutes,
   } = useShareAvaibleRoutes();
 
+  const useShareDatabase = () => useBetween(useDatabase);
+  const {routes} = useShareDatabase();
   // const [items, setItems] = useState([]);
 
   const pills = [
