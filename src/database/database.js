@@ -69,9 +69,9 @@ export const getAllEntriesInTable = async (db, tableName) => {
   }
 };
 
-export const deleteEntreById = async (db, tableName, id) => {
+export const setHide = async (db, tableName, hide, idName, id) => {
   try {
-    const deleteQuery = `DELETE FROM ${tableName} WHERE add_id = ${id};`;
+    const deleteQuery = `UPDATE ${tableName} SET hide = ${hide} WHERE ${idName} = ${id};`;
     return db.executeSql(deleteQuery);
   } catch (error) {
     console.error(error);
@@ -123,13 +123,15 @@ export const saveRoute = async (db, route) => {
 
 export const deleteRouteById = async (db, id) => {
   try {
-    const deleteQuery = `DELETE FROM route_tbl WHERE add_id = ${id};`;
+    const deleteQuery = `DELETE FROM route_tbl WHERE route_id = ${id};`;
     return db.executeSql(deleteQuery);
   } catch (error) {
     console.error(error);
     throw Error(`Failed to delete route ${id}  !!!`);
   }
 };
+
+// --- drivenRoute
 
 export const saveDrivenRoute = async (db, drivenRoute) => {
   try {
@@ -148,5 +150,16 @@ export const deleteDrivenRouteById = async (db, id) => {
   } catch (error) {
     console.error(error);
     throw Error(`Failed to delete drivenRoute ${id}  !!!`);
+  }
+};
+
+export const deleteDrivenRouteByRouteId = async (db, route_id) => {
+  console.log('deleteDrivenRouteByRouteId');
+  try {
+    const deleteQuery = `DELETE FROM drivenRoute_tbl WHERE route_id = ${route_id};`;
+    return db.executeSql(deleteQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to delete drivenRoutes with route_id ${route_id}  !!!`);
   }
 };

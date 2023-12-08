@@ -5,12 +5,15 @@ import useDatabase from './databaseStore';
 import RouteCard from '../Components/AvailableRoutes/RouteCard/RouteCard';
 import {sortByAlphabetAscending} from '../asserts/sortHelper';
 import useCalender from './calenderStore';
+import useWarningModal from './warningModalStore';
 
 export default function useAvailableRoutes() {
   const [routesCards, setRoutesCards] = useState([]);
   const [sortValue, setSortValue] = useState('startName');
   const [searchValue, setSearchValue] = useState('');
   const [selectedRoute, setSelectedRoute] = useState(0);
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [warningDescription, setWarningDescription] = useState('');
 
   const useShareMainView = () => useBetween(useMainView);
   const {toggleCreateNewRoute} = useShareMainView();
@@ -21,6 +24,9 @@ export default function useAvailableRoutes() {
   const useShareCalender = () => useBetween(useCalender);
   const {selectedDate} = useShareCalender();
 
+  const toggleShowWarning = () => {
+    setShowWarningModal(!showWarningModal);
+  };
   useEffect(() => {
     if (routes) {
       let list = routes;
@@ -195,15 +201,25 @@ export default function useAvailableRoutes() {
 
   const handelOnClickNewRouteBtn = () => toggleCreateNewRoute();
 
+  const handelOnClickDeleteRoueBtn = () => {
+    setWarningDescription('deleteRoute');
+    toggleShowWarning();
+  };
+
   return {
     routesCards,
     sortValue,
     searchValue,
     setSearchValue,
     selectedRoute,
+    setSelectedRoute,
     handelOnClickPill,
     handelOnClickNewRouteBtn,
     handelOnClickRouteCard,
     handelOnClickAddDrivenRouteBtn,
+    handelOnClickDeleteRoueBtn,
+    showWarningModal,
+    toggleShowWarning,
+    warningDescription,
   };
 }

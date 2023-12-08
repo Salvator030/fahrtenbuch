@@ -64,6 +64,7 @@ export default function AvailableRoutes() {
     handelOnClickPill,
     handelOnClickNewRouteBtn,
     handelOnClickAddDrivenRouteBtn,
+    handelOnClickDeleteRoueBtn,
   } = useShareAvaibleRoutes();
 
   // const [items, setItems] = useState([]);
@@ -254,6 +255,7 @@ export default function AvailableRoutes() {
                   iconName="trash"
                   disabled={selectedRoute === 0}
                   color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                  onClick={handelOnClickDeleteRoueBtn}
                 />
               </View>
             </View>

@@ -4,6 +4,7 @@ import {Button, SafeAreaView} from 'react-native';
 import DateView from '../DateView/DateView';
 import AvailableRoutes from '../AvailableRoutes/AvailableRoutes';
 import NewRoute from '../NewRoute/NewRoute';
+import WarningModal from '../WarningModal/WarningModal';
 import useMainView from '../../stores/MainViewStore';
 import {useBetween} from 'use-between';
 import {
@@ -12,12 +13,13 @@ import {
   deleteDrivenRouteTable,
 } from '../../database/databaseHandler';
 import useWarningModal from '../../stores/warningModalStore';
+import useAvailableRoutes from '../../stores/availableRoutesStor';
 export default function MainView() {
   const useShareMainView = () => useBetween(useMainView);
   const {createNewRoute} = useShareMainView();
 
-  const useShareWarningModel = () => useBetween(useWarningModal);
-  const {showWarningModal} = useShareWarningModel();
+  const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
+  const {showWarningModal} = useShareAvaibleRoutes();
 
   return (
     <>
@@ -29,7 +31,7 @@ export default function MainView() {
       ) : (
         <NewRoute />
       )}
-      {/* {showWarningModal && <WarningModal />} */}
+      {showWarningModal && <WarningModal />}
       {/* <Button onPress={deleteAddressTable} title="d. address" />
       <Button onPress={deleteRouteTable} title="d. route" />
       <Button onPress={deleteDrivenRouteTable} title="d. drivenRoute" /> */}

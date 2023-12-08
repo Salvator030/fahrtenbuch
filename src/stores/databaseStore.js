@@ -83,7 +83,7 @@ export default function useDatabase() {
   };
 
   const deleteAddress = add_id => {
-    database.deleteDrivenRoute(add_id);
+    database.deleteAddress(add_id);
     loadAddressesCallback();
   };
   // --- route
@@ -100,8 +100,14 @@ export default function useDatabase() {
   );
 
   const deleteRoute = route_id => {
-    database.deleteDrivenRoute(route_id);
+    console.log('dbStore, deleteRoute ', route_id);
+    deleteDrivenRoutesByRoutId(route_id);
+    database.deleteRoute(route_id);
     loadRoutesCallback();
+  };
+
+  const setRouteHide = (id, hide) => {
+    database.setRouteHide(id, hide);
   };
   // --- drivenRoute
   const saveNewDrivenRoute = drivenRoute => {
@@ -110,7 +116,14 @@ export default function useDatabase() {
   };
 
   const deleteDrivenRoute = dRoute_id => {
+    console.log('dbStore, deleteDrivenRoute ', dRoute_id);
     database.deleteDrivenRoute(dRoute_id);
+    loadDrivenRoutesCallback();
+  };
+
+  const deleteDrivenRoutesByRoutId = route_id => {
+    console.log('dbStore, deleteDrivenRoutesByRoutId ', route_id);
+    database.deleteDrivenRoutesByRouteId(route_id);
     loadDrivenRoutesCallback();
   };
 
@@ -126,5 +139,6 @@ export default function useDatabase() {
     deleteAddress,
     deleteRoute,
     deleteDrivenRoute,
+    setRouteHide,
   };
 }
