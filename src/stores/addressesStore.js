@@ -12,6 +12,7 @@ export default function useAddresses() {
   const [sortValue, setSortValue] = useState('name');
   const [searchValue, setSearchValue] = useState('');
   const [cards, setCards] = useState([]);
+  const [hideAddress, setHideAddress] = useState(true);
 
   const useShareDatabase = () => useBetween(useDatabase);
   const {addresses} = useShareDatabase();
@@ -35,6 +36,10 @@ export default function useAddresses() {
     destinationAddressId,
     setDestinationAddressId,
   } = useShareNewRoute();
+
+  const toggleHideAddress = () => {
+    setHideAddress(!hideAddress);
+  };
 
   const handelOnClickBackBtn = () => {
     viewDescription === 'startAddress'
@@ -123,13 +128,15 @@ export default function useAddresses() {
       default: {
       }
     }
+    if (hideAddress) {
+      list = list.filter(address => address.hide === 0);
+    }
 
-    list = list.filter(address => address.hide === 0);
     const cardsList = list.map(address => (
       <AddressCard key={('add', address.add_id)} address={address} />
     ));
     setCards(cardsList);
-  }, [addresses, searchValue, sortValue]);
+  }, [addresses, searchValue, sortValue, hideAddress]);
 
   return {
     sortValue,
@@ -145,5 +152,7 @@ export default function useAddresses() {
     handelOnClickStreetPill,
     handelOnClickPlzPill,
     handelOnClickPlacePill,
+    hideAddress,
+    toggleHideAddress,
   };
 }

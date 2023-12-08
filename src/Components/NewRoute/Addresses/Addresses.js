@@ -16,6 +16,7 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {useBetween} from 'use-between';
 import useNewAddressModal from '../../../stores/newAddresModalStore';
 import useNewRoute from '../../../stores/newRouteStore';
+import useDatabase from '../../../stores/databaseStore';
 
 const styles = StyleSheet.create({
   root: {
@@ -59,6 +60,8 @@ export default function Addresses() {
   const useShareNewRoute = () => useBetween(useNewRoute);
   const {viewDescription, startAddressId, destinationAddressId} =
     useShareNewRoute();
+  const useShareDatabase = () => useBetween(useDatabase);
+  const {addressAreHidden} = useShareDatabase();
 
   const {
     sortValue,
@@ -73,6 +76,8 @@ export default function Addresses() {
     handelOnClickStreetPill,
     handelOnClickPlzPill,
     handelOnClickPlacePill,
+    hideAddress,
+    toggleHideAddress,
   } = useAddresses();
   const rowsAndCols1 = [
     {
@@ -188,6 +193,28 @@ export default function Addresses() {
               title="neue Adr."
               iconName="address-card-o"
               onClick={handelOnClickNewAddressBtn}
+            />
+          ),
+        },
+        {
+          style: styles.col3,
+          item: hideAddress ? (
+            <ButtonIcon
+              title="einblenden"
+              Icon={Icon}
+              iconName="eye"
+              disabled={addressAreHidden}
+              color={addressAreHidden ? 'lightgray' : 'black'}
+              onClick={toggleHideAddress}
+            />
+          ) : (
+            <ButtonIcon
+              title="ausblenden"
+              Icon={Icon}
+              iconName="eye-off"
+              disabled={addressAreHidden}
+              color={addressAreHidden ? 'lightgray' : 'black'}
+              onClick={toggleHideAddress}
             />
           ),
         },
