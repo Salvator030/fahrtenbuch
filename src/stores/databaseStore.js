@@ -56,19 +56,28 @@ export default function useDatabase() {
   }, [loadAddressesCallback]);
 
   useEffect(() => {
-    loadRoutesCallback();
+    const fetch = async () => {
+      await loadRoutesCallback();
+    };
+    fetch();
   }, [loadRoutesCallback]);
 
   useEffect(() => {
-    loadDrivenRoutesCallback();
+    const fetch = async () => {
+      await loadDrivenRoutesCallback();
+    };
+    fetch();
   }, [loadDrivenRoutesCallback]);
 
   useEffect(() => {
+    console.log('useEffekt, setDrivenRoutesByDate', drivenRoutes);
     let items = drivenRoutes.filter(
       route =>
         route.date ===
         `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`,
     );
+
+    console.log('useEffekt, setDrivenRoutesByDate', items);
     setDrivenRoutesByDate(items);
   }, [drivenRoutes, getFullRouteById, selectedDate]);
 
@@ -82,6 +91,10 @@ export default function useDatabase() {
     return addresses.find(address => address.add_id === id);
   };
 
+  const deleteAddress = add_id => {
+    database.deleteAddress(add_id);
+    loadAddressesCallback();
+  };
   // --- route
   const saveNewRoute = route => {
     database.saveNewRoute(route);
@@ -95,13 +108,31 @@ export default function useDatabase() {
     [routes],
   );
 
+  const deleteRoute = route_id => {
+    console.log('dbStore, deleteRoute ', route_id);
+    deleteDrivenRoutesByRoutId(route_id);
+    database.deleteRoute(route_id);
+    loadRoutesCallback();
+  };
+
+  const setRouteHide = (id, hide) => {
+    database.setRouteHide(id, hide);
+  };
   // --- drivenRoute
   const saveNewDrivenRoute = drivenRoute => {
     database.saveNewDrivenRoute(drivenRoute);
     loadDrivenRoutesCallback();
   };
+
   const deleteDrivenRoute = dRoute_id => {
+    console.log('dbStore, deleteDrivenRoute ', dRoute_id);
     database.deleteDrivenRoute(dRoute_id);
+    loadDrivenRoutesCallback();
+  };
+
+  const deleteDrivenRoutesByRoutId = route_id => {
+    console.log('dbStore, deleteDrivenRoutesByRoutId ', route_id);
+    database.deleteDrivenRoutesByRouteId(route_id);
     loadDrivenRoutesCallback();
   };
 
@@ -114,6 +145,9 @@ export default function useDatabase() {
     getFullRouteById,
     drivenRoutesByDate,
     saveNewDrivenRoute,
+    deleteAddress,
+    deleteRoute,
     deleteDrivenRoute,
+    setRouteHide,
   };
 }

@@ -7,7 +7,7 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {useBetween} from 'use-between';
 import useNewAddressModal from '../../../../stores/newAddresModalStore';
 
-const styles = {
+const styles = StyleSheet.create({
   root: {
     padding: 16,
     backgroundColor: '#0000005d',
@@ -43,7 +43,7 @@ const styles = {
   text: {height: 32},
   textColorBlack: {color: 'black'},
   textColorRed: {color: 'red'},
-};
+});
 
 export default function NewAddressModal() {
   const useShareNewAddressModal = () => useBetween(useNewAddressModal);

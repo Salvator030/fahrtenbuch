@@ -25,6 +25,7 @@ export default function useCurrentDayRoutes() {
   };
 
   const handelOnClickDeleteBtn = () => {
+    console.log('useCurrent.., handelOnClickDeleteBtn');
     deleteDrivenRoute(selectedDrivenRoute);
   };
   useEffect(() => {

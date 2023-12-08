@@ -5,12 +5,16 @@ import useDatabase from './databaseStore';
 import RouteCard from '../Components/AvailableRoutes/RouteCard/RouteCard';
 import {sortByAlphabetAscending} from '../asserts/sortHelper';
 import useCalender from './calenderStore';
+import useWarningModal from './warningModalStore';
 
 export default function useAvailableRoutes() {
   const [routesCards, setRoutesCards] = useState([]);
   const [sortValue, setSortValue] = useState('startName');
   const [searchValue, setSearchValue] = useState('');
   const [selectedRoute, setSelectedRoute] = useState(0);
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [warningDescription, setWarningDescription] = useState('');
+  const [hideRoutes, setHideRoutes] = useState(true);
 
   const useShareMainView = () => useBetween(useMainView);
   const {toggleCreateNewRoute} = useShareMainView();
@@ -21,6 +25,13 @@ export default function useAvailableRoutes() {
   const useShareCalender = () => useBetween(useCalender);
   const {selectedDate} = useShareCalender();
 
+  const toggleShowWarning = () => {
+    setShowWarningModal(!showWarningModal);
+  };
+
+  const toggleHideRoutes = () => {
+    setHideRoutes(!hideRoutes);
+  };
   useEffect(() => {
     if (routes) {
       let list = routes;
@@ -160,6 +171,9 @@ export default function useAvailableRoutes() {
         default: {
         }
       }
+      if (hideRoutes) {
+        list = list.filter(route => route.hide === 0);
+      }
 
       const cards = list.map(route => {
         return (
@@ -169,12 +183,13 @@ export default function useAvailableRoutes() {
             startAdd={getFullAddressById(route.startAdd_id)}
             destAdd={getFullAddressById(route.destAdd_id)}
             distance={route.distance}
+            hide={route.hide}
           />
         );
       });
       setRoutesCards(cards);
     }
-  }, [routes, sortValue, searchValue, getFullAddressById]);
+  }, [routes, sortValue, searchValue, hideRoutes, getFullAddressById]);
 
   const createNewDrivenRoute = () => {
     const date = `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`;
@@ -195,15 +210,27 @@ export default function useAvailableRoutes() {
 
   const handelOnClickNewRouteBtn = () => toggleCreateNewRoute();
 
+  const handelOnClickDeleteRoueBtn = () => {
+    setWarningDescription('deleteRoute');
+    toggleShowWarning();
+  };
+
   return {
     routesCards,
     sortValue,
     searchValue,
     setSearchValue,
     selectedRoute,
+    setSelectedRoute,
     handelOnClickPill,
     handelOnClickNewRouteBtn,
     handelOnClickRouteCard,
     handelOnClickAddDrivenRouteBtn,
+    handelOnClickDeleteRoueBtn,
+    showWarningModal,
+    toggleShowWarning,
+    warningDescription,
+    hideRoutes,
+    toggleHideRoutes,
   };
 }

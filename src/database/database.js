@@ -69,9 +69,9 @@ export const getAllEntriesInTable = async (db, tableName) => {
   }
 };
 
-export const deleteEntreById = async (db, tableName, id) => {
+export const setHide = async (db, tableName, hide, idName, id) => {
   try {
-    const deleteQuery = `DELETE FROM ${tableName} WHERE add_id = ${id};`;
+    const deleteQuery = `UPDATE ${tableName} SET hide = ${hide} WHERE ${idName} = ${id};`;
     return db.executeSql(deleteQuery);
   } catch (error) {
     console.error(error);
@@ -100,6 +100,17 @@ export const saveAddress = async (db, address) => {
   }
 };
 
+export const deleteAdressById = async (db, id) => {
+  try {
+    const deleteQuery = `DELETE FROM address_tbl WHERE add_id = ${id};`;
+    return db.executeSql(deleteQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to delete address ${id}  !!!`);
+  }
+};
+
+// --- Route
 export const saveRoute = async (db, route) => {
   try {
     const insertQuery = `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`;
@@ -109,6 +120,18 @@ export const saveRoute = async (db, route) => {
     throw Error('Failed to save Route !!!');
   }
 };
+
+export const deleteRouteById = async (db, id) => {
+  try {
+    const deleteQuery = `DELETE FROM route_tbl WHERE route_id = ${id};`;
+    return db.executeSql(deleteQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to delete route ${id}  !!!`);
+  }
+};
+
+// --- drivenRoute
 
 export const saveDrivenRoute = async (db, drivenRoute) => {
   try {
@@ -127,5 +150,16 @@ export const deleteDrivenRouteById = async (db, id) => {
   } catch (error) {
     console.error(error);
     throw Error(`Failed to delete drivenRoute ${id}  !!!`);
+  }
+};
+
+export const deleteDrivenRouteByRouteId = async (db, route_id) => {
+  console.log('deleteDrivenRouteByRouteId');
+  try {
+    const deleteQuery = `DELETE FROM drivenRoute_tbl WHERE route_id = ${route_id};`;
+    return db.executeSql(deleteQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to delete drivenRoutes with route_id ${route_id}  !!!`);
   }
 };
