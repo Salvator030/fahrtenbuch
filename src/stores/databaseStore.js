@@ -117,6 +117,7 @@ export default function useDatabase() {
 
   const setRouteHide = (id, hide) => {
     database.setRouteHide(id, hide);
+    loadRoutesCallback();
   };
   // --- drivenRoute
   const saveNewDrivenRoute = drivenRoute => {

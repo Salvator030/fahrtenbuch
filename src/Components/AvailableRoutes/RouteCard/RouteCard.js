@@ -5,8 +5,11 @@ import React, {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Address from './Address/Address';
+import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {useBetween} from 'use-between';
 import useAvailableRoutes from '../../../stores/availableRoutesStor';
+import useRoutesCard from '../../../stores/routeCardStore';
 
 const styles = StyleSheet.create({
   textInput: {width: 75, alignSelf: 'center'},
@@ -46,7 +49,8 @@ const styles = StyleSheet.create({
   col1: {flex: 1, marginHorizontal: 'auto'},
   col2: {flex: 2, marginHorizontal: 'auto'},
   col3: {
-    flex: 2,
+    flex: 1,
+    alignItems: 'center',
     marginHorizontal: 'auto',
     marginTop: 'auto',
     marginBottom: 'auto',
@@ -57,6 +61,7 @@ export default function RoteCard({id, startAdd, destAdd, distance, hide}) {
   const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
   const {selectedRoute, handelOnClickRouteCard} = useShareAvaibleRoutes();
 
+  const {handelOnClickShowRouteBtn} = useRoutesCard();
   return (
     <TouchableWithoutFeedback onPress={() => handelOnClickRouteCard(id)}>
       <View
@@ -72,12 +77,21 @@ export default function RoteCard({id, startAdd, destAdd, distance, hide}) {
             <View style={styles.col2}>
               <Address address={startAdd} />
             </View>
-
             <View style={styles.col2}>
               <Address address={destAdd} />
             </View>
             <View style={styles.col3}>
               <Text>{distance} KM</Text>
+            </View>
+            <View style={styles.col1}>
+              {hide === 1 && (
+                <ButtonIcon
+                  title="Strecken einblenden"
+                  Icon={Icon}
+                  iconName="eye"
+                  onClick={() => handelOnClickShowRouteBtn(id)}
+                />
+              )}
             </View>
           </View>
         </View>

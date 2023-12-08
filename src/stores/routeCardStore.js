@@ -1,10 +1,13 @@
 import {useState} from 'react';
+import {useBetween} from 'use-between';
+import useDatabase from './databaseStore';
 
-export default function useDrivenRoutesCard() {
-  const [selectedRoute, setSelectedRoute] = useState(0);
-  const handelOnClickRouteCard = id => {
-    setSelectedRoute(id);
+export default function useRoutesCard() {
+  const useShareDatabase = () => useBetween(useDatabase);
+  const {setRouteHide} = useShareDatabase();
 
-    return {selectedRoute, handelOnClickRouteCard};
+  const handelOnClickShowRouteBtn = id => {
+    setRouteHide(id, 0);
   };
+  return {handelOnClickShowRouteBtn};
 }
