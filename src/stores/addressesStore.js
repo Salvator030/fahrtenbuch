@@ -123,6 +123,8 @@ export default function useAddresses() {
       default: {
       }
     }
+
+    list = list.filter(address => address.hide === 0);
     const cardsList = list.map(address => (
       <AddressCard key={('add', address.add_id)} address={address} />
     ));

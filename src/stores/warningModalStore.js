@@ -6,7 +6,7 @@ import useMainView from './MainViewStore';
 
 export default function useWarningModal() {
   const useShareDatabase = () => useBetween(useDatabase);
-  const {deleteRoute, setRouteHide} = useShareDatabase();
+  const {deleteRoute, setRouteHide, setAddressHide} = useShareDatabase();
 
   const useShareMainView = () => useBetween(useMainView);
   const {toggleShowWarning} = useShareMainView();
@@ -27,6 +27,11 @@ export default function useWarningModal() {
         setRouteHide(selectedRouteWarning, 1);
       }
       //   setSelectedRoute(0);
+    } else {
+      if (deleteCheckboxValue) {
+      } else {
+        setAddressHide(selectedAddressesWarning, 1);
+      }
     }
     toggleShowWarning();
   };

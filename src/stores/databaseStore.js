@@ -103,6 +103,11 @@ export default function useDatabase() {
     database.deleteAddress(add_id);
     loadAddressesCallback();
   };
+
+  const setAddressHide = (id, hide) => {
+    database.setAddressHide(id, hide);
+    loadAddressesCallback();
+  };
   // --- route
   const saveNewRoute = route => {
     database.saveNewRoute(route);
@@ -159,5 +164,6 @@ export default function useDatabase() {
     deleteDrivenRoute,
     setRouteHide,
     routesAreHidden,
+    setAddressHide,
   };
 }
