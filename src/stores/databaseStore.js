@@ -2,16 +2,18 @@ import {useState, useCallback, useEffect} from 'react';
 import * as database from '../database/databaseHandler';
 import {useBetween} from 'use-between';
 import useCalender from './calenderStore';
+import {deleteDrivenRouteByRouteId} from '../database/database';
 
 export default function useDatabase() {
   const useShareCalender = () => useBetween(useCalender);
   const {selectedDate} = useShareCalender();
 
   const [addresses, setAddresses] = useState([]);
-  const [routes, setRoutes] = useState(undefined);
+  const [routes, setRoutes] = useState([]);
   const [drivenRoutes, setDrivenRoutes] = useState([]);
   const [drivenRoutesByDate, setDrivenRoutesByDate] = useState([]);
   const [routesAreHidden, setRoutesAreHidden] = useState(false);
+  const [addressesAreHidden, setAddressesAreHidden] = useState(false);
 
   const loadAddressesCallback = useCallback(async () => {
     console.log('getAddresses');
@@ -19,6 +21,12 @@ export default function useDatabase() {
       const addressesResult = await database.getAllAddresses();
       if (addressesResult.length) {
         setAddresses(addressesResult);
+        let temp =
+          addressesResult.filter(address => address.hide === 1).length > 0
+            ? true
+            : false;
+        console.log('temp', temp);
+        setAddressesAreHidden(temp);
       }
       console.log('addressesResult', addressesResult);
     } catch (error) {
@@ -100,7 +108,24 @@ export default function useDatabase() {
   };
 
   const deleteAddress = add_id => {
-    database.deleteAddress(add_id);
+    console.log('daStore, deleteAddress', add_id);
+    console.log(routes);
+    if (routes.length > 0) {
+      let deleteRouteList = routes.filter(
+        route => route.startAdd_id === add_id || route.destAdd_id === add_id,
+      );
+      console.log('deleteRouteList ', deleteRouteList);
+      deleteRouteList.forEach(route =>
+        deleteDrivenRouteByRouteId(route.route_id),
+      );
+      deleteRouteList.forEach(route => deleteRoute(route.route_id));
+      database.deleteAddress(add_id);
+    }
+    loadAddressesCallback();
+  };
+
+  const setAddressHide = (id, hide) => {
+    database.setAddressHide(id, hide);
     loadAddressesCallback();
   };
   // --- route
@@ -159,5 +184,7 @@ export default function useDatabase() {
     deleteDrivenRoute,
     setRouteHide,
     routesAreHidden,
+    setAddressHide,
+    addressesAreHidden,
   };
 }

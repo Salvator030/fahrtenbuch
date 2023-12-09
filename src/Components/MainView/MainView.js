@@ -16,10 +16,7 @@ import useWarningModal from '../../stores/warningModalStore';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
 export default function MainView() {
   const useShareMainView = () => useBetween(useMainView);
-  const {createNewRoute} = useShareMainView();
-
-  const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
-  const {showWarningModal} = useShareAvaibleRoutes();
+  const {createNewRoute, showWarningModal} = useShareMainView();
 
   return (
     <>

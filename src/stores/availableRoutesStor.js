@@ -12,22 +12,20 @@ export default function useAvailableRoutes() {
   const [sortValue, setSortValue] = useState('startName');
   const [searchValue, setSearchValue] = useState('');
   const [selectedRoute, setSelectedRoute] = useState(0);
-  const [showWarningModal, setShowWarningModal] = useState(false);
-  const [warningDescription, setWarningDescription] = useState('');
   const [hideRoutes, setHideRoutes] = useState(true);
 
   const useShareMainView = () => useBetween(useMainView);
-  const {toggleCreateNewRoute} = useShareMainView();
+  const {toggleCreateNewRoute, toggleShowWarning} = useShareMainView();
 
   const useShareDatabase = () => useBetween(useDatabase);
   const {routes, getFullAddressById, saveNewDrivenRoute} = useShareDatabase();
 
+  const useShareWarningModal = () => useBetween(useWarningModal);
+  const {setWarningDescription, setSelectedRouteWarning} =
+    useShareWarningModal();
+
   const useShareCalender = () => useBetween(useCalender);
   const {selectedDate} = useShareCalender();
-
-  const toggleShowWarning = () => {
-    setShowWarningModal(!showWarningModal);
-  };
 
   const toggleHideRoutes = () => {
     setHideRoutes(!hideRoutes);
@@ -212,6 +210,7 @@ export default function useAvailableRoutes() {
 
   const handelOnClickDeleteRoueBtn = () => {
     setWarningDescription('deleteRoute');
+    setSelectedRouteWarning(selectedRoute);
     toggleShowWarning();
   };
 
@@ -227,9 +226,6 @@ export default function useAvailableRoutes() {
     handelOnClickRouteCard,
     handelOnClickAddDrivenRouteBtn,
     handelOnClickDeleteRoueBtn,
-    showWarningModal,
-    toggleShowWarning,
-    warningDescription,
     hideRoutes,
     toggleHideRoutes,
   };

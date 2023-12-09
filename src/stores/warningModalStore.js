@@ -2,19 +2,20 @@ import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
 import useDatabase from './databaseStore';
 import useAvailableRoutes from './availableRoutesStor';
+import useMainView from './MainViewStore';
 
 export default function useWarningModal() {
   const useShareDatabase = () => useBetween(useDatabase);
-  const {deleteRoute, setRouteHide} = useShareDatabase();
+  const {deleteRoute, setRouteHide, deleteAddress, setAddressHide} =
+    useShareDatabase();
 
-  const useShareAvailableRoutes = () => useBetween(useAvailableRoutes);
-  const {
-    selectedRoute,
-    setSelectedRoute,
-    toggleShowWarning,
-    warningDescription,
-  } = useShareAvailableRoutes();
+  const useShareMainView = () => useBetween(useMainView);
+  const {toggleShowWarning} = useShareMainView();
 
+  const [selectedRouteWarning, setSelectedRouteWarning] = useState(0);
+  const [selectedAddressesWarning, setSelectedAddressesWarning] = useState(0);
+
+  const [warningDescription, setWarningDescription] = useState('');
   const [warningContent, setWarningContent] = useState('');
   const [deleteCheckboxValue, setDeleteCheckboxValue] = useState(false);
 
@@ -22,11 +23,21 @@ export default function useWarningModal() {
     console.log('a');
     if (warningDescription === 'deleteRoute') {
       if (deleteCheckboxValue) {
-        deleteRoute(selectedRoute);
+        deleteRoute(selectedRouteWarning);
       } else {
-        setRouteHide(selectedRoute, 1);
+        setRouteHide(selectedRouteWarning, 1);
       }
-      setSelectedRoute(0);
+      //   setSelectedRoute(0);
+    } else {
+      if (deleteCheckboxValue) {
+        console.log(
+          'handelOnClickOkBtn,deleteAddress',
+          selectedAddressesWarning,
+        );
+        deleteAddress(selectedAddressesWarning);
+      } else {
+        setAddressHide(selectedAddressesWarning, 1);
+      }
     }
     toggleShowWarning();
   };
@@ -65,8 +76,10 @@ export default function useWarningModal() {
 
   return {
     warningDescription,
+    setWarningDescription,
     warningContent,
-
+    setSelectedRouteWarning,
+    setSelectedAddressesWarning,
     deleteCheckboxValue,
     setDeleteCheckboxValue,
     handelOnClickBackBtn,
