@@ -100,7 +100,7 @@ export const saveAddress = async (db, address) => {
   }
 };
 
-export const deleteAdressById = async (db, id) => {
+export const deleteAddressById = async (db, id) => {
   try {
     const deleteQuery = `DELETE FROM address_tbl WHERE add_id = ${id};`;
     return db.executeSql(deleteQuery);
