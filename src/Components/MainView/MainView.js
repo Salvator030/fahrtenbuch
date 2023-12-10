@@ -1,12 +1,13 @@
 import React from 'react';
 import CurrentDateView from '../DateView/DateView';
-import {Button, SafeAreaView} from 'react-native';
+import { Button, ScrollView } from 'react-native';
 import DateView from '../DateView/DateView';
 import AvailableRoutes from '../AvailableRoutes/AvailableRoutes';
 import NewRoute from '../NewRoute/NewRoute';
 import WarningModal from '../WarningModal/WarningModal';
+import ScrollArea from '../CustomComponents/ScrollArea/ScrollArea';
 import useMainView from '../../stores/MainViewStore';
-import {useBetween} from 'use-between';
+import { useBetween } from 'use-between';
 import {
   deleteAddressTable,
   deleteRouteTable,
@@ -16,10 +17,11 @@ import useWarningModal from '../../stores/warningModalStore';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
 export default function MainView() {
   const useShareMainView = () => useBetween(useMainView);
-  const {createNewRoute, showWarningModal} = useShareMainView();
+  const { createNewRoute, showWarningModal } = useShareMainView();
 
   return (
-    <>
+    <><ScrollView>
+    
       {!createNewRoute ? (
         <>
           <DateView />
@@ -32,6 +34,8 @@ export default function MainView() {
       {/* <Button onPress={deleteAddressTable} title="d. address" />
       <Button onPress={deleteRouteTable} title="d. route" />
       <Button onPress={deleteDrivenRouteTable} title="d. drivenRoute" /> */}
+
+    </ScrollView>
     </>
   );
 }
