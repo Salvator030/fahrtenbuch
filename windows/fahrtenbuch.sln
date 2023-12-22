@@ -37,6 +37,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SQLitePlugin", "..\node_mod
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CheckboxWindows", "..\node_modules\@react-native-community\checkbox\windows\CheckboxWindows\CheckboxWindows.vcxproj", "{EAF81BEB-A159-4421-9B6D-E59C37828A57}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RNFS", "..\node_modules\react-native-fs\windows\RNFS\RNFS.vcxproj", "{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\node_modules\react-native-windows\Shared\Shared.vcxitems*{2049dbe9-8d13-42c9-ae4b-413ae38fffd0}*SharedItemsImports = 9
@@ -162,6 +164,18 @@ Global
 		{EAF81BEB-A159-4421-9B6D-E59C37828A57}.Release|x86.Build.0 = Release|Win32
 		{EAF81BEB-A159-4421-9B6D-E59C37828A57}.Release|ARM64.ActiveCfg = Release|ARM64
 		{EAF81BEB-A159-4421-9B6D-E59C37828A57}.Release|ARM64.Build.0 = Release|ARM64
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Debug|x64.ActiveCfg = Debug|x64
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Debug|x64.Build.0 = Debug|x64
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Debug|x86.ActiveCfg = Debug|Win32
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Debug|x86.Build.0 = Debug|Win32
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Debug|ARM64.Build.0 = Debug|ARM64
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Release|x64.ActiveCfg = Release|x64
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Release|x64.Build.0 = Release|x64
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Release|x86.ActiveCfg = Release|Win32
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Release|x86.Build.0 = Release|Win32
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Release|ARM64.ActiveCfg = Release|ARM64
+		{4F89A807-A843-4DF0-8D74-A04A3F48FEF9}.Release|ARM64.Build.0 = Release|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
