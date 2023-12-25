@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function CreateFile() {
+export default function PrintView() {
   const {onDateChange, fileData, onClickOkBtn} = useCreateFile();
 
   //   const [text, setText] = useState('a');
