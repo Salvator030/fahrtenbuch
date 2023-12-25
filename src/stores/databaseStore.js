@@ -3,6 +3,7 @@ import * as database from '../database/databaseHandler';
 import {useBetween} from 'use-between';
 import useCalender from './calenderStore';
 import {deleteDrivenRouteByRouteId} from '../database/database';
+import {parseDate} from '../asserts/dateHelper';
 
 export default function useDatabase() {
   const useShareCalender = () => useBetween(useCalender);
@@ -88,9 +89,7 @@ export default function useDatabase() {
   useEffect(() => {
     console.log('useEffekt, setDrivenRoutesByDate', drivenRoutes);
     let items = drivenRoutes.filter(
-      route =>
-        route.date ===
-        `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`,
+      route => route.date === parseDate(selectedDate),
     );
 
     console.log('useEffekt, setDrivenRoutesByDate', items);
@@ -158,6 +157,10 @@ export default function useDatabase() {
     loadDrivenRoutesCallback();
   };
 
+  const getDrivenRoutesBetweenDates = (startDate, endDate) => {
+    return database.getDrivenRoutesBetweenDates(startDate, endDate);
+  };
+
   const deleteDrivenRoute = dRoute_id => {
     console.log('dbStore, deleteDrivenRoute ', dRoute_id);
     database.deleteDrivenRoute(dRoute_id);
@@ -178,6 +181,7 @@ export default function useDatabase() {
     saveNewRoute,
     getFullRouteById,
     drivenRoutesByDate,
+    getDrivenRoutesBetweenDates,
     saveNewDrivenRoute,
     deleteAddress,
     deleteRoute,

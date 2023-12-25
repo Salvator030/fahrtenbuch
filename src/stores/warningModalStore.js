@@ -20,7 +20,6 @@ export default function useWarningModal() {
   const [deleteCheckboxValue, setDeleteCheckboxValue] = useState(false);
 
   const handelOnClickOkBtn = () => {
-    console.log('a');
     if (warningDescription === 'deleteRoute') {
       if (deleteCheckboxValue) {
         deleteRoute(selectedRouteWarning);
@@ -30,10 +29,6 @@ export default function useWarningModal() {
       //   setSelectedRoute(0);
     } else {
       if (deleteCheckboxValue) {
-        console.log(
-          'handelOnClickOkBtn,deleteAddress',
-          selectedAddressesWarning,
-        );
         deleteAddress(selectedAddressesWarning);
       } else {
         setAddressHide(selectedAddressesWarning, 1);

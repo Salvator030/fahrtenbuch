@@ -1,3 +1,4 @@
+import {parseDate} from '../asserts/dateHelper';
 import * as database from './database';
 const addressTable = 'address_tbl';
 const routeTable = 'route_tbl';
@@ -52,7 +53,6 @@ export const saveNewRoute = async route => {
 };
 
 export const deleteRoute = async route_id => {
-  console.log('dbHandler, deleteRoute ', route_id);
   const db = await database.getDBConnection();
   return await database.deleteRouteById(db, route_id);
 };
@@ -71,6 +71,15 @@ export const deleteDrivenRouteTable = async () => {
 export const getAllDrivenRoutes = async () => {
   const db = await database.getDBConnection();
   return await database.getAllEntriesInTable(db, drivenRouteTable);
+};
+
+export const getDrivenRoutesBetweenDates = async (startDate, endDate) => {
+  const db = await database.getDBConnection();
+  return await database.getDrivenRoutesBetweenDates(
+    db,
+    parseDate(startDate),
+    parseDate(endDate),
+  );
 };
 
 export const saveNewDrivenRoute = async drivenRoute => {

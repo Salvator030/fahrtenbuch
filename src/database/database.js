@@ -143,6 +143,16 @@ export const saveDrivenRoute = async (db, drivenRoute) => {
   }
 };
 
+export const getDrivenRoutesBetweenDates = async (db, startDate, endDate) => {
+  try {
+    const insertQuery = `SELECT * FROM drivenRoute_tbl WHERE DATE BETWEEN '${startDate}' AND '${endDate}' ;`;
+    return db.executeSql(insertQuery);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed getDrivenRoutes between ${startDate} - ${endDate} !!!`);
+  }
+};
+
 export const deleteDrivenRouteById = async (db, id) => {
   try {
     const deleteQuery = `DELETE FROM drivenRoute_tbl WHERE dRoute_id = ${id};`;
