@@ -1,11 +1,15 @@
 import {useState} from 'react';
 import {useBetween} from 'use-between';
 import useDatabase from './databaseStore';
+import useMainView from './MainViewStore';
 import {Text} from 'react-native';
 
 export default function useCreateFile() {
   const useShareDatabase = () => useBetween(useDatabase);
   const {getDrivenRoutesBetweenDates} = useShareDatabase();
+  const useShareMainView = () => useBetween(useMainView);
+  const {createNewRoute, showWarningModal, printView, togglePrintView} =
+    useShareMainView();
 
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
@@ -21,6 +25,10 @@ export default function useCreateFile() {
     }
   };
 
+  const handelOnClickBackBtn = () => {
+    togglePrintView();
+  };
+
   const onClickOkBtn = () => {
     console.log(
       getDrivenRoutesBetweenDates(selectedStartDate, selectedEndDate),
@@ -33,5 +41,6 @@ export default function useCreateFile() {
     fileData,
     onDateChange,
     onClickOkBtn,
+    handelOnClickBackBtn,
   };
 }
