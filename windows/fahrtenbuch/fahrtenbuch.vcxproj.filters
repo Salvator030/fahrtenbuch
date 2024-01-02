@@ -75,5 +75,11 @@
     <Font Include="Assets\FontAwesome5_Brands.ttf">
       <Filter>Assets</Filter>
     </Font>
+    <Font Include="..\..\node_modules\react-native-vector-icons\Fonts\AntDesign.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+    <Font Include="Assets\AntDesign.ttf">
+      <Filter>Assets</Filter>
+    </Font>
   </ItemGroup>
 </Project>
