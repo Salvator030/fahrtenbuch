@@ -24,7 +24,7 @@ export default function MainView() {
     useShareMainView();
 
   return (
-    <>
+    <ScrollView>
       {createNewRoute ? (
         <NewRoute />
       ) : printView ? (
@@ -45,6 +45,6 @@ export default function MainView() {
       <Button onPress={deleteRouteTable} title="d. route" />
       <Button onPress={deleteDrivenRouteTable} title="d. drivenRoute" />  
       </ScrollView>*/}
-    </>
+    </ScrollView>
   );
 }
