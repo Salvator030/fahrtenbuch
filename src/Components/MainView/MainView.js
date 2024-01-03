@@ -25,8 +25,6 @@ export default function MainView() {
 
   return (
     <>
-      {/*  */}
-
       {createNewRoute ? (
         <NewRoute />
       ) : printView ? (
