@@ -30,6 +30,7 @@ export default function useCreateFile() {
   };
 
   const onClickOkBtn = () => {
+    console.log(selectedStartDate + ' ' + selectedEndDate);
     console.log(
       getDrivenRoutesBetweenDates(selectedStartDate, selectedEndDate),
     );

@@ -1,4 +1,6 @@
 export const parseDate = date => {
-  date = date._d;
+  if (date._d) {
+    return `${date._d.getDate()}.${date._d.getMonth()}.${date._d.getFullYear()}`;
+  }
   return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 };

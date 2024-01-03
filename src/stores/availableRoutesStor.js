@@ -6,6 +6,7 @@ import RouteCard from '../Components/AvailableRoutes/RouteCard/RouteCard';
 import {sortByAlphabetAscending} from '../asserts/sortHelper';
 import useCalender from './calenderStore';
 import useWarningModal from './warningModalStore';
+import {parseDate} from '../asserts/dateHelper';
 
 export default function useAvailableRoutes() {
   const [routesCards, setRoutesCards] = useState([]);
@@ -190,8 +191,7 @@ export default function useAvailableRoutes() {
   }, [routes, sortValue, searchValue, hideRoutes, getFullAddressById]);
 
   const createNewDrivenRoute = () => {
-    const date = `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`;
-    return {date: date, route_id: selectedRoute};
+    return {date: parseDate(selectedDate), route_id: selectedRoute};
   };
 
   const handelOnClickPill = value => {
