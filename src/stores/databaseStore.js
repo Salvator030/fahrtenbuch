@@ -1,13 +1,13 @@
-import {useState, useCallback, useEffect} from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import * as database from '../database/databaseHandler';
-import {useBetween} from 'use-between';
+import { useBetween } from 'use-between';
 import useCalender from './calenderStore';
-import {deleteDrivenRouteByRouteId} from '../database/database';
-import {parseDate} from '../asserts/dateHelper';
+import { deleteDrivenRouteByRouteId } from '../database/database';
+import { parseDate } from '../asserts/dateHelper';
 
 export default function useDatabase() {
   const useShareCalender = () => useBetween(useCalender);
-  const {selectedDate} = useShareCalender();
+  const { selectedDate } = useShareCalender();
 
   const [addresses, setAddresses] = useState([]);
   const [routes, setRoutes] = useState([]);
@@ -157,8 +157,20 @@ export default function useDatabase() {
     loadDrivenRoutesCallback();
   };
 
-  const getDrivenRoutesBetweenDates = (startDate, endDate) => {
-    return database.getDrivenRoutesBetweenDates(startDate, endDate);
+  const getDrivenRoutesBetweenDates = async (startDate, endDate) => {
+    let res = await database.getDrivenRoutesBetweenDates(startDate, endDate);
+    if (res.length > 0){
+      res = [res.map(r => {
+        const route = getFullRouteById(r.route_id);
+        return {
+          date: r.date,
+          start: getFullAddressById(route.startAdd_id),
+          dest: getFullAddressById(route.destAdd_id),
+          dist: route.distance
+        }
+      })]
+      return res;}
+    return [];
   };
 
   const deleteDrivenRoute = dRoute_id => {

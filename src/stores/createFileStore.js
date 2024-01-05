@@ -1,14 +1,15 @@
-import {useState} from 'react';
-import {useBetween} from 'use-between';
+import { useState } from 'react';
+import { useBetween } from 'use-between';
 import useDatabase from './databaseStore';
 import useMainView from './MainViewStore';
-import {Text} from 'react-native';
+import { Text } from 'react-native';
+import { parseToCsvString } from '../asserts/outputCsvHelper';
 
 export default function useCreateFile() {
   const useShareDatabase = () => useBetween(useDatabase);
-  const {getDrivenRoutesBetweenDates} = useShareDatabase();
+  const { getDrivenRoutesBetweenDates } = useShareDatabase();
   const useShareMainView = () => useBetween(useMainView);
-  const {createNewRoute, showWarningModal, printView, togglePrintView} =
+  const { createNewRoute, showWarningModal, printView, togglePrintView } =
     useShareMainView();
 
   const [selectedStartDate, setSelectedStartDate] = useState(null);
@@ -29,10 +30,11 @@ export default function useCreateFile() {
     togglePrintView();
   };
 
-  const onClickOkBtn = () => {
+  const onClickOkBtn = async () => {
     console.log(selectedStartDate + ' ' + selectedEndDate);
-    console.log(
-      getDrivenRoutesBetweenDates(selectedStartDate, selectedEndDate),
+    let res = await getDrivenRoutesBetweenDates(selectedStartDate, selectedEndDate)
+    console.log(parseToCsvString(res)
+      ,
     );
   };
 
