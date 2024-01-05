@@ -77,8 +77,8 @@ export const getDrivenRoutesBetweenDates = async (startDate, endDate) => {
   const db = await database.getDBConnection();
   return await database.getDrivenRoutesBetweenDates(
     db,
-    parseDate(startDate),
-    parseDate(endDate),
+   startDate,
+    endDate,
   );
 };
 

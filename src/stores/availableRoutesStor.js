@@ -191,7 +191,7 @@ export default function useAvailableRoutes() {
   }, [routes, sortValue, searchValue, hideRoutes, getFullAddressById]);
 
   const createNewDrivenRoute = () => {
-    return {date: parseDate(selectedDate), route_id: selectedRoute};
+    return {date: selectedDate, route_id: selectedRoute};
   };
 
   const handelOnClickPill = value => {

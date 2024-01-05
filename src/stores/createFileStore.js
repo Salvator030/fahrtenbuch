@@ -17,7 +17,7 @@ export default function useCreateFile() {
   const [fileData, setFileData] = useState(<Text>'sdfsdf'</Text>);
 
   const onDateChange = (date, type) => {
-    console.log(type);
+    console.log(date + " " + type);
     if (type === 'END_DATE') {
       setSelectedEndDate(date);
     } else {
@@ -32,10 +32,8 @@ export default function useCreateFile() {
 
   const onClickOkBtn = async () => {
     console.log(selectedStartDate + ' ' + selectedEndDate);
-    let res = await getDrivenRoutesBetweenDates(selectedStartDate, selectedEndDate)
-    console.log(parseToCsvString(res)
-      ,
-    );
+    let res = await getDrivenRoutesBetweenDates(selectedStartDate, selectedEndDate);
+    setFileData(<Text>{parseToCsvString(res)}</Text>)
   };
 
   return {
