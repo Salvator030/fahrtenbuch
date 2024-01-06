@@ -44,7 +44,7 @@ export default function MainView() {
       {/* <Button onPress={deleteAddressTable} title="d. address" />
       <Button onPress={deleteRouteTable} title="d. route" />
       <Button onPress={deleteDrivenRouteTable} title="d. drivenRoute" />  
-      </ScrollView>*/}
+      */}
     </ScrollView>
   );
 }
