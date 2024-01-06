@@ -89,10 +89,8 @@ export default function useDatabase() {
   useEffect(() => {
     console.log('useEffekt, setDrivenRoutesByDate', drivenRoutes);
     let items = drivenRoutes.filter(
-       
-      route => 
-route.date === Date.parse(selectedDate)
-    
+      route =>
+        route.date === Date.parse(selectedDate)
     );
 
     console.log('useEffekt, setDrivenRoutesByDate', items);

@@ -29,3 +29,15 @@ export function sortDrivenRouteByLogicalOrder(drivenRouteA, drivenRouteB) {
   ('nothing');
   return 0;
 }
+
+export function sortDrivenRouteByDate(a,b){
+  console.log(a);
+  console.log(b)
+  if (a < b) {
+    return -1;
+  }
+  if (a > b) {
+    return 1;
+  }
+  return 0;
+}
