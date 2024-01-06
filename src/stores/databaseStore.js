@@ -89,7 +89,10 @@ export default function useDatabase() {
   useEffect(() => {
     console.log('useEffekt, setDrivenRoutesByDate', drivenRoutes);
     let items = drivenRoutes.filter(
-      route => route.date === Date.parse(selectedDate),
+       
+      route => 
+route.date === Date.parse(selectedDate)
+    
     );
 
     console.log('useEffekt, setDrivenRoutesByDate', items);
@@ -160,17 +163,17 @@ export default function useDatabase() {
   const getDrivenRoutesBetweenDates = async (startDate, endDate) => {
     let res = await database.getDrivenRoutesBetweenDates(startDate, endDate);
     let fullDrivenRoutes = []
-    if (res.length > 0){
+    if (res.length > 0) {
       res.map(r => {
         const route = getFullRouteById(r.route_id);
-        fullDrivenRoutes.push( {
+        fullDrivenRoutes.push({
           date: r.date,
           start: getFullAddressById(route.startAdd_id),
           dest: getFullAddressById(route.destAdd_id),
           dist: route.distance
         })
       })
-     }
+    }
     return fullDrivenRoutes;
   };
 
