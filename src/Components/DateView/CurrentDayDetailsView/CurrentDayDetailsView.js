@@ -4,7 +4,7 @@ import Grid from '../../CustomComponents/Grid/Grid';
 import {useBetween} from 'use-between';
 import useCalender from '../../../stores/calenderStore';
 import useDatabase from '../../../stores/databaseStore';
-import { parseDate } from '../../../asserts/dateHelper';
+import {parseDate} from '../../../asserts/dateHelper';
 
 const styles = {
   root: {marginTop: 2},
@@ -35,9 +35,7 @@ export default function CurrentDayDetailsView() {
 
   return (
     <View style={styles.root}>
-      <Text style={styles.textDate}>
-        {parseDate(selectedDate)}
-      </Text>
+      <Text style={styles.textDate}>{parseDate(selectedDate)}</Text>
       <View gridStyle={styles.gridStyle}>
         <View style={styles.row}>
           <View style={styles.col}>
