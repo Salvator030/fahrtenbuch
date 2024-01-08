@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useBetween } from 'use-between';
 import useDatabase from './databaseStore';
 import useMainView from './MainViewStore';
+import useFileHandler from './fileHandlerStore';
 import { Text } from 'react-native';
 import { parseToCsvString } from '../asserts/outputCsvHelper';
 
@@ -12,6 +13,7 @@ export default function useCreateFile() {
   const { createNewRoute, showWarningModal, printView, togglePrintView } =
     useShareMainView();
 
+  
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [fileData, setFileData] = useState(<Text>'sdfsdf'</Text>);
