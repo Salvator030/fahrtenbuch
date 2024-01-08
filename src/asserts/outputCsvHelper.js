@@ -18,10 +18,14 @@ export const parseToCsvString = fullDrivenRoutes => {
       console.log(r);
 
       if (dateArray[1] > lastDayArray[1] || dateArray[2] > lastDayArray[2]) {
-        csvString = csvString.concat(
-          `\n${distMonth}Km,\n,\n${dateArray[1]}.${dateArray[2]},`,
-        );
-        distMonth = 0;
+        if (lastDate !== 0) {
+          csvString = csvString.concat(
+            `\n${distMonth.toFixed(2)}Km,\n,\n${dateArray[1]}.${dateArray[2]},`,
+          );
+          distMonth = 0;
+        } else {
+          csvString = csvString.concat(`\n,\n${dateArray[1]}.${dateArray[2]},`);
+        }
       }
       lastDate = r.date;
     }
@@ -32,6 +36,8 @@ export const parseToCsvString = fullDrivenRoutes => {
     );
   });
   console.log(distMonth);
-  csvString = csvString.concat(`\n${distMonth}Km,\n,\ngestamt,\n${distAll}Km`);
+  csvString = csvString.concat(
+    `\n${distMonth.toFixed(2)}Km,\n,\ngestamt,\n${distAll.toFixed(2)}Km`,
+  );
   return csvString;
 };
