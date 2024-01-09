@@ -3,7 +3,7 @@ import React, {Button, View, StyleSheet, Text} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 import ScrollArea from '../CustomComponents/ScrollArea/ScrollArea';
 import RNFS from 'react-native-fs';
-import useCreateFile from '../../stores/createFileStore';
+import usePrintView from '../../stores/printViewStore';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import IconOk from 'react-native-vector-icons/FontAwesome';
 import BackIcon from 'react-native-vector-icons/Ionicons';
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
 });
 
 export default function PrintView() {
-  const {onDateChange, fileData, onClickOkBtn, handelOnClickBackBtn} =
-    useCreateFile();
+  const {onDateChange, fileData, selectedEndDate,onClickOkBtn, handelOnClickBackBtn} =
+    usePrintView();
 
   //   const [text, setText] = useState('a');
   //   const click = async () => {
@@ -87,6 +87,8 @@ export default function PrintView() {
               title="ok"
               iconName="check"
               onClick={onClickOkBtn}
+              disabled={selectedEndDate === null}
+              color={selectedEndDate === null? "gray" : 'black'}
             />
           </View>
         </View>

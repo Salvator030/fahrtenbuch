@@ -9,10 +9,10 @@ export default function useFileHandler() {
     console.log(documentsFolder);
   }, []);
 
-  const createFile = async value => {
-    let name = '/testTestttsddd.csv';
+  const createFile = async (value,dateString) => {
+    let name = 'fahrtenbuch' + dateString
     var path = documentsFolder + name;
-
+    console.log(path);
     RNFS.writeFile(path, value, 'utf8')
       .then(success => {
         console.log('FILE WRITTEN!');
@@ -20,24 +20,9 @@ export default function useFileHandler() {
       .catch(err => {
         console.error(err.message);
       });
-    // i = -1;
-    // }
-    // }
+ 
   };
 
-  // create a path you want to write to
-  // :warning: on iOS, you cannot write into `RNFS.MainBundlePath`,
-  // but `RNFS.DocumentDirectoryPath` exists on both platforms and is writable
-  //
-
-  // write the file
-  //RNFS.writeFile(path, 'Lorem ipsum dolor sit amet', 'utf8')
-  //  .then((success) => {
-  //   console.log('FILE WRITTEN!');
-  // })
-  // .catch((err) => {
-  //  console.log(err.message);
-  //});
 
   return {createFile};
 }

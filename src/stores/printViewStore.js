@@ -5,8 +5,9 @@ import useMainView from './MainViewStore';
 import useFileHandler from './fileHandlerStore';
 import {Text} from 'react-native';
 import {parseToCsvString} from '../asserts/outputCsvHelper';
+import { parseDateForFileName } from '../asserts/dateHelper';
 
-export default function useCreateFile() {
+export default function usePrintView() {
   const useShareDatabase = () => useBetween(useDatabase);
   const {getDrivenRoutesBetweenDates} = useShareDatabase();
   const useShareMainView = () => useBetween(useMainView);
@@ -41,7 +42,8 @@ export default function useCreateFile() {
     );
     const csvStringtr = parseToCsvString(res);
     setFileData(<Text>{csvStringtr}</Text>);
-    createFile(csvStringtr);
+
+    createFile(csvStringtr, parseDateForFileName(selectedStartDate, selectedEndDate));
   };
 
   return {
