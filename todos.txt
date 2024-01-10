@@ -1,4 +1,4 @@
-42-feature-request-when-delete-a-driven-createNewRoute
+x   42-feature-request-when-delete-a-driven-createNewRoute
 43-bug-handel-when-a-existet-route-is-create-a-second-time
 44-bug-distance-in-detailsView
 45-bug-handel-when-a-existet-address-is-create-a-second-time
@@ -8,3 +8,4 @@
 49-feature-edit-function-for-address
 50-feature-edit-function-for-route(distance)
 51-feature-restyling
+52-feature-massage-if-a-output-file-safed

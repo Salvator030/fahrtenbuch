@@ -5,6 +5,7 @@ import DrivenRoutesCards from '../Components/DateView/CurrentDayRoutes/DrivenRou
 import {View, Text} from 'react-native';
 import useCalender from './calenderStore';
 import {sortDrivenRouteByLogicalOrder} from '../asserts/sortHelper';
+import useWarningModal from './warningModalStore';
 
 export default function useCurrentDayRoutes() {
   const useShareDatabase = () => useBetween(useDatabase);
@@ -17,6 +18,9 @@ export default function useCurrentDayRoutes() {
   const useShareCalendar = () => useBetween(useCalender);
   const {selectedDate} = useShareCalendar();
 
+  const useShareWarningModal = () => useBetween(useWarningModal);
+  const {openDeleteDrivenRouteWarning} = useShareWarningModal();
+
   const [selectedDrivenRoute, setSelectedDrivenRoute] = useState(0);
   const [drivenRoutesCards, setDrivenRoutesCards] = useState([]);
 
@@ -25,7 +29,7 @@ export default function useCurrentDayRoutes() {
   };
 
   const handelOnClickDeleteBtn = () => {
-    deleteDrivenRoute(selectedDrivenRoute);
+    openDeleteDrivenRouteWarning(selectedDrivenRoute);
   };
   useEffect(() => {
     let list = drivenRoutesByDate;

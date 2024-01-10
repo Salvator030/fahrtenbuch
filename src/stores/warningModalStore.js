@@ -6,18 +6,31 @@ import useMainView from './MainViewStore';
 
 export default function useWarningModal() {
   const useShareDatabase = () => useBetween(useDatabase);
-  const {deleteRoute, setRouteHide, deleteAddress, setAddressHide} =
-    useShareDatabase();
+  const {
+    deleteRoute,
+    deleteDrivenRoute,
+    setRouteHide,
+    deleteAddress,
+    setAddressHide,
+  } = useShareDatabase();
 
   const useShareMainView = () => useBetween(useMainView);
   const {toggleShowWarning} = useShareMainView();
 
   const [selectedRouteWarning, setSelectedRouteWarning] = useState(0);
   const [selectedAddressesWarning, setSelectedAddressesWarning] = useState(0);
+  const [selectedDrivenRouteWarning, setSelectedDrivenRouteWarning] =
+    useState(0);
 
   const [warningDescription, setWarningDescription] = useState('');
   const [warningContent, setWarningContent] = useState('');
   const [deleteCheckboxValue, setDeleteCheckboxValue] = useState(false);
+
+  const openDeleteDrivenRouteWarning = drivenRoute => {
+    setSelectedDrivenRouteWarning(drivenRoute);
+    setWarningDescription('deleteDrivenRoute');
+    toggleShowWarning();
+  };
 
   const handelOnClickOkBtn = () => {
     if (warningDescription === 'deleteRoute') {
@@ -27,6 +40,8 @@ export default function useWarningModal() {
         setRouteHide(selectedRouteWarning, 1);
       }
       //   setSelectedRoute(0);
+    } else if (warningDescription === 'deleteDrivenRoute') {
+      deleteDrivenRoute(selectedDrivenRouteWarning);
     } else {
       if (deleteCheckboxValue) {
         deleteAddress(selectedAddressesWarning);
@@ -50,6 +65,10 @@ export default function useWarningModal() {
           'dies wird nicht empfohlen.\n' +
           'Beim verbergen der Strecke wird diese nicht mehr als verfügbare Strecke gelistet,\n' +
           'bleibt aber in den gefahreren Tagesstrecke vorhanden. ';
+        break;
+      }
+      case 'deleteDrivenRoute': {
+        text = 'Gefahrene Strecke löschen? ';
         break;
       }
 
@@ -79,5 +98,6 @@ export default function useWarningModal() {
     setDeleteCheckboxValue,
     handelOnClickBackBtn,
     handelOnClickOkBtn,
+    openDeleteDrivenRouteWarning,
   };
 }
