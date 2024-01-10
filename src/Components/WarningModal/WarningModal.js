@@ -44,6 +44,7 @@ export default function WarningModal() {
   const useShareWarningModel = () => useBetween(useWarningModal);
   const {
     warningContent,
+    warningDescription,
     deleteCheckboxValue,
     setDeleteCheckboxValue,
     handelOnClickBackBtn,
@@ -54,20 +55,23 @@ export default function WarningModal() {
       <View style={styles.dialog}>
         <Text style={styles.headline}>Warnung</Text>
         <Text>{warningContent}</Text>
-        <View style={styles.gridStyle}>
-          <View style={styles.row}>
-            <View style={styles.col1}>
-              <CheckBox
-                disabled={false}
-                value={deleteCheckboxValue}
-                onValueChange={setDeleteCheckboxValue}
-              />
-            </View>
-            <View style={styles.col2}>
-              <Text>komplet Löschen</Text>
+        {(warningDescription === 'deleteRoute' ||
+          warningDescription === 'deleteAddress') && (
+          <View style={styles.gridStyle}>
+            <View style={styles.row}>
+              <View style={styles.col1}>
+                <CheckBox
+                  disabled={false}
+                  value={deleteCheckboxValue}
+                  onValueChange={setDeleteCheckboxValue}
+                />
+              </View>
+              <View style={styles.col2}>
+                <Text>komplet Löschen</Text>
+              </View>
             </View>
           </View>
-        </View>
+        )}
         <View style={styles.gridStyle}>
           <View style={styles.row}>
             <View style={styles.col1}>
