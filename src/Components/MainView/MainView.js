@@ -1,6 +1,6 @@
 import React from 'react';
 import CurrentDateView from '../DateView/DateView';
-import {Button, ScrollView} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import DateView from '../DateView/DateView';
 import AvailableRoutes from '../AvailableRoutes/AvailableRoutes';
 import NewRoute from '../NewRoute/NewRoute';
@@ -18,6 +18,21 @@ import useWarningModal from '../../stores/warningModalStore';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import PrintIcon from 'react-native-vector-icons/AntDesign';
+
+const styles = StyleSheet.create({
+  gridStyle: {
+    flex: 12,
+    width: 800,
+    alignSelf: 'center',
+  
+  },
+  row: {
+    flexDirection: 'row',
+    marginTop: 8,
+  },
+  col2: {flex: 1, marginHorizontal: 'auto'},
+});
+
 export default function MainView() {
   const useShareMainView = () => useBetween(useMainView);
   const {createNewRoute, showWarningModal, printView, togglePrintView} =
@@ -33,11 +48,17 @@ export default function MainView() {
         <>
           <DateView />
           <AvailableRoutes />
-          <ButtonIcon
-            Icon={PrintIcon}
-            iconName="printer"
-            onClick={togglePrintView}
-          />
+          <View style={styles.gridStyle}>
+            <View style={styles.row}>
+              <View style={styles.col2}>
+                <ButtonIcon
+                  Icon={PrintIcon}
+                  iconName="printer"
+                  onClick={togglePrintView}
+                />
+              </View>
+            </View>
+          </View>
         </>
       )}
       {showWarningModal && <WarningModal />}
