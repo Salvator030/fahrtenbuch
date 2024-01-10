@@ -6,6 +6,9 @@
 // Includes from @react-native-community/checkbox
 #include <winrt/CheckboxWindows.h>
 
+// Includes from react-native-fs
+#include <winrt/RNFS.h>
+
 // Includes from react-native-sqlite-storage
 #include <winrt/SQLitePlugin.h>
 
@@ -16,6 +19,8 @@ void RegisterAutolinkedNativeModulePackages(winrt::Windows::Foundation::Collecti
 { 
     // IReactPackageProviders from @react-native-community/checkbox
     packageProviders.Append(winrt::CheckboxWindows::ReactPackageProvider());
+    // IReactPackageProviders from react-native-fs
+    packageProviders.Append(winrt::RNFS::ReactPackageProvider());
     // IReactPackageProviders from react-native-sqlite-storage
     packageProviders.Append(winrt::SQLitePlugin::ReactPackageProvider());
 }

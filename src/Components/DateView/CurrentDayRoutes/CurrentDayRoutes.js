@@ -56,7 +56,6 @@ export default function CurrentDayRoutes() {
       </View>
 
       <ButtonIcon
-        title="Löschen"
         Icon={Icon}
         iconName="trash"
         color={selectedDrivenRoute === 0 ? 'lightgray' : 'black'}

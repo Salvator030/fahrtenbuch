@@ -3,6 +3,7 @@ import * as database from '../database/databaseHandler';
 import {useBetween} from 'use-between';
 import useCalender from './calenderStore';
 import {deleteDrivenRouteByRouteId} from '../database/database';
+import {parseDate} from '../asserts/dateHelper';
 
 export default function useDatabase() {
   const useShareCalender = () => useBetween(useCalender);
@@ -88,9 +89,7 @@ export default function useDatabase() {
   useEffect(() => {
     console.log('useEffekt, setDrivenRoutesByDate', drivenRoutes);
     let items = drivenRoutes.filter(
-      route =>
-        route.date ===
-        `${selectedDate.getDate()}.${selectedDate.getMonth()}.${selectedDate.getFullYear()}`,
+      route => route.date === Date.parse(selectedDate),
     );
 
     console.log('useEffekt, setDrivenRoutesByDate', items);
@@ -158,6 +157,23 @@ export default function useDatabase() {
     loadDrivenRoutesCallback();
   };
 
+  const getDrivenRoutesBetweenDates = async (startDate, endDate) => {
+    let res = await database.getDrivenRoutesBetweenDates(startDate, endDate);
+    let fullDrivenRoutes = [];
+    if (res.length > 0) {
+      res.map(r => {
+        const route = getFullRouteById(r.route_id);
+        fullDrivenRoutes.push({
+          date: r.date,
+          start: getFullAddressById(route.startAdd_id),
+          dest: getFullAddressById(route.destAdd_id),
+          dist: route.distance,
+        });
+      });
+    }
+    return fullDrivenRoutes;
+  };
+
   const deleteDrivenRoute = dRoute_id => {
     console.log('dbStore, deleteDrivenRoute ', dRoute_id);
     database.deleteDrivenRoute(dRoute_id);
@@ -178,6 +194,7 @@ export default function useDatabase() {
     saveNewRoute,
     getFullRouteById,
     drivenRoutesByDate,
+    getDrivenRoutesBetweenDates,
     saveNewDrivenRoute,
     deleteAddress,
     deleteRoute,

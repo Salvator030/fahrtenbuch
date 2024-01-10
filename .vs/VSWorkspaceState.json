@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\windows"
+    "\\windows",
+    "\\windows\\fahrtenbuch",
+    "\\windows\\fahrtenbuch\\Assets"
   ],
-  "SelectedNode": "\\windows\\fahrtenbuch.sln",
+  "SelectedNode": "\\windows\\fahrtenbuch\\Assets\\FontAwesome5_Brands.ttf",
   "PreviewInSolutionExplorer": false
 }

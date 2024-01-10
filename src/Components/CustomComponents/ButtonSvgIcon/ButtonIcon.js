@@ -11,16 +11,35 @@ export default function ButtonIcon({
   color,
   disabled,
 }) {
+  const defaultSize = 30;
   return (
-    <View style={btnStyle ? btnStyle : {height: size, width: size}}>
+    <View
+      style={
+        btnStyle
+          ? btnStyle
+          : size
+          ? {height: size, width: size}
+          : {
+              height: defaultSize,
+              width: defaultSize,
+              marginTop: 8,
+              marginBottom: 16,
+            }
+      }>
       <TouchableWithoutFeedback
         onPress={onClick}
-        disabled={disabled ? disabled : false}>
-        <View>
+        disabled={disabled ? disabled : false}
+        style={{height: defaultSize, width: defaultSize}}>
+        <View
+          style={
+            size
+              ? {height: size, width: size}
+              : {height: defaultSize, width: defaultSize}
+          }>
           <Text style={title ? txtStyle : {height: 0}}>{title}</Text>
           <Icon
             name={iconName}
-            size={size ? size : 30}
+            size={size ? size : defaultSize}
             color={color ? color : 'black'}
           />
         </View>

@@ -159,6 +159,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Font Include="..\..\node_modules\react-native-vector-icons\Fonts\AntDesign.ttf" />
+    <Font Include="Assets\AntDesign.ttf" />
     <Font Include="Assets\FontAwesome.ttf" />
     <Font Include="Assets\FontAwesome5_Brands.ttf" />
     <Font Include="Assets\FontAwesome5_Regular.ttf" />
