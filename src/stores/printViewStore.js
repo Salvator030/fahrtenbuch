@@ -5,7 +5,7 @@ import useMainView from './MainViewStore';
 import useFileHandler from './fileHandlerStore';
 import {Text} from 'react-native';
 import {parseToCsvString} from '../asserts/outputCsvHelper';
-import { parseDateForFileName } from '../asserts/dateHelper';
+import {parseDateForFileName} from '../asserts/dateHelper';
 
 export default function usePrintView() {
   const useShareDatabase = () => useBetween(useDatabase);
@@ -18,7 +18,9 @@ export default function usePrintView() {
 
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
-  const [fileData, setFileData] = useState(<Text>'sdfsdf'</Text>);
+  const [fileData, setFileData] = useState(null);
+  const [printName, setPrintName] = useState(true);
+  const [printFullAddress, setPrintFullAddress] = useState(false);
 
   const onDateChange = (date, type) => {
     console.log(date + ' ' + type);
@@ -40,10 +42,13 @@ export default function usePrintView() {
       selectedStartDate,
       selectedEndDate,
     );
-    const csvStringtr = parseToCsvString(res);
+    const csvStringtr = parseToCsvString(res, printName, printFullAddress);
     setFileData(<Text>{csvStringtr}</Text>);
 
-    createFile(csvStringtr, parseDateForFileName(selectedStartDate, selectedEndDate));
+    createFile(
+      csvStringtr,
+      parseDateForFileName(selectedStartDate, selectedEndDate),
+    );
   };
 
   return {
@@ -53,5 +58,9 @@ export default function usePrintView() {
     onDateChange,
     onClickOkBtn,
     handelOnClickBackBtn,
+    printFullAddress,
+    setPrintFullAddress,
+    printName,
+    setPrintName,
   };
 }

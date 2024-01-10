@@ -7,6 +7,7 @@ import usePrintView from '../../stores/printViewStore';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import IconOk from 'react-native-vector-icons/FontAwesome';
 import BackIcon from 'react-native-vector-icons/Ionicons';
+import CheckBox from '@react-native-community/checkbox';
 const styles = StyleSheet.create({
   root: {
     height: 850,
@@ -29,38 +30,23 @@ const styles = StyleSheet.create({
   col1: {flex: 1, marginHorizontal: 'auto'},
   col2: {flex: 1, marginHorizontal: 'auto'},
   col4: {flex: 4, marginHorizontal: 'auto'},
+
+  scrollView: {height: 400},
 });
 
 export default function PrintView() {
-  const {onDateChange, fileData, selectedEndDate,onClickOkBtn, handelOnClickBackBtn} =
-    usePrintView();
+  const {
+    onDateChange,
+    fileData,
+    selectedEndDate,
+    onClickOkBtn,
+    handelOnClickBackBtn,
+    printFullAddress,
+    setPrintFullAddress,
+    printName,
+    setPrintName,
+  } = usePrintView();
 
-  //   const [text, setText] = useState('a');
-  //   const click = async () => {
-  //     console.log('RITTEN!');
-  //     var path = RNFS.DocumentDirectoryPath + '/test7.txt';
-
-  //     // create file and write content to the file
-  //     // in test get error ' Failed to create handle for file to touch ' but it works ???
-  //     await RNFS.touch(path)
-  //       .then(success => {
-  //         console.log('FILE create!');
-  //         setText(path);
-  //       })
-  //       .then(
-  //         await RNFS.writeFile(path, 'asdfqweryxcv')
-  //           .then(success => {
-  //             console.log('FILE WRITTEN!');
-  //             setText(path);
-  //           })
-  //           .catch(err => {
-  //             console.error(err.message);
-  //           }),
-  //       )
-  //       .catch(err => {
-  //         console.error(err.message);
-  //       });
-  //   };
   return (
     <View style={styles.root}>
       <CalendarPicker
@@ -69,7 +55,16 @@ export default function PrintView() {
         width={400}
         height={400}
       />
-      <ScrollArea itemsList={[<Text>{fileData}</Text>]} />
+      <Text>Name ausgeben?</Text>
+      <CheckBox value={printName} onValueChange={setPrintName} />
+      <Text>Ganze Addresse ausgeben?</Text>
+      <CheckBox value={printFullAddress} onValueChange={setPrintFullAddress} />
+      {fileData !== null && (
+        <ScrollArea
+          itemsList={[<Text>{fileData}</Text>]}
+          rootStyle={styles.scrollView}
+        />
+      )}
       <View style={styles.gridStyle}>
         <View style={styles.row}>
           <View style={styles.col2}>
@@ -88,7 +83,7 @@ export default function PrintView() {
               iconName="check"
               onClick={onClickOkBtn}
               disabled={selectedEndDate === null}
-              color={selectedEndDate === null? "gray" : 'black'}
+              color={selectedEndDate === null ? 'gray' : 'black'}
             />
           </View>
         </View>

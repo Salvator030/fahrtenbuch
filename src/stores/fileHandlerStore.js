@@ -9,8 +9,8 @@ export default function useFileHandler() {
     console.log(documentsFolder);
   }, []);
 
-  const createFile = async (value,dateString) => {
-    let name = 'fahrtenbuch' + dateString
+  const createFile = async (value, dateString) => {
+    let name = '/fahrtenbuch' + dateString + '.csv';
     var path = documentsFolder + name;
     console.log(path);
     RNFS.writeFile(path, value, 'utf8')
@@ -20,9 +20,7 @@ export default function useFileHandler() {
       .catch(err => {
         console.error(err.message);
       });
- 
   };
-
 
   return {createFile};
 }

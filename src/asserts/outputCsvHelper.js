@@ -1,11 +1,23 @@
 import {parseDate} from './dateHelper';
 import {sortDrivenRouteByDate} from './sortHelper';
 
-export const parseToCsvString = fullDrivenRoutes => {
+export const parseToCsvString = (fullDrivenRoutes, printName, fullAddress) => {
   fullDrivenRoutes.sort((a, b) => sortDrivenRouteByDate(a.date, b.date));
   console.log(fullDrivenRoutes);
-
-  let csvString = 'Datum, Start, Ziel, Entvernung,';
+  let csvString = '';
+  if (printName) {
+    if (fullAddress) {
+      csvString =
+        'Datum, Start, S.Straße, S.Hnr, S.Plz, S.Ort, Ziel, Z.Straße, Z.Hnr, Z.Plz, Z.Ort, Entfernung,';
+    } else {
+      csvString = 'Datum, Start, Ziel, Entvernung,';
+    }
+  } else if (fullAddress) {
+    csvString =
+      'Datum, S.Straße, S.Hnr, S.Plz, S.Ort, Z.Straße, Z.Hnr, Z.Plz, Z.Ort, Entfernung,';
+  } else {
+    csvString = 'Datum, Entfernung,';
+  }
   let lastDate = 0;
   let distMonth = 0;
   let distAll = 0;
@@ -31,9 +43,31 @@ export const parseToCsvString = fullDrivenRoutes => {
     }
     distMonth += r.dist;
     distAll += r.dist;
-    csvString = csvString.concat(
-      `\n${parseDate(r.date)}, ${r.start.name}, ${r.dest.name}, ${r.dist},`,
-    );
+    if (printName) {
+      if (fullAddress) {
+        csvString = csvString.concat(
+          `\n${parseDate(r.date)}, ${r.start.name},  ${r.start.street},  ${
+            r.start.hnr
+          },  ${r.start.plz},  ${r.start.place}, ${r.dest.name}, ${
+            r.dest.street
+          }, ${r.dest.hnr}, ${r.dest.plz}, ${r.dest.place}, ${r.dist},`,
+        );
+      } else {
+        csvString = csvString.concat(
+          `\n${parseDate(r.date)}, ${r.start.name}, ${r.dest.name}, ${r.dist},`,
+        );
+      }
+    } else if (fullAddress) {
+      csvString = csvString.concat(
+        `\n${parseDate(r.date)}, ${r.start.street},  ${r.start.hnr},  ${
+          r.start.plz
+        },  ${r.start.place}, ${r.dest.street}, ${r.dest.hnr}, ${r.dest.plz}, ${
+          r.dest.place
+        }, ${r.dist},`,
+      );
+    } else {
+      csvString = csvString.concat(`\n${parseDate(r.date)}, ${r.dist},`);
+    }
   });
   console.log(distMonth);
   csvString = csvString.concat(
