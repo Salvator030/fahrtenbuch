@@ -5,6 +5,7 @@ import {useBetween} from 'use-between';
 import useCalender from '../../../stores/calenderStore';
 import useDatabase from '../../../stores/databaseStore';
 import {parseDate} from '../../../asserts/dateHelper';
+import useCurrentDayRoutes from '../../../stores/currentDayRoutesStore';
 
 const styles = {
   root: {marginTop: 2},
@@ -26,12 +27,8 @@ export default function CurrentDayDetailsView() {
   const {selectedDate} = useShareCalender();
   const useShareDatabase = () => useBetween(useDatabase);
   const {drivenRoutesByDate} = useShareDatabase();
-
-  const getDistanceByDaryRoutes = () => {
-    let distance = 0;
-    drivenRoutesByDate.forEach(route => (distance += route.distance));
-    return distance;
-  };
+  const useShareCurentDayRoutes = () => useBetween(useCurrentDayRoutes);
+  const {distanceAtDay} = useShareCurentDayRoutes();
 
   return (
     <View style={styles.root}>
@@ -50,7 +47,7 @@ export default function CurrentDayDetailsView() {
             <Text style={styles.text}>km</Text>
           </View>
           <View style={styles.col}>
-            <Text style={styles.text}>{getDistanceByDaryRoutes()}</Text>
+            <Text style={styles.text}>{distanceAtDay}</Text>
           </View>
         </View>
       </View>
