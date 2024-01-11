@@ -1,4 +1,6 @@
 import React, {View, ScrollView} from 'react-native';
+import {styles} from './ScrollArea.styles';
+
 export default function ScrollArea({rootStyle, scrollViewStyle, itemsList}) {
   return (
     <View style={rootStyle ? rootStyle : styles.root}>
@@ -11,13 +13,3 @@ export default function ScrollArea({rootStyle, scrollViewStyle, itemsList}) {
     </View>
   );
 }
-const styles = {
-  root: {height: 400, width: 300},
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    borderColor: 'black',
-    borderWidth: 1,
-  },
-};
