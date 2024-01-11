@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
 import useDatabase from '../stores/databaseStore';
 import DrivenRoutesCards from '../Components/DateView/CurrentDayRoutes/DrivenRoutesCards/DrivenRoutesCards';
@@ -9,12 +9,8 @@ import useWarningModal from './warningModalStore';
 
 export default function useCurrentDayRoutes() {
   const useShareDatabase = () => useBetween(useDatabase);
-  const {
-    drivenRoutesByDate,
-    getFullAddressById,
-    getFullRouteById,
-    deleteDrivenRoute,
-  } = useShareDatabase();
+  const {drivenRoutesByDate, getFullAddressById, getFullRouteById} =
+    useShareDatabase();
   const useShareCalendar = () => useBetween(useCalender);
   const {selectedDate} = useShareCalendar();
 
@@ -23,6 +19,16 @@ export default function useCurrentDayRoutes() {
 
   const [selectedDrivenRoute, setSelectedDrivenRoute] = useState(0);
   const [drivenRoutesCards, setDrivenRoutesCards] = useState([]);
+  const [distanceAtDay, setDistanceAtDay] = useState(0);
+
+  // const getDistanceByDayRoutes = useCallback(() => {
+  //   drivenRoutesByDate.forEach(route => {
+  //     console.log(getFullRouteById(route.route_id));
+  //     distance += getFullRouteById(route.route_id).distance;
+  //   });
+  //   console.log(distance);
+  //   setDistanceAtDay(distance);
+  // }, [drivenRoutesByDate, getFullRouteById]);
 
   const handelOnClickDrivenRouteCard = dRoute_id => {
     setSelectedDrivenRoute(dRoute_id);
@@ -45,16 +51,28 @@ export default function useCurrentDayRoutes() {
 
       return sortDrivenRouteByLogicalOrder(routeA, routeB);
     });
-    let cards = list.map(route => (
-      <DrivenRoutesCards key={route.dRoute_id} drivenRoute={route} />
-    ));
+    let distance = 0;
+    let cards = list.map(route => {
+      distance += getFullRouteById(route.route_id).distance;
+      return <DrivenRoutesCards key={route.dRoute_id} drivenRoute={route} />;
+    });
+    console.log(distance);
+    setDistanceAtDay(distance);
+    console.log(distanceAtDay);
 
     setDrivenRoutesCards(cards);
-  }, [drivenRoutesByDate, getFullAddressById, getFullRouteById, selectedDate]);
+  }, [
+    drivenRoutesByDate,
+    getFullAddressById,
+    getFullRouteById,
+    selectedDate,
+    distanceAtDay,
+  ]);
 
   return {
     drivenRoutesCards,
     selectedDrivenRoute,
+    distanceAtDay,
     handelOnClickDrivenRouteCard,
     handelOnClickDeleteBtn,
   };
