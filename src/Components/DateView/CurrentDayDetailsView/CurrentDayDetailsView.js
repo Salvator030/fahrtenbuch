@@ -6,21 +6,7 @@ import useCalender from '../../../stores/calenderStore';
 import useDatabase from '../../../stores/databaseStore';
 import {parseDate} from '../../../asserts/dateHelper';
 import useCurrentDayRoutes from '../../../stores/currentDayRoutesStore';
-
-const styles = {
-  root: {marginTop: 2},
-  gridStyle: {
-    width: 100,
-    marginHorizontal: 'auto',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  col: {flex: 3, marginTop: 16},
-
-  textDate: {fontSize: 20, fontWeight: 'bold'},
-  text: {fontSize: 16},
-};
+import {styles} from './CurrentDayDetailsView.styles';
 
 export default function CurrentDayDetailsView() {
   const useShareCalender = () => useBetween(useCalender);

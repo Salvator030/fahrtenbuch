@@ -5,40 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import useWarningModal from '../../stores/warningModalStore';
 import {useBetween} from 'use-between';
-
-const styles = StyleSheet.create({
-  root: {
-    position: 'absolute',
-    padding: 16,
-    backgroundColor: '#0000005d',
-    alignItems: 'center',
-    alignContent: 'center',
-    alignSelf: 'center',
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    height: 900,
-    width: 800,
-  },
-  dialog: {
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    alignContent: 'center',
-    padding: 16,
-    backgroundColor: 'white',
-    height: 400,
-    width: 300,
-  },
-  gridStyle: {
-    flex: 12,
-    marginHorizontal: 'auto',
-  },
-  row: {
-    flexDirection: 'row',
-    marginTop: 8,
-  },
-  col1: {flex: 1, marginHorizontal: 'auto', alignSelf: 'center'},
-  col2: {flex: 6, marginHorizontal: 'auto', alignSelf: 'center'},
-});
+import {styles} from './WarningModal.styles';
 
 export default function WarningModal() {
   const useShareWarningModel = () => useBetween(useWarningModal);
@@ -50,6 +17,7 @@ export default function WarningModal() {
     handelOnClickBackBtn,
     handelOnClickOkBtn,
   } = useShareWarningModel();
+
   return (
     <View style={styles.root}>
       <View style={styles.dialog}>

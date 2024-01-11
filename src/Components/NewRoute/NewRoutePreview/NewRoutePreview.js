@@ -3,14 +3,8 @@ import AddressCard from './AddressCard/AddressCard';
 import useNewRoutePreview from '../../../stores/newRoutePreviewStore';
 import {useBetween} from 'use-between';
 import useNewRoute from '../../../stores/newRouteStore';
+import {styles} from './NewRoutePreview.styles';
 
-const styles = StyleSheet.create({
-  container: {marginTop: 32, marginBottom: 32},
-  addressHeadlline: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
 export default function NewRoutePreview() {
   const {fullStartAddress, fullDestinationAddress} = useNewRoutePreview();
   const useShareNewRoute = () => useBetween(useNewRoute);

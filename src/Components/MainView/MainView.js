@@ -18,20 +18,7 @@ import useWarningModal from '../../stores/warningModalStore';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import PrintIcon from 'react-native-vector-icons/AntDesign';
-
-const styles = StyleSheet.create({
-  gridStyle: {
-    flex: 12,
-    width: 800,
-    alignSelf: 'center',
-  
-  },
-  row: {
-    flexDirection: 'row',
-    marginTop: 8,
-  },
-  col2: {flex: 1, marginHorizontal: 'auto'},
-});
+import {styles} from './MainView.syles';
 
 export default function MainView() {
   const useShareMainView = () => useBetween(useMainView);

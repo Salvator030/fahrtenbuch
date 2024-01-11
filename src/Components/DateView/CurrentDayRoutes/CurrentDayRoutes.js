@@ -1,34 +1,9 @@
-import React, {View, ScrollView, Text, Button} from 'react-native';
-import Grid from '../../CustomComponents/Grid/Grid';
+import React, {View, ScrollView, Text} from 'react-native';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useCurrentDayRoutes from '../../../stores/currentDayRoutesStore';
-import useDatabase from '../../../stores/databaseStore';
 import {useBetween} from 'use-between';
-import {useEffect} from 'react';
-
-const styles = {
-  root: {height: 400, width: 300},
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    marginHorizontal: 8,
-    borderColor: 'black',
-    borderWidth: 1,
-  },
-
-  gridStyle: {
-    width: 100,
-    marginHorizontal: 'auto',
-  },
-  row: {
-    flexDirection: 'row',
-    marginLeft: 24,
-    marginRight: 24,
-  },
-  col1: {flex: 1, marginHorizontal: 'auto'},
-};
+import {styles} from './CurrentDayRoutes.styles';
 
 export default function CurrentDayRoutes() {
   const useShareCurrentDayRoutes = () => useBetween(useCurrentDayRoutes);
