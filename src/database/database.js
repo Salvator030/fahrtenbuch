@@ -116,7 +116,6 @@ export const saveRoute = async (db, route) => {
     const insertQuery = `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`;
     return await db.executeSql(insertQuery);
   } catch (error) {
-    console.error(error);
     throw Error(error.message);
   }
 };
