@@ -17,7 +17,6 @@ export default function useDatabase() {
   const [addressesAreHidden, setAddressesAreHidden] = useState(false);
 
   const loadAddressesCallback = useCallback(async () => {
-    console.log('getAddresses');
     try {
       const addressesResult = await database.getAllAddresses();
       if (addressesResult.length) {
@@ -26,17 +25,14 @@ export default function useDatabase() {
           addressesResult.filter(address => address.hide === 1).length > 0
             ? true
             : false;
-        console.log('temp', temp);
         setAddressesAreHidden(temp);
       }
-      console.log('addressesResult', addressesResult);
     } catch (error) {
       console.error(error);
     }
   }, []);
 
   const loadRoutesCallback = useCallback(async () => {
-    console.log('getRoutes');
     try {
       const routesResult = await database.getAllRoutes();
       if (routesResult.length) {
@@ -45,24 +41,19 @@ export default function useDatabase() {
           routesResult.filter(route => route.hide === 1).length > 0
             ? true
             : false;
-        console.log('temp', temp);
         setRoutesAreHidden(temp);
       }
-
-      console.log('routesResult', routesResult);
     } catch (error) {
       console.error(error);
     }
   }, []);
 
   const loadDrivenRoutesCallback = useCallback(async () => {
-    console.log('getDrivenRoutes');
     try {
       const drivenRoutesResult = await database.getAllDrivenRoutes();
       if (drivenRoutesResult.length) {
         setDrivenRoutes(drivenRoutesResult);
       }
-      console.log('drivenRoutesResult', drivenRoutesResult);
     } catch (error) {
       console.error(error);
     }
@@ -87,12 +78,9 @@ export default function useDatabase() {
   }, [loadDrivenRoutesCallback]);
 
   useEffect(() => {
-    console.log('useEffekt, setDrivenRoutesByDate', drivenRoutes);
     let items = drivenRoutes.filter(
       route => route.date === Date.parse(selectedDate),
     );
-
-    console.log('useEffekt, setDrivenRoutesByDate', items);
     setDrivenRoutesByDate(items);
   }, [drivenRoutes, getFullRouteById, selectedDate]);
 
@@ -107,13 +95,10 @@ export default function useDatabase() {
   };
 
   const deleteAddress = add_id => {
-    console.log('daStore, deleteAddress', add_id);
-    console.log(routes);
     if (routes.length > 0) {
       let deleteRouteList = routes.filter(
         route => route.startAdd_id === add_id || route.destAdd_id === add_id,
       );
-      console.log('deleteRouteList ', deleteRouteList);
       deleteRouteList.forEach(route =>
         deleteDrivenRouteByRouteId(route.route_id),
       );
@@ -128,9 +113,13 @@ export default function useDatabase() {
     loadAddressesCallback();
   };
   // --- route
-  const saveNewRoute = route => {
-    database.saveNewRoute(route);
-    loadRoutesCallback();
+  const saveNewRoute = async route => {
+    const result = await database.saveNewRoute(route);
+    if (typeof result === 'string') {
+      return result;
+    } else {
+      loadRoutesCallback();
+    }
   };
 
   const getFullRouteById = useCallback(
@@ -141,7 +130,6 @@ export default function useDatabase() {
   );
 
   const deleteRoute = route_id => {
-    console.log('dbStore, deleteRoute ', route_id);
     deleteDrivenRoutesByRoutId(route_id);
     database.deleteRoute(route_id);
     loadRoutesCallback();
@@ -175,13 +163,11 @@ export default function useDatabase() {
   };
 
   const deleteDrivenRoute = dRoute_id => {
-    console.log('dbStore, deleteDrivenRoute ', dRoute_id);
     database.deleteDrivenRoute(dRoute_id);
     loadDrivenRoutesCallback();
   };
 
   const deleteDrivenRoutesByRoutId = route_id => {
-    console.log('dbStore, deleteDrivenRoutesByRoutId ', route_id);
     database.deleteDrivenRoutesByRouteId(route_id);
     loadDrivenRoutesCallback();
   };

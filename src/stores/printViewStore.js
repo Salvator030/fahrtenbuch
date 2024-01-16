@@ -23,7 +23,6 @@ export default function usePrintView() {
   const [printFullAddress, setPrintFullAddress] = useState(false);
 
   const onDateChange = (date, type) => {
-    console.log(date + ' ' + type);
     if (type === 'END_DATE') {
       setSelectedEndDate(date);
     } else {
@@ -37,7 +36,6 @@ export default function usePrintView() {
   };
 
   const onClickOkBtn = async () => {
-    console.log(selectedStartDate + ' ' + selectedEndDate);
     let res = await getDrivenRoutesBetweenDates(
       selectedStartDate,
       selectedEndDate,

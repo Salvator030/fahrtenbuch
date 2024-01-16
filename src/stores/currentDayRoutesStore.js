@@ -21,15 +21,6 @@ export default function useCurrentDayRoutes() {
   const [drivenRoutesCards, setDrivenRoutesCards] = useState([]);
   const [distanceAtDay, setDistanceAtDay] = useState(0);
 
-  // const getDistanceByDayRoutes = useCallback(() => {
-  //   drivenRoutesByDate.forEach(route => {
-  //     console.log(getFullRouteById(route.route_id));
-  //     distance += getFullRouteById(route.route_id).distance;
-  //   });
-  //   console.log(distance);
-  //   setDistanceAtDay(distance);
-  // }, [drivenRoutesByDate, getFullRouteById]);
-
   const handelOnClickDrivenRouteCard = dRoute_id => {
     setSelectedDrivenRoute(dRoute_id);
   };
@@ -56,10 +47,7 @@ export default function useCurrentDayRoutes() {
       distance += getFullRouteById(route.route_id).distance;
       return <DrivenRoutesCards key={route.dRoute_id} drivenRoute={route} />;
     });
-    console.log(distance);
     setDistanceAtDay(distance);
-    console.log(distanceAtDay);
-
     setDrivenRoutesCards(cards);
   }, [
     drivenRoutesByDate,

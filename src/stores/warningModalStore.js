@@ -32,6 +32,11 @@ export default function useWarningModal() {
     toggleShowWarning();
   };
 
+  const openWarning = warn => {
+    setWarningDescription(warn);
+    toggleShowWarning();
+  };
+
   const handelOnClickOkBtn = () => {
     if (warningDescription === 'deleteRoute') {
       if (deleteCheckboxValue) {
@@ -81,6 +86,14 @@ export default function useWarningModal() {
           'die mit der dieser Addresse ersteleten Strecken bleieben weiter hin vorhanden. ';
         break;
       }
+      case 'routeExist': {
+        text =
+          'Diese Strecke exestiert berits.\n' +
+          'Bitte einen anderen Start oder Zielort wählen, \n' +
+          'oder die vorhandene strecke bearbeiten.';
+
+        break;
+      }
       default: {
         text = '';
       }
@@ -99,5 +112,6 @@ export default function useWarningModal() {
     handelOnClickBackBtn,
     handelOnClickOkBtn,
     openDeleteDrivenRouteWarning,
+    openWarning,
   };
 }
