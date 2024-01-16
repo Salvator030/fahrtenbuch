@@ -114,10 +114,10 @@ export const deleteAddressById = async (db, id) => {
 export const saveRoute = async (db, route) => {
   try {
     const insertQuery = `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`;
-    return db.executeSql(insertQuery);
+    return await db.executeSql(insertQuery);
   } catch (error) {
     console.error(error);
-    throw Error('Failed to save Route !!!');
+    throw Error(error.message);
   }
 };
 
@@ -135,9 +135,15 @@ export const deleteRouteById = async (db, id) => {
 
 export const saveDrivenRoute = async (db, drivenRoute) => {
   try {
-    const insertQuery = `INSERT INTO drivenRoute_tbl (date,route_id) VALUES ('${Date.parse(drivenRoute.date)}',${drivenRoute.route_id})`;
-        console.log(`INSERT INTO drivenRoute_tbl (date,route_id) VALUES ('${Date.parse(drivenRoute.date)}',${drivenRoute.route_id})`);
-        return db.executeSql(insertQuery);
+    const insertQuery = `INSERT INTO drivenRoute_tbl (date,route_id) VALUES ('${Date.parse(
+      drivenRoute.date,
+    )}',${drivenRoute.route_id})`;
+    console.log(
+      `INSERT INTO drivenRoute_tbl (date,route_id) VALUES ('${Date.parse(
+        drivenRoute.date,
+      )}',${drivenRoute.route_id})`,
+    );
+    return db.executeSql(insertQuery);
   } catch (error) {
     console.error(error);
     throw Error('Failed to save drivenRoute !!!');
@@ -148,7 +154,9 @@ export const getDrivenRoutesBetweenDates = async (db, startDate, endDate) => {
   try {
     const entries = [];
     const results = await db.executeSql(
-      `SELECT * FROM drivenRoute_tbl WHERE DATE BETWEEN '${Date.parse(startDate)}' AND '${Date.parse(endDate)}' ;`,
+      `SELECT * FROM drivenRoute_tbl WHERE DATE BETWEEN '${Date.parse(
+        startDate,
+      )}' AND '${Date.parse(endDate)}' ;`,
     );
 
     results.forEach(result => {
@@ -156,7 +164,10 @@ export const getDrivenRoutesBetweenDates = async (db, startDate, endDate) => {
         entries.push(result.rows.item(index));
       }
     });
-    console.log(`SELECT * FROM drivenRoute_tbl WHERE DATE BETWEEN '${Date.parse(startDate)}' AND '${(Date.parse(endDate))}' ;`,
+    console.log(
+      `SELECT * FROM drivenRoute_tbl WHERE DATE BETWEEN '${Date.parse(
+        startDate,
+      )}' AND '${Date.parse(endDate)}' ;`,
     );
     return entries;
   } catch (error) {

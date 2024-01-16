@@ -49,7 +49,16 @@ export const getAllRoutes = async () => {
 
 export const saveNewRoute = async route => {
   const db = await database.getDBConnection();
-  return await database.saveRoute(db, route);
+  try {
+    return await database.saveRoute(db, route);
+  } catch (error) {
+    if (
+      error.message ===
+      'UNIQUE constraint failed: route_tbl.startAdd_id, route_tbl.destAdd_id'
+    ) {
+      return 'routeExist';
+    }
+  }
 };
 
 export const deleteRoute = async route_id => {
@@ -75,11 +84,7 @@ export const getAllDrivenRoutes = async () => {
 
 export const getDrivenRoutesBetweenDates = async (startDate, endDate) => {
   const db = await database.getDBConnection();
-  return await database.getDrivenRoutesBetweenDates(
-    db,
-   startDate,
-    endDate,
-  );
+  return await database.getDrivenRoutesBetweenDates(db, startDate, endDate);
 };
 
 export const saveNewDrivenRoute = async drivenRoute => {
@@ -93,7 +98,6 @@ export const deleteDrivenRoute = async dRoute_id => {
 };
 
 export const deleteDrivenRoutesByRouteId = async route_id => {
-  console.log('deleteDrivenRoutesByRouteId, dbHandler ', route_id);
   const db = await database.getDBConnection();
   return await database.deleteDrivenRouteByRouteId(db, route_id);
 };

@@ -10,7 +10,6 @@ export default function CurrentDayRoutes() {
   const {drivenRoutesCards, selectedDrivenRoute, handelOnClickDeleteBtn} =
     useShareCurrentDayRoutes();
 
-  console.log('x', selectedDrivenRoute);
   return (
     <View style={styles.root}>
       <View style={styles.gridStyleBtn}>

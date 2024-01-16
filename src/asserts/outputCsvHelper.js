@@ -3,7 +3,6 @@ import {sortDrivenRouteByDate} from './sortHelper';
 
 export const parseToCsvString = (fullDrivenRoutes, printName, fullAddress) => {
   fullDrivenRoutes.sort((a, b) => sortDrivenRouteByDate(a.date, b.date));
-  console.log(fullDrivenRoutes);
   let csvString = '';
   if (printName) {
     if (fullAddress) {
@@ -23,12 +22,9 @@ export const parseToCsvString = (fullDrivenRoutes, printName, fullAddress) => {
   let distAll = 0;
 
   fullDrivenRoutes.map(r => {
-    console.log(r);
     if (r.date > lastDate) {
       const dateArray = parseDate(r.date).split('.');
       const lastDayArray = parseDate(lastDate).split('.');
-      console.log(r);
-
       if (dateArray[1] > lastDayArray[1] || dateArray[2] > lastDayArray[2]) {
         if (lastDate !== 0) {
           csvString = csvString.concat(
@@ -69,7 +65,6 @@ export const parseToCsvString = (fullDrivenRoutes, printName, fullAddress) => {
       csvString = csvString.concat(`\n${parseDate(r.date)}, ${r.dist},`);
     }
   });
-  console.log(distMonth);
   csvString = csvString.concat(
     `\n${distMonth.toFixed(2)}Km,\n,\ngestamt,\n${distAll.toFixed(2)}Km`,
   );

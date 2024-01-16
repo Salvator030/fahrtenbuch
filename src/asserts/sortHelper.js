@@ -31,8 +31,6 @@ export function sortDrivenRouteByLogicalOrder(drivenRouteA, drivenRouteB) {
 }
 
 export function sortDrivenRouteByDate(a, b) {
-  console.log(a);
-  console.log(b);
   if (a < b) {
     return -1;
   }
