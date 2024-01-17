@@ -1,9 +1,13 @@
 import {useRef, useState} from 'react';
 import useDatabase from './databaseStore';
 import {useBetween} from 'use-between';
+import useWarningModal from './warningModalStore';
 export default function useNewAddressModal() {
   const useShareDatabase = () => useBetween(useDatabase);
   const {saveNewAddress} = useShareDatabase();
+
+  const useShareWarningModal = () => useBetween(useWarningModal);
+  const {openWarning} = useShareWarningModal();
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -124,14 +128,15 @@ export default function useNewAddressModal() {
     cleanInputFields();
     toggleModalVisible();
   };
-  const handelOnClickSaveBtn = () => {
+
+  const handelOnClickSaveBtn = async () => {
     if (!checks.includes(false)) {
-      try {
-        saveNewAddress(getNewAddress());
+      let result = await saveNewAddress(getNewAddress());
+      if (typeof result === 'string') {
+        console.log('click ', result);
+        openWarning(result);
         cleanInputFields();
         toggleModalVisible();
-      } catch (e) {
-        console.error(e);
       }
     }
   };

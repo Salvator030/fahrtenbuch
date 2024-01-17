@@ -93,10 +93,10 @@ export const deleteTable = async (db, tableName) => {
 export const saveAddress = async (db, address) => {
   try {
     const insertQuery = `INSERT INTO address_tbl (name,street,hnr,plz,place,info,hide) VALUES ('${address.name}','${address.street}','${address.hnr}','${address.plz}','${address.place}','${address.info}',0)`;
-    return db.executeSql(insertQuery);
+    return await db.executeSql(insertQuery);
   } catch (error) {
-    console.error(error);
-    throw Error('Failed to save Address !!!');
+    console.log(error);
+    throw Error(error.message);
   }
 };
 

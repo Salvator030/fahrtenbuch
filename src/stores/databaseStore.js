@@ -85,9 +85,13 @@ export default function useDatabase() {
   }, [drivenRoutes, getFullRouteById, selectedDate]);
 
   // --- address
-  const saveNewAddress = address => {
-    database.saveNewAddress(address);
-    loadAddressesCallback();
+  const saveNewAddress = async address => {
+    const result = await database.saveNewAddress(address);
+    if (typeof result === 'string') {
+      return result;
+    } else {
+      loadAddressesCallback();
+    }
   };
 
   const getFullAddressById = id => {

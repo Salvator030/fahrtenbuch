@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     alignSelf: 'center',
+    zIndex: 2,
   },
 
   gridStyle: {
