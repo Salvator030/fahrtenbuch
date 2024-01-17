@@ -44,7 +44,6 @@ export default function useWarningModal() {
       } else {
         setRouteHide(selectedRouteWarning, 1);
       }
-      //   setSelectedRoute(0);
     } else if (warningDescription === 'deleteDrivenRoute') {
       deleteDrivenRoute(selectedDrivenRouteWarning);
     } else {
@@ -86,6 +85,7 @@ export default function useWarningModal() {
           'die mit der dieser Addresse ersteleten Strecken bleieben weiter hin vorhanden. ';
         break;
       }
+
       case 'routeExist': {
         text =
           'Diese Strecke exestiert berits.\n' +
@@ -94,6 +94,16 @@ export default function useWarningModal() {
 
         break;
       }
+
+      case 'addressExist': {
+        text =
+          'Eine Adresse mit diesem namen exestiert berits.\n' +
+          'Bitte einen anderen Namen wählen, \n' +
+          'oder die vorhandene Adresse bearbeiten.';
+
+        break;
+      }
+
       default: {
         text = '';
       }

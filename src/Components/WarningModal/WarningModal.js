@@ -18,6 +18,7 @@ export default function WarningModal() {
     handelOnClickOkBtn,
   } = useShareWarningModel();
 
+  console.log('abc', warningContent);
   return (
     <View style={styles.root}>
       <View style={styles.dialog}>

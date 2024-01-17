@@ -24,8 +24,15 @@ export const getAllAddresses = async () => {
 
 export const saveNewAddress = async address => {
   const db = await database.getDBConnection();
-  return await database.saveAddress(db, address);
+  try {
+    return await database.saveAddress(db, address);
+  } catch (error) {
+    if (error.message === 'UNIQUE constraint failed: address_tbl.name') {
+      return 'addressExist';
+    }
+  }
 };
+
 export const deleteAddress = async add_id => {
   const db = await database.getDBConnection();
   return await database.deleteAddressById(db, add_id);

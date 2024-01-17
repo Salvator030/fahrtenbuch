@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     marginBottom: 'auto',
     height: 900,
     width: 800,
+    zIndex: 3,
   },
   dialog: {
     marginTop: 'auto',
