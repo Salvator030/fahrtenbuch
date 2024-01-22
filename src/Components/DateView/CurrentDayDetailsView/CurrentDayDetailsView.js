@@ -10,9 +10,8 @@ import {styles} from './CurrentDayDetailsView.styles';
 
 export default function CurrentDayDetailsView() {
   const useShareCalender = () => useBetween(useCalender);
-  const {selectedDate} = useShareCalender();
-  const useShareDatabase = () => useBetween(useDatabase);
-  const {drivenRoutesByDate} = useShareDatabase();
+  const {selectedDate, drivenRoutesByDate} = useShareCalender();
+
   const useShareCurentDayRoutes = () => useBetween(useCurrentDayRoutes);
   const {distanceAtDay} = useShareCurentDayRoutes();
 
