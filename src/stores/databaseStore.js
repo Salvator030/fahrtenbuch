@@ -6,13 +6,14 @@ import {deleteDrivenRouteByRouteId} from '../database/database';
 import {parseDate} from '../asserts/dateHelper';
 
 export default function useDatabase() {
-  const useShareCalender = () => useBetween(useCalender);
-  const {selectedDate} = useShareCalender();
+  // const useShareCalender = () => useBetween(useCalender);
+  // const {selectedDate} = useShareCalender();
 
   const [addresses, setAddresses] = useState([]);
   const [routes, setRoutes] = useState([]);
   const [drivenRoutes, setDrivenRoutes] = useState([]);
-  const [drivenRoutesByDate, setDrivenRoutesByDate] = useState([]);
+  // const [drivenRoutesByDate, setDrivenRoutesByDate] = useState([]);
+  // const [drivenRoutesByMonth, setDrivenRoutesByMonth] = useState([]);
   const [routesAreHidden, setRoutesAreHidden] = useState(false);
   const [addressesAreHidden, setAddressesAreHidden] = useState(false);
 
@@ -52,6 +53,7 @@ export default function useDatabase() {
     try {
       const drivenRoutesResult = await database.getAllDrivenRoutes();
       if (drivenRoutesResult.length) {
+        console.log('drivenRoutesResult ', drivenRoutesResult);
         setDrivenRoutes(drivenRoutesResult);
       }
     } catch (error) {
@@ -77,12 +79,12 @@ export default function useDatabase() {
     fetch();
   }, [loadDrivenRoutesCallback]);
 
-  useEffect(() => {
-    let items = drivenRoutes.filter(
-      route => route.date === Date.parse(selectedDate),
-    );
-    setDrivenRoutesByDate(items);
-  }, [drivenRoutes, getFullRouteById, selectedDate]);
+  // useEffect(() => {
+  //   let items = drivenRoutes.filter(
+  //     route => route.date === Date.parse(selectedDate),
+  //   );
+  //   setDrivenRoutesByDate(items);
+  // }, [drivenRoutes, getFullRouteById, selectedDate]);
 
   // --- address
   const saveNewAddress = async address => {
@@ -183,7 +185,7 @@ export default function useDatabase() {
     routes,
     saveNewRoute,
     getFullRouteById,
-    drivenRoutesByDate,
+    drivenRoutes,
     getDrivenRoutesBetweenDates,
     saveNewDrivenRoute,
     deleteAddress,

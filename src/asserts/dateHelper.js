@@ -5,6 +5,8 @@ export const parseDate = date => {
 
 export const parseDateForFileName = (startDate, endDate) => {
   startDate = startDate._i;
-  endDate = endDate._i
-  return `${startDate.day}${startDate.month + 1}${startDate.year}-${endDate.day}${endDate.month + 1}${endDate.year}`
-}
+  endDate = endDate._i;
+  return `${startDate.day}${startDate.month + 1}${startDate.year}-${
+    endDate.day
+  }${endDate.month + 1}${endDate.year}`;
+};

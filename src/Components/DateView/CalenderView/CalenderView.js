@@ -5,7 +5,12 @@ import {useBetween} from 'use-between';
 import useCalender from '../../../stores/calenderStore';
 export default function CalenderView() {
   const useShareCalender = () => useBetween(useCalender);
-  const {selectedDate, changeSelectedDate} = useShareCalender();
+  const {
+    selectedDate,
+    drivenRoutesByMonth,
+    changeSelectedDate,
+    handelMonthChange,
+  } = useShareCalender();
   return (
     <View>
       <CalendarPicker
@@ -13,6 +18,8 @@ export default function CalenderView() {
         onDateChange={changeSelectedDate}
         width={400}
         height={400}
+        onMonthChange={date => handelMonthChange(date)}
+        customDatesStyles={drivenRoutesByMonth}
       />
       {/* <Text>SELECTED DATE:{startDate}</Text> */}
     </View>
