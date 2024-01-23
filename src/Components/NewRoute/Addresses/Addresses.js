@@ -127,6 +127,33 @@ export default function Addresses() {
           style: styles.col2,
           item: (
             <ButtonIcon
+              Icon={Icon2}
+              title="edit"
+              iconName="edit"
+              disabled={
+                viewDescription === 'startAddress'
+                  ? startAddressId === 0
+                    ? true
+                    : false
+                  : destinationAddressId === 0
+                  ? true
+                  : false
+              }
+              color={
+                viewDescription === 'startAddress'
+                  ? startAddressId === 0
+                    ? 'gray'
+                    : 'black'
+                  : destinationAddressId === 0 && 'gray'
+              }
+              onClick={handelOnClickDeleteBtn}
+            />
+          ),
+        },
+        {
+          style: styles.col2,
+          item: (
+            <ButtonIcon
               Icon={Icon}
               title="löschen"
               iconName="trash"
