@@ -141,6 +141,16 @@ export default function useNewAddressModal() {
     }
   };
 
+  const handelEditAddress = (address) => {
+    setNameValue(address.name);
+    setStreetValue(address.street);
+    setHnrValue(address.hnr);
+    setPlzValue(address.plz);
+    setPlaceValue(address.place);
+    setInfoValue(!address.info ? '' : address.info );
+    toggleModalVisible();
+  }
+
   return {
     modalVisible,
     toggleModalVisible,
@@ -171,5 +181,6 @@ export default function useNewAddressModal() {
     checkPlzInput,
     checkPlaceInput,
     checkInfoInput,
+    handelEditAddress
   };
 }

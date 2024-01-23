@@ -15,13 +15,13 @@ export default function useAddresses() {
   const [hideAddress, setHideAddress] = useState(true);
 
   const useShareDatabase = () => useBetween(useDatabase);
-  const {addresses} = useShareDatabase();
+  const {addresses, getFullAddressById} = useShareDatabase();
 
   const useShareMainView = () => useBetween(useMainView);
   const {toggleCreateNewRoute, toggleShowWarning} = useShareMainView();
 
   const useShareNewAddressModal = () => useBetween(useNewAddressModal);
-  const {toggleModalVisible} = useShareNewAddressModal();
+  const {toggleModalVisible, handelEditAddress} = useShareNewAddressModal();
 
   const useShareWarningModal = () => useBetween(useWarningModal);
   const {setWarningDescription, setSelectedAddressesWarning} =
@@ -53,6 +53,12 @@ export default function useAddresses() {
       ? setViewDescription('destinationAddress')
       : setViewDescription('distance');
   };
+
+  const handelOnClickEditAddrees = () => {
+    viewDescription === 'startAddress'
+    ? handelEditAddress(getFullAddressById(startAddressId))
+    : handelEditAddress(getFullAddressById(destinationAddressId));
+  }
 
   const handelOnClickDeleteBtn = () => {
     setWarningDescription('deleteAddress');
@@ -154,5 +160,6 @@ export default function useAddresses() {
     handelOnClickPlacePill,
     hideAddress,
     toggleHideAddress,
+    handelOnClickEditAddrees,
   };
 }

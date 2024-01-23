@@ -43,6 +43,7 @@ export default function Addresses() {
     handelOnClickPlacePill,
     hideAddress,
     toggleHideAddress,
+    handelOnClickEditAddrees
   } = useAddresses();
   const rowsAndCols1 = [
     {
@@ -146,7 +147,7 @@ export default function Addresses() {
                     : 'black'
                   : destinationAddressId === 0 && 'gray'
               }
-              onClick={handelOnClickDeleteBtn}
+              onClick={handelOnClickEditAddrees}
             />
           ),
         },
