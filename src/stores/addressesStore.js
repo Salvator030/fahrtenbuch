@@ -1,10 +1,10 @@
-import React, {use, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AddressCard from '../Components/NewRoute/Addresses/AddressCard/AddressCard';
 import {sortByAlphabetAscending} from '../asserts/sortHelper';
 import {useBetween} from 'use-between';
 import useDatabase from './databaseStore';
 import useMainView from './MainViewStore';
-import useNewAddressModal from './newAddresModalStore';
+import useCreateAndEditAddressModal from './createAndEditAddressModalStore';
 import useNewRoute from './newRouteStore';
 import useWarningModal from './warningModalStore';
 
@@ -20,8 +20,9 @@ export default function useAddresses() {
   const useShareMainView = () => useBetween(useMainView);
   const {toggleCreateNewRoute, toggleShowWarning} = useShareMainView();
 
-  const useShareNewAddressModal = () => useBetween(useNewAddressModal);
-  const {toggleModalVisible, handelEditAddress} = useShareNewAddressModal();
+  const useShareCreateAndEditAddressModal = () =>
+    useBetween(useCreateAndEditAddressModal);
+  const {openAddressModalCreate} = useShareCreateAndEditAddressModal();
 
   const useShareWarningModal = () => useBetween(useWarningModal);
   const {setWarningDescription, setSelectedAddressesWarning} =
@@ -55,10 +56,10 @@ export default function useAddresses() {
   };
 
   const handelOnClickEditAddrees = () => {
-    viewDescription === 'startAddress'
-    ? handelEditAddress(getFullAddressById(startAddressId))
-    : handelEditAddress(getFullAddressById(destinationAddressId));
-  }
+    // viewDescription === 'startAddress'
+    //   ? handelEditAddress(getFullAddressById(startAddressId))
+    //   : handelEditAddress(getFullAddressById(destinationAddressId));
+  };
 
   const handelOnClickDeleteBtn = () => {
     setWarningDescription('deleteAddress');
@@ -71,7 +72,7 @@ export default function useAddresses() {
   };
 
   const handelOnClickNewAddressBtn = () => {
-    toggleModalVisible();
+    openAddressModalCreate();
   };
 
   const handelOnClickNamePill = () => {

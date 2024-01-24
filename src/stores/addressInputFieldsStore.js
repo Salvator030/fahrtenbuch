@@ -1,28 +1,22 @@
-import {useRef, useState} from 'react';
-import useDatabase from './databaseStore';
-import {useBetween} from 'use-between';
-import useWarningModal from './warningModalStore';
-export default function useNewAddressModal() {
-  const useShareDatabase = () => useBetween(useDatabase);
-  const {saveNewAddress} = useShareDatabase();
-
-  const useShareWarningModal = () => useBetween(useWarningModal);
-  const {openWarning} = useShareWarningModal();
-
-  const [modalVisible, setModalVisible] = useState(false);
-const [editAddress, setEditAddress] = useState(false)
+import {useState} from 'react';
+export default function useAddressInputFields() {
   const [nameValue, setNameValue] = useState('');
   const [nameError, setNameError] = useState('');
   const [streetValue, setStreetValue] = useState('');
   const [streetError, setStreetError] = useState('');
+
   const [hnrValue, setHnrValue] = useState('');
   const [hnrError, setHnrError] = useState('');
+
   const [plzValue, setPlzValue] = useState('');
   const [plzError, setPlzError] = useState('');
+
   const [placeValue, setPlaceValue] = useState('');
   const [placeError, setPlaceError] = useState('');
+
   const [infoValue, setInfoValue] = useState('');
   const [infoError, setInfoError] = useState('');
+
   const [checks] = useState([false, false, false, false, false, true]);
   const checkNameInput = () => {
     const v = /^[\w\säüöß.,-]+$/;
@@ -101,17 +95,28 @@ const [editAddress, setEditAddress] = useState(false)
     }
   };
 
-  const getNewAddress = () => {
-    const address = {
-      name: nameValue,
-      street: streetValue,
-      hnr: hnrValue,
-      plz: plzValue,
-      place: placeValue,
-      info: infoValue ? infoValue : null,
-    };
+  const setGivenAddresValues = address => {
+    setNameValue(address.name);
+    setStreetValue(address.street);
+    setHnrValue(address.hnr);
+    setPlzValue(address.plz);
+    setPlaceValue(address.place);
+    setInfoValue(!address.info ? '' : address.info);
+  };
 
-    return address;
+  const getNewAddress = () => {
+    if (!checks.includes(false)) {
+      return {
+        name: nameValue,
+        street: streetValue,
+        hnr: hnrValue,
+        plz: plzValue,
+        place: placeValue,
+        info: infoValue ? infoValue : '',
+      };
+    } else {
+      return null;
+    }
   };
 
   function cleanInputFields() {
@@ -123,42 +128,7 @@ const [editAddress, setEditAddress] = useState(false)
     setInfoValue('');
   }
 
-  const toggleModalVisible = () => setModalVisible(!modalVisible);
-  const handelOnClickBackBtn = () => {
-    cleanInputFields();
-    toggleModalVisible();
-  };
-
-  const handelOnClickSaveBtn = async () => {
-    if (!checks.includes(false)) {
-      if(editAddress){}
-      else{
-      let result = await saveNewAddress(getNewAddress());
-       console.log('click ', result); 
-      if (typeof result === 'string') {
-      
-        openWarning(result);}
-       
-      }
-      cleanInputFields();
-      toggleModalVisible();
-    }
-  };
-
-  const handelEditAddress = (address) => {
-    setEditAddress(true);
-    setNameValue(address.name);
-    setStreetValue(address.street);
-    setHnrValue(address.hnr);
-    setPlzValue(address.plz);
-    setPlaceValue(address.place);
-    setInfoValue(!address.info ? '' : address.info );
-    toggleModalVisible();
-  }
-
   return {
-    modalVisible,
-    toggleModalVisible,
     nameValue,
     setNameValue,
     nameError,
@@ -178,14 +148,14 @@ const [editAddress, setEditAddress] = useState(false)
     infoError,
     setInfoError,
     setInfoValue,
-    handelOnClickBackBtn,
-    handelOnClickSaveBtn,
     checkNameInput,
     checkStreetInput,
     checkHnrInput,
     checkPlzInput,
     checkPlaceInput,
     checkInfoInput,
-    handelEditAddress
+    getNewAddress,
+    cleanInputFields,
+    setGivenAddresValues,
   };
 }

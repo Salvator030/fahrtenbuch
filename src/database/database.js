@@ -110,6 +110,16 @@ export const deleteAddressById = async (db, id) => {
   }
 };
 
+export const updateAddressName = async (db, id, address) => {
+  try {
+    const insertQuery = `UPDATE address_tbl name = ${address.name}, street = ${address.street},hnr = ${address.hnr},plz = ${address.plz}, place = ${address.place},info,hide) VALUES ('','','','','${address.place}','${address.info}',0)`;
+    return await db.executeSql(insertQuery);
+  } catch (error) {
+    console.log(error);
+    throw Error(error.message);
+  }
+};
+
 // --- Route
 export const saveRoute = async (db, route) => {
   try {
