@@ -10,7 +10,7 @@ export default function useNewAddressModal() {
   const {openWarning} = useShareWarningModal();
 
   const [modalVisible, setModalVisible] = useState(false);
-
+const [editAddress, setEditAddress] = useState(false)
   const [nameValue, setNameValue] = useState('');
   const [nameError, setNameError] = useState('');
   const [streetValue, setStreetValue] = useState('');
@@ -131,17 +131,22 @@ export default function useNewAddressModal() {
 
   const handelOnClickSaveBtn = async () => {
     if (!checks.includes(false)) {
+      if(editAddress){}
+      else{
       let result = await saveNewAddress(getNewAddress());
+       console.log('click ', result); 
       if (typeof result === 'string') {
-        console.log('click ', result);
-        openWarning(result);
-        cleanInputFields();
-        toggleModalVisible();
+      
+        openWarning(result);}
+       
       }
+      cleanInputFields();
+      toggleModalVisible();
     }
   };
 
   const handelEditAddress = (address) => {
+    setEditAddress(true);
     setNameValue(address.name);
     setStreetValue(address.street);
     setHnrValue(address.hnr);
