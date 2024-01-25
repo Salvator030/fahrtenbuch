@@ -2,7 +2,6 @@ import React, {Text, TextInput, View} from 'react-native';
 import ButtonIcon from '../../../../../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
-import useEditAddressName from '../../../../../../stores/editAddressNameStore';
 import {styles} from './EditAddressPostal.styles';
 import useEditAddressPostal from '../../../../../../stores/editAddressPostal';
 export default function EditAddressName({addressName}) {
@@ -27,10 +26,10 @@ export default function EditAddressName({addressName}) {
   } = useEditAddressPostal();
   return (
     <View style={styles.dialog}>
-      <Text style={styles.headline}>Umbenennen</Text>
+      <Text style={styles.headline}>Addresse ändern</Text>
       <View style={styles.gridStyle}>
-        <View style={styles.row}>
-          <View style={styles.col4}>
+        <View style={styles.row2}>
+          <View style={styles.col8}>
             <TextInput
               placeholder={!streetError ? 'Straße' : streetError}
               placeholderTextColor={!streetError ? 'gray' : 'red'}
@@ -62,7 +61,7 @@ export default function EditAddressName({addressName}) {
               style={styles.text}
             />
           </View>
-          <View style={styles.col2}>
+          <View style={styles.col8}>
             <TextInput
               placeholder={!placeError ? 'Ort' : placeError}
               placeholderTextColor={!placeError ? 'gray' : 'red'}
@@ -82,7 +81,7 @@ export default function EditAddressName({addressName}) {
               onClick={handelOnClickBackBtn}
             />
           </View>
-          <View style={styles.col2}>
+          <View>
             <ButtonIcon
               Icon={Icon2}
               title="ok"

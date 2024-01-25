@@ -5,6 +5,7 @@ import {styles} from './CreateAndEditAddressModal.styles';
 import CreateAddress from './CreateAddress/CreateAddress';
 import EditAddress from './EditAddress/EditAddress';
 import EditAddressName from './EditAddress/EditAddressName/EditAddressName';
+import EditAddressPostal from './EditAddress/EditAddressPostal/EditAddressPostal';
 
 export default function CreateAndEditAddressModal() {
   const useShareCreateAndEditAddressModal = () =>
@@ -16,6 +17,7 @@ export default function CreateAndEditAddressModal() {
       {addressModalDiscription === 'create' && <CreateAddress />}
       {addressModalDiscription === 'editAddress' && <EditAddress />}
       {addressModalDiscription === 'editAddressName' && <EditAddressName />}
+      {addressModalDiscription === 'editAddressPostal' && <EditAddressPostal />}
     </View>
   );
 }

@@ -26,12 +26,8 @@ export default function useCreateAndEditAddressModal() {
     setAddressModalDiscription('editAddressName');
   };
   const openAddressModalEditPostal = () => {
-    setAddressModalDiscription('editPostal');
+    setAddressModalDiscription('editAddressPostal');
   };
-  // const openAddressModalEditInfo = () => {
-  //   setAddressModalDiscription('editInfo');
-  //   toggleAddressModalVisible();
-  // };
 
   const closeAddressModal = () => {
     toggleAddressModalVisible();
@@ -45,7 +41,6 @@ export default function useCreateAndEditAddressModal() {
     openAddressModalEditCorrection,
     openAddressModalEditName,
     openAddressModalEditPostal,
-    // openAddressModalEditInfo,
     closeAddressModal,
   };
 }
