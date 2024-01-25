@@ -21,10 +21,13 @@ import {styles} from './Addresses.styles';
 export default function Addresses() {
   const useShareCreateAndEditAddressModal = () =>
     useBetween(useCreateAndEditAddressModal);
-  const {addressModalVisible} = useShareCreateAndEditAddressModal();
+  const {addressModalVisible, openAddressModalEditAddress} =
+    useShareCreateAndEditAddressModal();
+
   const useShareNewRoute = () => useBetween(useNewRoute);
   const {viewDescription, startAddressId, destinationAddressId} =
     useShareNewRoute();
+
   const useShareDatabase = () => useBetween(useDatabase);
   const {addressAreHidden} = useShareDatabase();
 
@@ -43,7 +46,6 @@ export default function Addresses() {
     handelOnClickPlacePill,
     hideAddress,
     toggleHideAddress,
-    handelOnClickEditAddrees,
   } = useAddresses();
   const rowsAndCols1 = [
     {
@@ -147,7 +149,7 @@ export default function Addresses() {
                     : 'black'
                   : destinationAddressId === 0 && 'gray'
               }
-              onClick={handelOnClickEditAddrees}
+              onClick={openAddressModalEditAddress}
             />
           ),
         },

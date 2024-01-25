@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import * as InputHelper from '../asserts/inputFieldsHelper';
 export default function useAddressInputFields() {
   const [nameValue, setNameValue] = useState('');
   const [nameError, setNameError] = useState('');
@@ -19,80 +20,50 @@ export default function useAddressInputFields() {
 
   const [checks] = useState([false, false, false, false, false, true]);
   const checkNameInput = () => {
-    const v = /^[\w\säüöß.,-]+$/;
-
-    if (nameValue && !v.test(nameValue)) {
-      setNameError(nameValue);
-      setNameValue('');
-      checks[0] = false;
-    } else {
-      setNameError('');
-      checks[0] = true;
-    }
+    InputHelper.checkAlphabetString(
+      nameValue,
+      setNameError,
+      setNameValue,
+      checks,
+      0,
+    );
   };
 
   const checkStreetInput = () => {
-    const v = /^[\w\säüöß.,-]+$/;
-
-    if (streetValue && !v.test(streetValue)) {
-      setStreetError(streetValue);
-      setStreetValue('');
-      checks[1] = false;
-    } else {
-      setStreetError('');
-      checks[1] = true;
-    }
+    InputHelper.checkAlphabetString(
+      streetValue,
+      setStreetError,
+      setStreetValue,
+      checks,
+      1,
+    );
   };
   const checkHnrInput = () => {
-    const v = /^\d{1,4}[A-Za-z]?$/;
-
-    if (hnrValue && !v.test(hnrValue)) {
-      setHnrError(hnrValue);
-      setHnrValue('');
-      checks[2] = false;
-    } else {
-      setHnrError('');
-      checks[2] = true;
-    }
+    InputHelper.checkHnrInput(hnrValue, setHnrError, setHnrValue, checks, 2);
   };
 
   const checkPlzInput = () => {
-    const v = /^\d{5}$/;
-
-    if (plzValue && !v.test(plzValue)) {
-      setPlzError(plzValue);
-      setPlzValue('');
-      checks[3] = false;
-    } else {
-      setPlzError('');
-      checks[3] = true;
-    }
+    InputHelper.checkPlzInput(plzValue, setPlzError, setPlzValue, checks, 3);
   };
 
   const checkPlaceInput = () => {
-    const v = /^[\w\säüöß.,-]+$/;
-
-    if (placeValue && !v.test(placeValue)) {
-      setPlaceError(placeValue);
-      setPlaceValue('');
-      checks[4] = false;
-    } else {
-      setPlaceError('');
-      checks[4] = true;
-    }
+    InputHelper.checkAlphabetString(
+      placeValue,
+      setPlaceError,
+      setPlaceValue,
+      checks,
+      4,
+    );
   };
 
   const checkInfoInput = () => {
-    const v = /^[\w\säüöß.,-]+$/;
-
-    if (infoValue && !v.test(infoValue)) {
-      setInfoError(infoValue);
-      setInfoValue('');
-      checks[5] = false;
-    } else {
-      setInfoError('');
-      checks[5] = true;
-    }
+    InputHelper.checkAlphabetString(
+      infoValue,
+      setInfoError,
+      setInfoValue,
+      checks,
+      5,
+    );
   };
 
   const setGivenAddresValues = address => {
@@ -105,6 +76,7 @@ export default function useAddressInputFields() {
   };
 
   const getNewAddress = () => {
+    console.log(checks);
     if (!checks.includes(false)) {
       return {
         name: nameValue,

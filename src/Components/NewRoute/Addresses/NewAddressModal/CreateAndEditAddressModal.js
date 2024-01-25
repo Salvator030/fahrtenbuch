@@ -3,6 +3,8 @@ import {useBetween} from 'use-between';
 import useCreateAndEditAddressModal from '../../../../stores/createAndEditAddressModalStore';
 import {styles} from './CreateAndEditAddressModal.styles';
 import CreateAddress from './CreateAddress/CreateAddress';
+import EditAddress from './EditAddress/EditAddress';
+import EditAddressName from './EditAddress/EditAddressName/EditAddressName';
 
 export default function CreateAndEditAddressModal() {
   const useShareCreateAndEditAddressModal = () =>
@@ -12,6 +14,8 @@ export default function CreateAndEditAddressModal() {
   return (
     <View style={styles.root}>
       {addressModalDiscription === 'create' && <CreateAddress />}
+      {addressModalDiscription === 'editAddress' && <EditAddress />}
+      {addressModalDiscription === 'editAddressName' && <EditAddressName />}
     </View>
   );
 }

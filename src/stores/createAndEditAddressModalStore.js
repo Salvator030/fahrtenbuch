@@ -12,22 +12,26 @@ export default function useCreateAndEditAddressModal() {
     setAddressModalDiscription('create');
     toggleAddressModalVisible();
   };
+
+  const openAddressModalEditAddress = () => {
+    setAddressModalDiscription('editAddress');
+    if (!addressModalVisible) {
+      toggleAddressModalVisible();
+    }
+  };
   const openAddressModalEditCorrection = () => {
     setAddressModalDiscription('editCorrection');
-    toggleAddressModalVisible();
   };
   const openAddressModalEditName = () => {
-    setAddressModalDiscription('editName');
-    toggleAddressModalVisible();
+    setAddressModalDiscription('editAddressName');
   };
   const openAddressModalEditPostal = () => {
     setAddressModalDiscription('editPostal');
-    toggleAddressModalVisible();
   };
-  const openAddressModalEditInfo = () => {
-    setAddressModalDiscription('editInfo');
-    toggleAddressModalVisible();
-  };
+  // const openAddressModalEditInfo = () => {
+  //   setAddressModalDiscription('editInfo');
+  //   toggleAddressModalVisible();
+  // };
 
   const closeAddressModal = () => {
     toggleAddressModalVisible();
@@ -37,10 +41,11 @@ export default function useCreateAndEditAddressModal() {
     addressModalVisible,
     addressModalDiscription,
     openAddressModalCreate,
+    openAddressModalEditAddress,
     openAddressModalEditCorrection,
     openAddressModalEditName,
     openAddressModalEditPostal,
-    openAddressModalEditInfo,
+    // openAddressModalEditInfo,
     closeAddressModal,
   };
 }
