@@ -3,7 +3,7 @@ import useCreateAndEditAddressModal from './createAndEditAddressModalStore';
 import {useBetween} from 'use-between';
 import useNewRoute from './newRouteStore';
 import useDatabase from './databaseStore';
-import InputHelper from '../asserts/inputFieldsHelper';
+import * as InputHelper from '../asserts/inputFieldsHelper';
 
 export default function useEditAddressPostal() {
   const useShareCreateAndEditAddressModal = () =>
@@ -31,10 +31,30 @@ export default function useEditAddressPostal() {
 
   const [checks] = useState([false, false, false, false]);
 
-  const checkStreetInput = () => {};
-  const checkHnrInput = () => {};
-  const checkPlzInput = () => {};
-  const checkPlaceInput = () => {};
+  const checkStreetInput = () => {
+    InputHelper.checkAlphabetString(
+      streetValue,
+      setStreetError,
+      setStreetValue,
+      checks,
+      0,
+    );
+  };
+  const checkHnrInput = () => {
+    InputHelper.checkHnrInput(hnrValue, setHnrError, setHnrValue, checks, 1);
+  };
+  const checkPlzInput = () => {
+    InputHelper.checkPlzInput(plzValue, setPlzError, setPlzValue, checks, 2);
+  };
+  const checkPlaceInput = () => {
+    InputHelper.checkAlphabetString(
+      placeValue,
+      setPlaceError,
+      setPlaceValue,
+      checks,
+      3,
+    );
+  };
 
   const handelOnClickBackBtn = () => {
     openAddressModalEditAddress();

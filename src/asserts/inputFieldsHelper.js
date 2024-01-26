@@ -5,6 +5,7 @@ export const checkAlphabetString = (
   check,
   i,
 ) => {
+  console.log(i);
   const v = /^[\w\säüöß.,-]+$/;
 
   if (value && !v.test(value)) {
