@@ -5,17 +5,16 @@ export const checkAlphabetString = (
   check,
   i,
 ) => {
+  console.log(value);
   console.log(i);
+  console.log(check);
   const v = /^[\w\säüöß.,-]+$/;
 
   if (value && !v.test(value)) {
     setValueError(value);
     setValue('');
-    if (i) {
-      check[i] = false;
-    } else {
-      check = false;
-    }
+
+    check[i] = false;
   } else {
     setValueError('');
     check[i] = true;

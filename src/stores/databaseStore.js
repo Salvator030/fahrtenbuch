@@ -114,6 +114,25 @@ export default function useDatabase() {
     loadAddressesCallback();
   };
 
+  const renameAddress = async (address, info, id) => {
+    console.log('a ');
+    console.log(info);
+    console.log(id);
+    let result = await saveNewAddress(address);
+
+    if (typeof result === 'string') {
+      return result;
+    } else {
+      setAddressHide(id, 1);
+      result = await database.updateAddressInfo(info, id);
+      if (typeof result === 'string') {
+        return result;
+      } else {
+        loadAddressesCallback();
+      }
+    }
+  };
+
   const setAddressHide = (id, hide) => {
     database.setAddressHide(id, hide);
     loadAddressesCallback();
@@ -182,6 +201,7 @@ export default function useDatabase() {
     addresses,
     saveNewAddress,
     getFullAddressById,
+    renameAddress,
     routes,
     saveNewRoute,
     getFullRouteById,

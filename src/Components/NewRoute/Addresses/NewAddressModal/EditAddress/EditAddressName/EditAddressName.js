@@ -11,6 +11,7 @@ export default function EditAddressName({addressName}) {
     nameError,
     checkNameInput,
     handelOnClickBackBtn,
+    handelOnClickSaveBtn,
   } = useEditAddressName(addressName);
   return (
     <View style={styles.dialog}>
@@ -23,7 +24,7 @@ export default function EditAddressName({addressName}) {
               placeholderTextColor={!nameError ? 'gray' : 'red'}
               value={inputName}
               onChangeText={setInputName}
-              onEndEditing={checkNameInput}
+              // onEndEditing={checkNameInput}
               style={styles.textInput}
             />
           </View>
@@ -42,7 +43,7 @@ export default function EditAddressName({addressName}) {
               Icon={Icon2}
               title="ok"
               iconName="check"
-              //   onClick={handelOnClickSaveBtn}
+              onClick={handelOnClickSaveBtn}
             />
           </View>
         </View>

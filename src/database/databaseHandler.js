@@ -38,6 +38,16 @@ export const deleteAddress = async add_id => {
   return await database.deleteAddressById(db, add_id);
 };
 
+export const updateAddress = async address => {
+  const db = await database.getDBConnection();
+  return await database.updateAddress(db, address);
+};
+
+export const updateAddressInfo = async (info, id) => {
+  const db = await database.getDBConnection();
+  return await database.updateAddressInfo(db, info, id);
+};
+
 export const setAddressHide = async (id, hide) => {
   const db = await database.getDBConnection();
   return await database.setHide(db, addressTable, hide, 'add_id', id);

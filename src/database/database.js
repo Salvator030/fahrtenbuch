@@ -110,9 +110,19 @@ export const deleteAddressById = async (db, id) => {
   }
 };
 
-export const updateAddressName = async (db, id, address) => {
+export const updateAddress = async (db, address) => {
   try {
-    const insertQuery = `UPDATE address_tbl name = ${address.name}, street = ${address.street},hnr = ${address.hnr},plz = ${address.plz}, place = ${address.place},info,hide) VALUES ('','','','','${address.place}','${address.info}',0)`;
+    const insertQuery = `UPDATE address_tbl Set name = ${address.name}, street = ${address.street},hnr = ${address.hnr},plz = ${address.plz}, place = ${address.place} WHERE id = ${address.add_id} )`;
+    return await db.executeSql(insertQuery);
+  } catch (error) {
+    console.log(error);
+    throw Error(error.message);
+  }
+};
+
+export const updateAddressInfo = async (db, info, id) => {
+  try {
+    const insertQuery = `UPDATE address_tbl Set info = ${info} WHERE id = ${id} )`;
     return await db.executeSql(insertQuery);
   } catch (error) {
     console.log(error);

@@ -1,35 +1,74 @@
 import {useState} from 'react';
-import {checkAlphabetString} from '../asserts/inputFieldsHelper';
+import * as InputHelper from '../asserts/inputFieldsHelper';
 import {useBetween} from 'use-between';
 import useCreateAndEditAddressModal from './createAndEditAddressModalStore';
 import useNewRoute from './newRouteStore';
 import useDatabase from './databaseStore';
+import {parseDate} from '../asserts/dateHelper';
+import useWarningModal from './warningModalStore';
 
-export default function useEditAddressName(oldAddressName) {
+export default function useEditAddressName() {
   const useShareCreateAndEditAddressModal = () =>
     useBetween(useCreateAndEditAddressModal);
-  const {openAddressModalEditAddress} = useShareCreateAndEditAddressModal();
+  const {openAddressModalEditAddress, closeAddressModal} =
+    useShareCreateAndEditAddressModal();
 
   const useShareNewRoute = () => useBetween(useNewRoute);
   const {startAddressId, destinationAddressId} = useShareNewRoute();
 
   const useShareDatabase = () => useBetween(useDatabase);
-  const {getFullAddressById} = useShareDatabase();
+  const {getFullAddressById, renameAddress} = useShareDatabase();
 
-  const [inputName, setInputName] = useState(
+  const useShareWarningModal = () => useBetween(useWarningModal);
+  const {openWarning} = useShareWarningModal();
+  const [oldAddress] = useState(
     destinationAddressId
-      ? getFullAddressById(destinationAddressId).name
-      : getFullAddressById(startAddressId).name,
+      ? getFullAddressById(destinationAddressId)
+      : getFullAddressById(startAddressId),
   );
+  const [inputName, setInputName] = useState(oldAddress.name);
   const [inputError, setInputError] = useState('');
-  const [isCheck, setCheck] = useState(false);
+  const [check] = useState([false]);
 
   const checkNameInput = () => {
-    checkAlphabetString(inputName, setInputError, setInputName);
+    InputHelper.checkAlphabetString(
+      inputName,
+      setInputError,
+      setInputName,
+      check,
+      0,
+    );
   };
 
   const handelOnClickBackBtn = () => {
     openAddressModalEditAddress();
+  };
+  const handelOnClickSaveBtn = async () => {
+    InputHelper.checkAlphabetString(
+      inputName,
+      setInputError,
+      setInputName,
+      check,
+      0,
+    );
+    if (!check.includes(false)) {
+      const info = oldAddress.info.concat(
+        `\n ${parseDate(new Date())} - umbenant - ${
+          oldAddress.name
+        } -> ${inputName}`,
+      );
+      const address = {
+        name: inputName,
+        street: oldAddress.street,
+        hnr: oldAddress.hnr,
+        plz: oldAddress.plz,
+        place: oldAddress.place,
+        info: info,
+      };
+      const result = await renameAddress(address, info, oldAddress.add_id);
+      result === 'addressExist' && openWarning('addressExist');
+      closeAddressModal();
+    }
   };
 
   return {
@@ -38,5 +77,6 @@ export default function useEditAddressName(oldAddressName) {
     inputError,
     checkNameInput,
     handelOnClickBackBtn,
+    handelOnClickSaveBtn,
   };
 }
