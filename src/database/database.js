@@ -120,9 +120,19 @@ export const updateAddress = async (db, address) => {
   }
 };
 
+export const updateAddressName = async (db, name, id) => {
+  try {
+    const insertQuery = `UPDATE address_tbl Set name = ${name} WHERE id = ${id}`;
+    return await db.executeSql(insertQuery);
+  } catch (error) {
+    console.log(error);
+    throw Error(error.message);
+  }
+};
+
 export const updateAddressInfo = async (db, info, id) => {
   try {
-    const insertQuery = `UPDATE address_tbl Set info = ${info} WHERE id = ${id} )`;
+    const insertQuery = `UPDATE address_tbl Set info = ${info} WHERE id = ${id} `;
     return await db.executeSql(insertQuery);
   } catch (error) {
     console.log(error);

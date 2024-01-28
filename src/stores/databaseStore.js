@@ -114,17 +114,17 @@ export default function useDatabase() {
     loadAddressesCallback();
   };
 
-  const renameAddress = async (address, info, id) => {
-    console.log('a ');
-    console.log(info);
-    console.log(id);
+  const changeAddressNAmeOrPostal = async (address, info, id, oldName) => {
+    const name = oldName.concat('_obsolet');
+    console.log(name);
+    await database.updateAddressName(name, id);
     let result = await saveNewAddress(address);
-
     if (typeof result === 'string') {
+      await database.updateAddressName(oldName, id);
       return result;
     } else {
       setAddressHide(id, 1);
-      result = await database.updateAddressInfo(info, id);
+      await database.updateAddressInfo(info, id);
       if (typeof result === 'string') {
         return result;
       } else {
@@ -201,7 +201,7 @@ export default function useDatabase() {
     addresses,
     saveNewAddress,
     getFullAddressById,
-    renameAddress,
+    changeAddressNAmeOrPostal,
     routes,
     saveNewRoute,
     getFullRouteById,

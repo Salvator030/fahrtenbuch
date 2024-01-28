@@ -3,30 +3,32 @@ import useCreateAndEditAddressModal from './createAndEditAddressModalStore';
 import {useBetween} from 'use-between';
 import useNewRoute from './newRouteStore';
 import useDatabase from './databaseStore';
+import {parseDate} from '../asserts/dateHelper';
 import * as InputHelper from '../asserts/inputFieldsHelper';
 
 export default function useEditAddressPostal() {
   const useShareCreateAndEditAddressModal = () =>
     useBetween(useCreateAndEditAddressModal);
-  const {openAddressModalEditAddress} = useShareCreateAndEditAddressModal();
+  const {openAddressModalEditAddress, closeAddressModal} =
+    useShareCreateAndEditAddressModal();
 
   const useShareNewRoute = () => useBetween(useNewRoute);
   const {startAddressId, destinationAddressId} = useShareNewRoute();
 
   const useShareDatabase = () => useBetween(useDatabase);
-  const {getFullAddressById} = useShareDatabase();
+  const {getFullAddressById, changeAddressNAmeOrPostal} = useShareDatabase();
 
-  const address = destinationAddressId
+  const oldAddress = destinationAddressId
     ? getFullAddressById(destinationAddressId)
     : getFullAddressById(startAddressId);
 
-  const [streetValue, setStreetValue] = useState(address.street);
+  const [streetValue, setStreetValue] = useState(oldAddress.street);
   const [streetError, setStreetError] = useState('');
-  const [hnrValue, setHnrValue] = useState(address.hnr);
+  const [hnrValue, setHnrValue] = useState(oldAddress.hnr);
   const [hnrError, setHnrError] = useState('');
-  const [plzValue, setPlzValue] = useState(address.plz);
+  const [plzValue, setPlzValue] = useState(oldAddress.plz);
   const [plzError, setPlzError] = useState('');
-  const [placeValue, setPlaceValue] = useState(address.place);
+  const [placeValue, setPlaceValue] = useState(oldAddress.place);
   const [placeError, setPlaceError] = useState('');
 
   const [checks] = useState([false, false, false, false]);
@@ -60,7 +62,33 @@ export default function useEditAddressPostal() {
     openAddressModalEditAddress();
   };
 
-  const handelOnClickSaveBtn = () => {};
+  const handelOnClickSaveBtn = async () => {
+    if (!checks.includes(false)) {
+      const info = oldAddress.info.concat(
+        `\n ${parseDate(new Date())} - neu Addresse - ${oldAddress.street} ${
+          oldAddress.hnr
+        } ${oldAddress.plz} ${
+          oldAddress.place
+        } -> ${streetValue} ${hnrValue} ${plzValue} ${placeValue}`,
+      );
+
+      const address = {
+        name: oldAddress.name,
+        street: streetValue,
+        hnr: hnrValue,
+        plz: plzValue,
+        place: placeValue,
+        info: info,
+      };
+      await changeAddressNAmeOrPostal(
+        address,
+        info,
+        oldAddress.add_id,
+        oldAddress.name,
+      );
+      closeAddressModal();
+    }
+  };
 
   return {
     streetValue,
@@ -80,5 +108,6 @@ export default function useEditAddressPostal() {
     placeError,
     checkPlaceInput,
     handelOnClickBackBtn,
+    handelOnClickSaveBtn,
   };
 }

@@ -23,6 +23,7 @@ export default function EditAddressName({addressName}) {
     placeError,
     checkPlaceInput,
     handelOnClickBackBtn,
+    handelOnClickSaveBtn,
   } = useEditAddressPostal();
   return (
     <View style={styles.dialog}>
@@ -86,7 +87,7 @@ export default function EditAddressName({addressName}) {
               Icon={Icon2}
               title="ok"
               iconName="check"
-              //   onClick={handelOnClickSaveBtn}
+              onClick={handelOnClickSaveBtn}
             />
           </View>
         </View>

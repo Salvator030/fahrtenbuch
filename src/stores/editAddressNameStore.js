@@ -17,7 +17,7 @@ export default function useEditAddressName() {
   const {startAddressId, destinationAddressId} = useShareNewRoute();
 
   const useShareDatabase = () => useBetween(useDatabase);
-  const {getFullAddressById, renameAddress} = useShareDatabase();
+  const {getFullAddressById, changeAddressNAmeOrPostal} = useShareDatabase();
 
   const useShareWarningModal = () => useBetween(useWarningModal);
   const {openWarning} = useShareWarningModal();
@@ -65,7 +65,11 @@ export default function useEditAddressName() {
         place: oldAddress.place,
         info: info,
       };
-      const result = await renameAddress(address, info, oldAddress.add_id);
+      const result = await changeAddressNAmeOrPostal(
+        address,
+        info,
+        oldAddress.add_id,
+      );
       result === 'addressExist' && openWarning('addressExist');
       closeAddressModal();
     }

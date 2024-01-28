@@ -43,6 +43,11 @@ export const updateAddress = async address => {
   return await database.updateAddress(db, address);
 };
 
+export const updateAddressName = async (name, id) => {
+  const db = await database.getDBConnection();
+  return await database.updateAddressName(db, name, id);
+};
+
 export const updateAddressInfo = async (info, id) => {
   const db = await database.getDBConnection();
   return await database.updateAddressInfo(db, info, id);
