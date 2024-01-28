@@ -36,7 +36,6 @@ export default function EditAddressName({addressName}) {
               placeholderTextColor={!streetError ? 'gray' : 'red'}
               value={streetValue}
               onChangeText={setStreetValue}
-              onEndEditing={checkStreetInput}
               style={styles.text}
             />
           </View>
@@ -46,7 +45,6 @@ export default function EditAddressName({addressName}) {
               placeholderTextColor={!hnrError ? 'gray' : 'red'}
               value={hnrValue}
               onChangeText={setHnrValue}
-              onEndEditing={checkHnrInput}
               style={styles.text}
             />
           </View>
@@ -58,7 +56,7 @@ export default function EditAddressName({addressName}) {
               placeholderTextColor={!plzError ? 'gray' : 'red'}
               value={plzValue}
               onChangeText={setPlzValue}
-              onEndEditing={checkPlzInput}
+           
               style={styles.text}
             />
           </View>
@@ -68,7 +66,6 @@ export default function EditAddressName({addressName}) {
               placeholderTextColor={!placeError ? 'gray' : 'red'}
               value={placeValue}
               onChangeText={setPlaceValue}
-              onEndEditing={checkPlaceInput}
               style={styles.text}
             />
           </View>

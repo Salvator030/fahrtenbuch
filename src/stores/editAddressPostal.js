@@ -57,12 +57,15 @@ export default function useEditAddressPostal() {
       3,
     );
   };
+  
+  const checkInputs =()=> {checkStreetInput(); checkHnrInput(); checkPlaceInput(); checkPlzInput()}
 
   const handelOnClickBackBtn = () => {
     openAddressModalEditAddress();
   };
 
   const handelOnClickSaveBtn = async () => {
+    checkInputs();
     if (!checks.includes(false)) {
       const info = oldAddress.info.concat(
         `\n ${parseDate(new Date())} - neu Addresse - ${oldAddress.street} ${
