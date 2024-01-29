@@ -69,6 +69,7 @@ export default function useEditAddressName() {
         address,
         info,
         oldAddress.add_id,
+        oldAddress.name
       );
       result === 'addressExist' && openWarning('addressExist');
       closeAddressModal();
