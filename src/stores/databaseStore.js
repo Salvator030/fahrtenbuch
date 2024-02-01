@@ -115,7 +115,7 @@ export default function useDatabase() {
   };
 
   const changeAddressNAmeOrPostal = async (address, info, id, oldName) => {
-    const name = `"${oldName.concat(' obsolet')}"`;
+    const name = `${oldName.concat(' obsolet')}-${parseDate(new Date())}`;
     console.log(name);
     await database.updateAddressName(name, id);
     let result = await saveNewAddress(address);
@@ -124,6 +124,7 @@ export default function useDatabase() {
       return result;
     } else {
       setAddressHide(id, 1);
+      console.log('info ', info);
       await database.updateAddressInfo(info, id);
       if (typeof result === 'string') {
         return result;

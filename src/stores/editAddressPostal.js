@@ -18,9 +18,11 @@ export default function useEditAddressPostal() {
   const useShareDatabase = () => useBetween(useDatabase);
   const {getFullAddressById, changeAddressNAmeOrPostal} = useShareDatabase();
 
-  const oldAddress = destinationAddressId
-    ? getFullAddressById(destinationAddressId)
-    : getFullAddressById(startAddressId);
+  const [oldAddress] = useState(
+    destinationAddressId
+      ? getFullAddressById(destinationAddressId)
+      : getFullAddressById(startAddressId),
+  );
 
   const [streetValue, setStreetValue] = useState(oldAddress.street);
   const [streetError, setStreetError] = useState('');
@@ -57,8 +59,13 @@ export default function useEditAddressPostal() {
       3,
     );
   };
-  
-  const checkInputs =()=> {checkStreetInput(); checkHnrInput(); checkPlaceInput(); checkPlzInput()}
+
+  const checkInputs = () => {
+    checkStreetInput();
+    checkHnrInput();
+    checkPlaceInput();
+    checkPlzInput();
+  };
 
   const handelOnClickBackBtn = () => {
     openAddressModalEditAddress();
