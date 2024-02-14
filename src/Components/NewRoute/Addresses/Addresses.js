@@ -4,27 +4,30 @@ import React, {
   TouchableOpacity,
   Popup,
   View,
-  StyleSheet,
 } from 'react-native-windows';
 import Grid from '../../CustomComponents/Grid/Grid';
 import ScrollArea from '../../CustomComponents/ScrollArea/ScrollArea';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
-import NewAddressModal from './NewAddressModal/NewAddressModal';
+import CreateAndEditAddressModal from './NewAddressModal/CreateAndEditAddressModal';
 import useAddresses from '../../../stores/addressesStore';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {useBetween} from 'use-between';
-import useNewAddressModal from '../../../stores/newAddresModalStore';
+import useCreateAndEditAddressModal from '../../../stores/createAndEditAddressModalStore';
 import useNewRoute from '../../../stores/newRouteStore';
 import useDatabase from '../../../stores/databaseStore';
 import {styles} from './Addresses.styles';
 
 export default function Addresses() {
-  const useShareNewAddressModal = () => useBetween(useNewAddressModal);
-  const {modalVisible} = useShareNewAddressModal();
+  const useShareCreateAndEditAddressModal = () =>
+    useBetween(useCreateAndEditAddressModal);
+  const {addressModalVisible, openAddressModalEditAddress} =
+    useShareCreateAndEditAddressModal();
+
   const useShareNewRoute = () => useBetween(useNewRoute);
   const {viewDescription, startAddressId, destinationAddressId} =
     useShareNewRoute();
+
   const useShareDatabase = () => useBetween(useDatabase);
   const {addressAreHidden} = useShareDatabase();
 
@@ -120,6 +123,33 @@ export default function Addresses() {
               title="zurück"
               iconName="arrow-back"
               onClick={handelOnClickBackBtn}
+            />
+          ),
+        },
+        {
+          style: styles.col2,
+          item: (
+            <ButtonIcon
+              Icon={Icon2}
+              title="edit"
+              iconName="edit"
+              disabled={
+                viewDescription === 'startAddress'
+                  ? startAddressId === 0
+                    ? true
+                    : false
+                  : destinationAddressId === 0
+                  ? true
+                  : false
+              }
+              color={
+                viewDescription === 'startAddress'
+                  ? startAddressId === 0
+                    ? 'gray'
+                    : 'black'
+                  : destinationAddressId === 0 && 'gray'
+              }
+              onClick={openAddressModalEditAddress}
             />
           ),
         },
@@ -229,8 +259,8 @@ export default function Addresses() {
       />
       <ScrollArea itemsList={cards} />
       <Grid rowsAndCols={rowsAndCols2} style={styles.gridStyle} />
-      <Popup isOpen={modalVisible}>
-        <NewAddressModal />
+      <Popup isOpen={addressModalVisible}>
+        <CreateAndEditAddressModal />
       </Popup>
     </View>
   );

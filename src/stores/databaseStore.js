@@ -114,6 +114,26 @@ export default function useDatabase() {
     loadAddressesCallback();
   };
 
+  const changeAddressNAmeOrPostal = async (address, info, id, oldName) => {
+    const name = `${oldName.concat(' obsolet')}-${parseDate(new Date())}`;
+    console.log(name);
+    await database.updateAddressName(name, id);
+    let result = await saveNewAddress(address);
+    if (typeof result === 'string') {
+      await database.updateAddressName(oldName, id);
+      return result;
+    } else {
+      setAddressHide(id, 1);
+      console.log('info ', info);
+      await database.updateAddressInfo(info, id);
+      if (typeof result === 'string') {
+        return result;
+      } else {
+        loadAddressesCallback();
+      }
+    }
+  };
+
   const setAddressHide = (id, hide) => {
     database.setAddressHide(id, hide);
     loadAddressesCallback();
@@ -182,6 +202,7 @@ export default function useDatabase() {
     addresses,
     saveNewAddress,
     getFullAddressById,
+    changeAddressNAmeOrPostal,
     routes,
     saveNewRoute,
     getFullRouteById,

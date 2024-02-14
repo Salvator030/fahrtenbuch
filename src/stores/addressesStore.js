@@ -1,10 +1,10 @@
-import React, {use, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AddressCard from '../Components/NewRoute/Addresses/AddressCard/AddressCard';
 import {sortByAlphabetAscending} from '../asserts/sortHelper';
 import {useBetween} from 'use-between';
 import useDatabase from './databaseStore';
 import useMainView from './MainViewStore';
-import useNewAddressModal from './newAddresModalStore';
+import useCreateAndEditAddressModal from './createAndEditAddressModalStore';
 import useNewRoute from './newRouteStore';
 import useWarningModal from './warningModalStore';
 
@@ -15,13 +15,14 @@ export default function useAddresses() {
   const [hideAddress, setHideAddress] = useState(true);
 
   const useShareDatabase = () => useBetween(useDatabase);
-  const {addresses} = useShareDatabase();
+  const {addresses, getFullAddressById} = useShareDatabase();
 
   const useShareMainView = () => useBetween(useMainView);
   const {toggleCreateNewRoute, toggleShowWarning} = useShareMainView();
 
-  const useShareNewAddressModal = () => useBetween(useNewAddressModal);
-  const {toggleModalVisible} = useShareNewAddressModal();
+  const useShareCreateAndEditAddressModal = () =>
+    useBetween(useCreateAndEditAddressModal);
+  const {openAddressModalCreate} = useShareCreateAndEditAddressModal();
 
   const useShareWarningModal = () => useBetween(useWarningModal);
   const {setWarningDescription, setSelectedAddressesWarning} =
@@ -54,6 +55,12 @@ export default function useAddresses() {
       : setViewDescription('distance');
   };
 
+  const handelOnClickEditAddrees = () => {
+    // viewDescription === 'startAddress'
+    //   ? handelEditAddress(getFullAddressById(startAddressId))
+    //   : handelEditAddress(getFullAddressById(destinationAddressId));
+  };
+
   const handelOnClickDeleteBtn = () => {
     setWarningDescription('deleteAddress');
     if (viewDescription === 'startAddress') {
@@ -65,7 +72,7 @@ export default function useAddresses() {
   };
 
   const handelOnClickNewAddressBtn = () => {
-    toggleModalVisible();
+    openAddressModalCreate();
   };
 
   const handelOnClickNamePill = () => {
@@ -154,5 +161,6 @@ export default function useAddresses() {
     handelOnClickPlacePill,
     hideAddress,
     toggleHideAddress,
+    handelOnClickEditAddrees,
   };
 }
