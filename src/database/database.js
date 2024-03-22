@@ -160,6 +160,25 @@ export const deleteRouteById = async (db, id) => {
   }
 };
 
+export const updateRouteStartId = async (db, newId, oldId) => {
+  try {
+    const insertQuery = `UPDATE route_tbl Set startAdd_id = ${newId} WHERE startAdd_id = ${oldId}`;
+    return await db.executeSql(insertQuery);
+  } catch (error) {
+    console.log(error);
+    throw Error(error.message);
+  }
+};
+
+export const updateRouteDestId = async (db, newId, oldId) => {
+  try {
+    const insertQuery = `UPDATE route_tbl Set destAdd_id = ${newId} WHERE destAdd_id = ${oldId}`;
+    return await db.executeSql(insertQuery);
+  } catch (error) {
+    console.log(error);
+    throw Error(error.message);
+  }
+};
 // --- drivenRoute
 
 export const saveDrivenRoute = async (db, drivenRoute) => {
@@ -204,6 +223,8 @@ export const getDrivenRoutesBetweenDates = async (db, startDate, endDate) => {
     throw Error(`Failed getDrivenRoutes between ${startDate} - ${endDate} !!!`);
   }
 };
+
+
 
 export const deleteDrivenRouteById = async (db, id) => {
   try {

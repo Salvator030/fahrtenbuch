@@ -31,6 +31,7 @@ export default function useCreateAndEditAddressModal() {
 
   const closeAddressModal = () => {
     toggleAddressModalVisible();
+    setAddressModalDiscription('');
   };
 
   return {

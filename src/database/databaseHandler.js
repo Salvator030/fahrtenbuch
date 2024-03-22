@@ -93,6 +93,14 @@ export const setRouteHide = async (id, hide) => {
   return await database.setHide(db, routeTable, hide, 'route_id', id);
 };
 
+export const updtaeRoute = async (newId, oldId) => {
+  const db = await database.getDBConnection();
+  console.log("newId: ",newId)
+  console.log("old: ",oldId)
+  await database.updateRouteStartId(db, newId, oldId);
+   await database.updateRouteDestId(db, newId,oldId)
+  } ;
+
 // --- drivenRoute
 export const deleteDrivenRouteTable = async () => {
   const db = await database.getDBConnection();
@@ -113,6 +121,8 @@ export const saveNewDrivenRoute = async drivenRoute => {
   const db = await database.getDBConnection();
   return await database.saveDrivenRoute(db, drivenRoute);
 };
+
+
 
 export const deleteDrivenRoute = async dRoute_id => {
   const db = await database.getDBConnection();
