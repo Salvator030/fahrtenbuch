@@ -2,12 +2,18 @@ import {useState, useCallback, useEffect} from 'react';
 import * as database from '../database/databaseHandler';
 import {useBetween} from 'use-between';
 import useCalender from './calenderStore';
+import useNewRoute from './newRouteStore'
 import {deleteDrivenRouteByRouteId} from '../database/database';
-import {parseDate} from '../asserts/dateHelper';
+import {parseDateAndTime} from '../asserts/dateHelper';
+
+
 
 export default function useDatabase() {
   // const useShareCalender = () => useBetween(useCalender);
   // const {selectedDate} = useShareCalender();
+
+  const useShareNewRoute = () => useBetween(useNewRoute);
+  const {changeAddressId} = useShareNewRoute();
 
   const [addresses, setAddresses] = useState([]);
   const [routes, setRoutes] = useState([]);
@@ -22,6 +28,7 @@ export default function useDatabase() {
       const addressesResult = await database.getAllAddresses();
       if (addressesResult.length) {
         setAddresses(addressesResult);
+        console.log("äddResult: ", addressesResult)
         let temp =
           addressesResult.filter(address => address.hide === 1).length > 0
             ? true
@@ -89,10 +96,12 @@ export default function useDatabase() {
   // --- address
   const saveNewAddress = async address => {
     const result = await database.saveNewAddress(address);
+    console.log("res: ",result[0].insertId)
     if (typeof result === 'string') {
       return result;
     } else {
       loadAddressesCallback();
+      return result;
     }
   };
 
@@ -115,10 +124,11 @@ export default function useDatabase() {
   };
 
   const changeAddressNAmeOrPostal = async (address, info, id, oldName) => {
-    const name = `${oldName.concat(' obsolet')}-${parseDate(new Date())}`;
+    const name = `${oldName.concat(' obsolet')}-${parseDateAndTime(new Date())}`;
     console.log(name);
     await database.updateAddressName(name, id);
     let result = await saveNewAddress(address);
+    console.log("result: ",result);
     if (typeof result === 'string') {
       await database.updateAddressName(oldName, id);
       return result;
@@ -129,9 +139,14 @@ export default function useDatabase() {
       if (typeof result === 'string') {
         return result;
       } else {
+        database.updtaeRoute(result[0].insertId, id);
+        changeAddressId(result[0].insertId);
         loadAddressesCallback();
       }
     }
+    loadAddressesCallback();
+    loadDrivenRoutesCallback();
+    loadRoutesCallback();
   };
 
   const setAddressHide = (id, hide) => {

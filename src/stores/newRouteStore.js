@@ -30,6 +30,11 @@ export default function useNewRoute() {
     toggleCreateNewRoute();
   };
 
+  const changeAddressId = (id) => {
+    if (destinationAddressId)
+    {setDestinationAddressId(id)}
+  else{setStartAddressId(id)}}
+
   return {
     viewDescription,
     setViewDescription,
@@ -41,5 +46,6 @@ export default function useNewRoute() {
     setDistance,
     createNewRoute,
     closeNewRoute,
+    changeAddressId,
   };
 }
