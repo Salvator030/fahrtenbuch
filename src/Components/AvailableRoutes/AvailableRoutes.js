@@ -1,6 +1,7 @@
 import React, {
   Text,
   View,
+  Popup,
   ScrollView,
   TextInput,
   TouchableOpacity,
@@ -9,12 +10,15 @@ import Accordion from '../CustomComponents/Accordion/Accordion';
 import Grid from '../CustomComponents/Grid/Grid';
 import ButtonIcon from '../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome';
 import PlusIcon from 'react-native-vector-icons/FontAwesome';
 import RouteIcon from 'react-native-vector-icons/MaterialIcons';
+import EditRouteModal from './EditRouteModal/EditRouteModal';
 import useAvailableRoutes from '../../stores/availableRoutesStor';
 import {useBetween} from 'use-between';
 import useDatabase from '../../stores/databaseStore';
 import {styles} from './AvailableRoutes.styles';
+import useEditRouteModal from '../../stores/editRouteStore';
 
 export default function AvailableRoutes() {
   const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
@@ -34,7 +38,9 @@ export default function AvailableRoutes() {
 
   const useShareDatabase = () => useBetween(useDatabase);
   const {routesAreHidden} = useShareDatabase();
-  // const [items, setItems] = useState([]);
+
+  const useShareEditRoute = () => useBetween(useEditRouteModal);
+  const {editRouteModalVisible, openEditRouteModal} = useShareEditRoute();
 
   const pills = [
     {
@@ -180,6 +186,7 @@ export default function AvailableRoutes() {
   ];
 
   return (
+    <View>
     <Accordion title="Verfügbare Strecken">
       <View>
         <Grid rowsAndCols={pills} style={styles.gridStyle} />
@@ -246,10 +253,24 @@ export default function AvailableRoutes() {
                   />
                 )}
               </View>
+              <View style={styles.col1}>
+                <ButtonIcon
+                  title="Edit"
+                  Icon={Icon2}
+                  iconName="edit"
+                  disabled={selectedRoute === 0}
+                  color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                  onClick={openEditRouteModal}
+                />
+              </View>
             </View>
           </View>
         </View>
       </View>
     </Accordion>
+    <Popup isOpen={editRouteModalVisible}>
+   <EditRouteModal/>
+      </Popup>
+    </View>
   );
 }
