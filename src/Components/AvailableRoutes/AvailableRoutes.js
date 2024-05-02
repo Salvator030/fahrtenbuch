@@ -187,89 +187,89 @@ export default function AvailableRoutes() {
 
   return (
     <View>
-    <Accordion title="Verfügbare Strecken">
-      <View>
-        <Grid rowsAndCols={pills} style={styles.gridStyle} />
-        <TextInput
-          value={searchValue}
-          onChangeText={setSearchValue}
-          placeholder="Suchen"
-        />
-        <Grid rowsAndCols={discription} style={styles.gridStyle} />
-        <View style={{height: 300, width: '100%', alignSelf: 'center'}}>
-          <View style={styles.container}>
-            <ScrollView style={styles.scrollView}>{routesCards}</ScrollView>
+      <Accordion title="Verfügbare Strecken">
+        <View>
+          <Grid rowsAndCols={pills} style={styles.gridStyle} />
+          <TextInput
+            value={searchValue}
+            onChangeText={setSearchValue}
+            placeholder="Suchen"
+          />
+          <Grid rowsAndCols={discription} style={styles.gridStyle} />
+          <View style={{height: 300, width: '100%', alignSelf: 'center'}}>
+            <View style={styles.container}>
+              <ScrollView style={styles.scrollView}>{routesCards}</ScrollView>
+            </View>
           </View>
-        </View>
-        <View style={styles.container}>
-          <View style={styles.gridStyleBtn}>
-            <View style={styles.row}>
-              <View style={styles.col1}>
-                <ButtonIcon
-                  title="Strecke hinzufügen"
-                  Icon={RouteIcon}
-                  iconName="route"
-                  onClick={handelOnClickAddDrivenRouteBtn}
-                  disabled={selectedRoute === 0}
-                  color={selectedRoute === 0 ? 'lightgray' : 'black'}
-                />
-              </View>
-              <View style={styles.col1}>
-                <ButtonIcon
-                  title="Neue Strecke"
-                  Icon={PlusIcon}
-                  iconName="plus"
-                  onClick={handelOnClickNewRouteBtn}
-                />
-              </View>
-              <View style={styles.col1}>
-                <ButtonIcon
-                  title="Strecke Löschen"
-                  Icon={Icon}
-                  iconName="trash"
-                  disabled={selectedRoute === 0}
-                  color={selectedRoute === 0 ? 'lightgray' : 'black'}
-                  onClick={handelOnClickDeleteRoueBtn}
-                />
-              </View>
-              <View style={styles.col1}>
-                {hideRoutes && routesAreHidden ? (
+          <View style={styles.container}>
+            <View style={styles.gridStyleBtn}>
+              <View style={styles.row}>
+                <View style={styles.col1}>
                   <ButtonIcon
-                    title="Strecken einblenden"
-                    Icon={Icon}
-                    iconName="eye"
-                    disabled={!routesAreHidden}
-                    color={!routesAreHidden ? 'lightgray' : 'black'}
-                    onClick={toggleHideRoutes}
+                    title="Strecke hinzufügen"
+                    Icon={RouteIcon}
+                    iconName="route"
+                    onClick={handelOnClickAddDrivenRouteBtn}
+                    disabled={selectedRoute === 0}
+                    color={selectedRoute === 0 ? 'lightgray' : 'black'}
                   />
-                ) : (
+                </View>
+                <View style={styles.col1}>
                   <ButtonIcon
-                    title="Strecken ausblenden"
-                    Icon={Icon}
-                    iconName="eye-off"
-                    disabled={!routesAreHidden}
-                    color={!routesAreHidden ? 'lightgray' : 'black'}
-                    onClick={toggleHideRoutes}
+                    title="Neue Strecke"
+                    Icon={PlusIcon}
+                    iconName="plus"
+                    onClick={handelOnClickNewRouteBtn}
                   />
-                )}
-              </View>
-              <View style={styles.col1}>
-                <ButtonIcon
-                  title="Edit"
-                  Icon={Icon2}
-                  iconName="edit"
-                  disabled={selectedRoute === 0}
-                  color={selectedRoute === 0 ? 'lightgray' : 'black'}
-                  onClick={openEditRouteModal}
-                />
+                </View>
+                <View style={styles.col1}>
+                  <ButtonIcon
+                    title="Strecke Löschen"
+                    Icon={Icon}
+                    iconName="trash"
+                    disabled={selectedRoute === 0}
+                    color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                    onClick={handelOnClickDeleteRoueBtn}
+                  />
+                </View>
+                <View style={styles.col1}>
+                  {hideRoutes && routesAreHidden ? (
+                    <ButtonIcon
+                      title="Strecken einblenden"
+                      Icon={Icon}
+                      iconName="eye"
+                      disabled={!routesAreHidden}
+                      color={!routesAreHidden ? 'lightgray' : 'black'}
+                      onClick={toggleHideRoutes}
+                    />
+                  ) : (
+                    <ButtonIcon
+                      title="Strecken ausblenden"
+                      Icon={Icon}
+                      iconName="eye-off"
+                      disabled={!routesAreHidden}
+                      color={!routesAreHidden ? 'lightgray' : 'black'}
+                      onClick={toggleHideRoutes}
+                    />
+                  )}
+                </View>
+                <View style={styles.col1}>
+                  <ButtonIcon
+                    title="Edit"
+                    Icon={Icon2}
+                    iconName="edit"
+                    disabled={selectedRoute === 0}
+                    color={selectedRoute === 0 ? 'lightgray' : 'black'}
+                    onClick={openEditRouteModal}
+                  />
+                </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
-    </Accordion>
-    <Popup isOpen={editRouteModalVisible}>
-   <EditRouteModal/>
+      </Accordion>
+      <Popup isOpen={editRouteModalVisible}>
+        <EditRouteModal />
       </Popup>
     </View>
   );
