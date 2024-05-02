@@ -1,7 +1,11 @@
-import { TextInput } from "react-native";
+import { Text, TextInput } from "react-native";
+import useEditRouteDistance from "../../../../stores/editRouteDistanceStore";
 
 export default function EditRouteDistance(){
+
+    const {oldDistance} = useEditRouteDistance();
     return(<View>
-        <TextInput/>
+        <Text>Entfernung andern</Text>
+        <TextInput value={oldDistance}/>
     </View>);
 }

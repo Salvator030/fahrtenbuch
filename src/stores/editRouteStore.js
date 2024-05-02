@@ -8,13 +8,13 @@ export default function useEditRouteModal () {
     const [editRouteModalVisible, setEdirRouteModalVisible] = useState(false);
     const [editRouteModalDiscription, setRouteModalDiscription] = useState("");
    
-    const useShareDatabase = useBetween(useDatabase);
+    const useShareDatabase = () => useBetween(useDatabase);
     const{getFullRouteById} = useShareDatabase();
  
     const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
    const {selectedRoute} = useShareAvaibleRoutes();
 
-   const [editRoute, setEditRoute ] = useState(getFullRouteById(selectedRoute));
+   const [editRoute, setEditRoute ] = useState(selectedRoute? getFullRouteById(selectedRoute) : null);
 
     function toggleEditRouteModalVisible(){
         setEdirRouteModalVisible(!editRouteModalVisible);
