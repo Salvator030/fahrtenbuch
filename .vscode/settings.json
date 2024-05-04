@@ -1,3 +1,11 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "C:\\Users\\Zwerg\\AppData\\Local\\fahrtenbuch\\User Data\\Default\\databases\\Databases.db",
+            "name": "test"
+        }
+    ]
 }

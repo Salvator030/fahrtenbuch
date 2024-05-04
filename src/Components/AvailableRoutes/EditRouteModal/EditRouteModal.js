@@ -6,6 +6,7 @@ import {useBetween} from 'use-between';
 import useEditRouteModal from '../../../stores/editRouteStore';
 import {TextInput} from 'react-native';
 import useEditRouteDistance from '../../../stores/editRouteDistanceStore';
+import { useEffect } from 'react';
 
 export default function EditRouteModal() {
   const useShareEditRoute = () => useBetween(useEditRouteModal);
@@ -16,6 +17,7 @@ export default function EditRouteModal() {
     setNewDistance,
   } = useShareEditRoute();
 
+  
   return (
     <View style={styles.dialog}>
       <Text style={styles.headline}>Bearbeiten</Text>

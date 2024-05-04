@@ -200,6 +200,7 @@ export default function useAvailableRoutes() {
 
   const handelOnClickRouteCard = id => {
     setSelectedRoute(id);
+    console.log("selectedRoute: " + selectedRoute);
   };
 
   const handelOnClickAddDrivenRouteBtn = () => {

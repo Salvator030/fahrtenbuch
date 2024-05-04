@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
 import useAvailableRoutes from './availableRoutesStor';
 import useDatabase from './databaseStore';
@@ -20,10 +20,18 @@ export default function useEditRouteModal() {
   }
   const openEditRouteModal = () => {
     setRouteModalDiscription('editRoute');
-    setNewDistance(getFullRouteById(selectedRoute).distance);
+    t;
+   //setNewDistance(getFullRouteById(seedRlectoute).distance);
     console.log("newDistance: " + newDistance);
     setEdirRouteModalVisible(true);
   };
+
+ const t = useEffect(()=> {
+    if(selectedRoute != 0){
+    console.log(getFullRouteById(selectedRoute).distance);
+    setNewDistance(getFullRouteById(selectedRoute).distance);}
+  },[selectedRoute]); 
+
   return {
     editRouteModalVisible,
     editRouteModalDiscription,
