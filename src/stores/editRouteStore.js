@@ -12,7 +12,7 @@ export default function useEditRouteModal() {
 
   const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
   const {selectedRoute} = useShareAvaibleRoutes();
-
+  const [fullRoute] = useState(selectedRoute);
   const [newDistance, setNewDistance] = useState('');
 
   function toggleEditRouteModalVisible() {
@@ -20,8 +20,9 @@ export default function useEditRouteModal() {
   }
   const openEditRouteModal = () => {
     setRouteModalDiscription('editRoute');
-    setNewDistance(getFullRouteById(selectedRoute).distance);
-    console.log("newDistance: " + newDistance);
+    setNewDistance('te');
+    console.log('newDistance: ' + getFullRouteById(selectedRoute).distance);
+    console.log('d: ' + newDistance);
     setEdirRouteModalVisible(true);
   };
   return {

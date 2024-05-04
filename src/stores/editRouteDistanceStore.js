@@ -1,10 +1,10 @@
-import { useState } from "react";
+import {useState} from 'react';
 
-import useEditRouteModal from "./editRouteStore"
+import useEditRouteModal from './editRouteStore';
 
-export default function useEditRouteDistance (){
-    const {editRoute} = useEditRouteModal();
-    const [correctionOfDistans, setCorrectionOfDistans] = useState(false);
+export default function useEditRouteDistance() {
+  const {editRoute} = useEditRouteModal();
+  const [correctionOfDistans, setCorrectionOfDistans] = useState(false);
 
-    return{}
+  return {};
 }

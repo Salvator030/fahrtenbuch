@@ -224,8 +224,6 @@ export const getDrivenRoutesBetweenDates = async (db, startDate, endDate) => {
   }
 };
 
-
-
 export const deleteDrivenRouteById = async (db, id) => {
   try {
     const deleteQuery = `DELETE FROM drivenRoute_tbl WHERE dRoute_id = ${id};`;

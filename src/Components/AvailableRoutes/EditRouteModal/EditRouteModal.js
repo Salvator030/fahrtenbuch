@@ -17,9 +17,10 @@ export default function EditRouteModal() {
   } = useShareEditRoute();
 
   return (
-    <View style={styles.dialog}>
-      <Text style={styles.headline}>Bearbeiten</Text>
-      {/*}
+    <View style={styles.root}>
+      <View style={styles.dialog}>
+        <Text style={styles.headline}>Bearbeiten</Text>
+        {/*}
           <View style={styles.btn1}>
             <Button title='Ent Korrigieren'  />
           </View>
@@ -27,13 +28,14 @@ export default function EditRouteModal() {
             <Button title='Entfernung ändern'  />
           </View>
     */}
-      <TextInput value={`${newDistance}`} onChangeText={setNewDistance} />
-      <ButtonIcon
-        Icon={Icon}
-        title="zurück"
-        iconName="arrow-back"
-        onClick={toggleEditRouteModalVisible}
-      />
+        <TextInput value={newDistance} onChangeText={setNewDistance} />
+        <ButtonIcon
+          Icon={Icon}
+          title="zurück"
+          iconName="arrow-back"
+          onClick={toggleEditRouteModalVisible}
+        />
+      </View>
     </View>
   );
 }

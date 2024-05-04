@@ -56,7 +56,6 @@ export default function EditAddressName({addressName}) {
               placeholderTextColor={!plzError ? 'gray' : 'red'}
               value={plzValue}
               onChangeText={setPlzValue}
-           
               style={styles.text}
             />
           </View>

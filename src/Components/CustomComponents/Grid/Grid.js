@@ -17,7 +17,11 @@ export default function Grid({gridStyle, rowsAndCols}) {
         {col.item}
       </Col>
     ));
-    return <Row style={row.style}>{col}</Row>;
+    return (
+      <Row style={row.style} key={'row' + i}>
+        {col}
+      </Row>
+    );
   });
 
   return (
