@@ -14,9 +14,9 @@ import {styles} from './RouteCard.styles';
 
 export default function RoteCard({id, startAdd, destAdd, distance, hide}) {
   const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
-  const {selectedRoute, handelOnClickRouteCard} = useShareAvaibleRoutes();
+  const {selectedRoute} = useShareAvaibleRoutes();
 
-  const {handelOnClickShowRouteBtn} = useRoutesCard();
+  const {handelOnClickShowRouteBtn, handelOnClickRouteCard} = useRoutesCard();
   return (
     <TouchableWithoutFeedback onPress={() => handelOnClickRouteCard(id)}>
       <View

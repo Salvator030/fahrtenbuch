@@ -198,10 +198,6 @@ export default function useAvailableRoutes() {
     setSortValue(value);
   };
 
-  const handelOnClickRouteCard = id => {
-    setSelectedRoute(id);
-  };
-
   const handelOnClickAddDrivenRouteBtn = () => {
     saveNewDrivenRoute(createNewDrivenRoute());
   };
@@ -223,7 +219,6 @@ export default function useAvailableRoutes() {
     setSelectedRoute,
     handelOnClickPill,
     handelOnClickNewRouteBtn,
-    handelOnClickRouteCard,
     handelOnClickAddDrivenRouteBtn,
     handelOnClickDeleteRoueBtn,
     hideRoutes,
