@@ -16,6 +16,8 @@ export default function EditRouteModal() {
     setNewDistance,
   } = useShareEditRoute();
 
+  
+
   return (
     <View style={styles.root}>
       <View style={styles.dialog}>
@@ -28,7 +30,7 @@ export default function EditRouteModal() {
             <Button title='Entfernung ändern'  />
           </View>
     */}
-        <TextInput value={newDistance} onChangeText={setNewDistance} />
+        <TextInput value={newDistance} onChangeText={setNewDistance} style={styles.textInput}/>
         <ButtonIcon
           Icon={Icon}
           title="zurück"

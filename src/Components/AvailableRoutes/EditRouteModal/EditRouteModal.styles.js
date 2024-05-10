@@ -22,6 +22,10 @@ export const styles = StyleSheet.create({
   btn1: {marginTop: 75},
   btn2: {marginTop: 8, marginBottom: 8},
   btn3: {marginBottom: 'auto'},
+  textInput: {
+    width: 100,
+    height: 25,
+  },
 
   headline: {margin: 8, fontSize: 18, fontWeight: 'bold'},
 });
