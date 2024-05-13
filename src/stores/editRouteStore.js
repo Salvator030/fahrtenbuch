@@ -13,21 +13,23 @@ export default function useEditRouteModal() {
   const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
   const {selectedRoute} = useShareAvaibleRoutes();
   const [newDistance, setNewDistance] = useState('0');
+  const [changeDistanceCheckBoxValue, setChangeDistanceCheckBoxValue] =
+    useState(false);
 
   function toggleEditRouteModalVisible() {
     setEdirRouteModalVisible(!editRouteModalVisible);
   }
   const openEditRouteModal = () => {
     setRouteModalDiscription('editRoute');
-     setEdirRouteModalVisible(true);
+    setEdirRouteModalVisible(true);
   };
 
   useEffect(() => {
     if (selectedRoute) {
       setNewDistance(`${getFullRouteById(selectedRoute).distance}`);
     }
-  },[selectedRoute]);
-  
+  }, [selectedRoute]);
+
   return {
     editRouteModalVisible,
     editRouteModalDiscription,
@@ -35,5 +37,7 @@ export default function useEditRouteModal() {
     toggleEditRouteModalVisible,
     newDistance,
     setNewDistance,
+    changeDistanceCheckBoxValue,
+    setChangeDistanceCheckBoxValue,
   };
 }
