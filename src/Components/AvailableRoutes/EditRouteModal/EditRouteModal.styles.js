@@ -48,5 +48,5 @@ export const styles = StyleSheet.create({
     marginRight: 16,
   },
   col1: {flex: 2, marginHorizontal: 'auto'},
-  col2: {flex: 2, marginHorizontal: 'auto'},
+  col2: {flex: 0, marginHorizontal: 'auto'},
 });

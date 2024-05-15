@@ -1,7 +1,8 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
 import useAvailableRoutes from './availableRoutesStor';
 import useDatabase from './databaseStore';
+import {Text} from 'react-native';
 
 export default function useEditRouteModal() {
   const [editRouteModalVisible, setEdirRouteModalVisible] = useState(false);
@@ -15,6 +16,8 @@ export default function useEditRouteModal() {
   const [newDistance, setNewDistance] = useState('0');
   const [changeDistanceCheckBoxValue, setChangeDistanceCheckBoxValue] =
     useState(false);
+
+  const [date, setDate] = useState(new Date());
 
   function toggleEditRouteModalVisible() {
     setEdirRouteModalVisible(!editRouteModalVisible);
@@ -39,5 +42,7 @@ export default function useEditRouteModal() {
     setNewDistance,
     changeDistanceCheckBoxValue,
     setChangeDistanceCheckBoxValue,
+    date,
+    setDate,
   };
 }
