@@ -179,6 +179,24 @@ export const updateRouteDestId = async (db, newId, oldId) => {
     throw Error(error.message);
   }
 };
+
+export const changeRouteDistance = async (db, id, newDistance) => {
+  try {
+    const insertQuery = `UPDATE route_tbl Set distance = ${newDistance} WHERE route_id = ${id}`;
+    return await db.executeSql(insertQuery);
+  } catch (error) {
+    console.log(error);
+    throw Error(error.message);
+  }
+};
+
+export const changeRouteDistanceAtDate = async (
+  db,
+  id,
+  newDistance,
+  date,
+) => {};
+
 // --- drivenRoute
 
 export const saveDrivenRoute = async (db, drivenRoute) => {

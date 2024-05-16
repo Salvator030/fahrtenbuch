@@ -180,6 +180,18 @@ export default function useDatabase() {
     database.setRouteHide(id, hide);
     loadRoutesCallback();
   };
+  const changeRouteDistance = (id, newDistance) => {
+    database.changeRouteDistance(id, newDistance);
+    loadRoutesCallback();
+    loadDrivenRoutesCallback();
+  };
+
+  const changeRouteDistanceAtDate = (id, newDistance, date) => {
+    database.changeRouteDistanceAtDate(id, newDistance, date);
+    loadRoutesCallback();
+    loadDrivenRoutesCallback();
+  };
+
   // --- drivenRoute
   const saveNewDrivenRoute = drivenRoute => {
     database.saveNewDrivenRoute(drivenRoute);
@@ -221,6 +233,7 @@ export default function useDatabase() {
     routes,
     saveNewRoute,
     getFullRouteById,
+    changeRouteDistance,
     drivenRoutes,
     getDrivenRoutesBetweenDates,
     saveNewDrivenRoute,

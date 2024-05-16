@@ -3,13 +3,15 @@ import {View, Text, Button} from 'react-native-windows';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Grid from '../../CustomComponents/Grid/Grid';
 import Icon from 'react-native-vector-icons/Ionicons';
+import IconOk from 'react-native-vector-icons/FontAwesome';
 import {styles} from './EditRouteModal.styles';
 import {useBetween} from 'use-between';
 import useEditRouteModal from '../../../stores/editRouteStore';
 import {TextInput} from 'react-native';
 import useEditRouteDistance from '../../../stores/editRouteDistanceStore';
 import CheckBox from '@react-native-community/checkbox';
-import DatePicker from 'react-native-date-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import CalendarPicker from 'react-native-calendar-picker';
 import {useEffect} from 'react';
 
 export default function EditRouteModal() {
@@ -86,9 +88,9 @@ export default function EditRouteModal() {
           style: styles.col2,
           item: (
             <ButtonIcon
-              Icon={Icon}
-              title="zurück"
-              iconName="arrow-back"
+              Icon={IconOk}
+              title="ok"
+              iconName="check"
               onClick={toggleEditRouteModalVisible}
             />
           ),
@@ -97,17 +99,20 @@ export default function EditRouteModal() {
     },
   ];
 
+  console.log(date);
   return (
     <View style={styles.root}>
       <View style={styles.dialog}>
         <Text style={styles.headline}>Entfernung Bearbeiten</Text>
-        <View>
-          <Grid rowsAndCols={inputField} style={styles.gridStyle} />
-          <Grid rowsAndCols={checkboxGid} style={styles.gridStyle} />
+        <Grid rowsAndCols={inputField} style={styles.gridStyle} />
+        <Grid rowsAndCols={checkboxGid} style={styles.gridStyle} />
+        {changeDistanceCheckBoxValue && (
+          <CalendarPicker width={250} height={250} onDateChange={setDate} />
+        )}
+        <View style={styles.buttom}>
           <Grid rowsAndCols={btnsGrid} style={styles.gridStyle} />
         </View>
       </View>
-      <DatePicker date={date} />
     </View>
   );
 }

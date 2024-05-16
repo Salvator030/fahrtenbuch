@@ -9,7 +9,7 @@ export default function useEditRouteModal() {
   const [editRouteModalDiscription, setRouteModalDiscription] = useState('');
 
   const useShareDatabase = () => useBetween(useDatabase);
-  const {getFullRouteById} = useShareDatabase();
+  const {getFullRouteById, changeRouteDistance} = useShareDatabase();
 
   const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
   const {selectedRoute} = useShareAvaibleRoutes();
@@ -25,6 +25,14 @@ export default function useEditRouteModal() {
   const openEditRouteModal = () => {
     setRouteModalDiscription('editRoute');
     setEdirRouteModalVisible(true);
+  };
+  const onClickOkBtn = () => {
+    if (!changeDistanceCheckBoxValue) {
+      changeRouteDistance(selectedRoute, newDistance);
+      toggleEditRouteModalVisible();
+    } else {
+      changeRouteDistanceAtDate(selectedRoute, newDistance, date);
+    }
   };
 
   useEffect(() => {
@@ -44,5 +52,6 @@ export default function useEditRouteModal() {
     setChangeDistanceCheckBoxValue,
     date,
     setDate,
+    onClickOkBtn,
   };
 }
