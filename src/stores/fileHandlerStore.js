@@ -11,6 +11,7 @@ export default function useFileHandler() {
   const createFile = async (value, dateString) => {
     let name = '/fahrtenbuch' + dateString + '.csv';
     var path = documentsFolder + name;
+    console.log(path);
     RNFS.writeFile(path, value, 'utf8')
       .then(success => {
         console.log('FILE WRITTEN!');

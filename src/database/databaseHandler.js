@@ -141,3 +141,13 @@ export const deleteDrivenRoutesByRouteId = async route_id => {
   const db = await database.getDBConnection();
   return await database.deleteDrivenRouteByRouteId(db, route_id);
 };
+
+export const changeDrivenRoutesRouteIdAtDate = async (date, oldId, newId) => {
+  const db = await database.getDBConnection();
+  return await database.changeDrivenRoutesRouteIdAtDate(
+    db,
+    parseDate(date),
+    oldId,
+    newId,
+  );
+};

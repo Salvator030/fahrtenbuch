@@ -23,7 +23,7 @@ export default function EditRouteModal() {
     setNewDistance,
     changeDistanceCheckBoxValue,
     setChangeDistanceCheckBoxValue,
-    date,
+    onClickOkBtn,
     setDate,
   } = useShareEditRoute();
 
@@ -91,7 +91,7 @@ export default function EditRouteModal() {
               Icon={IconOk}
               title="ok"
               iconName="check"
-              onClick={toggleEditRouteModalVisible}
+              onClick={onClickOkBtn}
             />
           ),
         },
@@ -99,7 +99,6 @@ export default function EditRouteModal() {
     },
   ];
 
-  console.log(date);
   return (
     <View style={styles.root}>
       <View style={styles.dialog}>

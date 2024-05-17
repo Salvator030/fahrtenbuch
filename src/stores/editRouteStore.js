@@ -9,7 +9,8 @@ export default function useEditRouteModal() {
   const [editRouteModalDiscription, setRouteModalDiscription] = useState('');
 
   const useShareDatabase = () => useBetween(useDatabase);
-  const {getFullRouteById, changeRouteDistance} = useShareDatabase();
+  const {getFullRouteById, changeRouteDistance, changeRouteDistanceAtDate} =
+    useShareDatabase();
 
   const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
   const {selectedRoute} = useShareAvaibleRoutes();
@@ -33,6 +34,7 @@ export default function useEditRouteModal() {
     } else {
       changeRouteDistanceAtDate(selectedRoute, newDistance, date);
     }
+    toggleEditRouteModalVisible();
   };
 
   useEffect(() => {

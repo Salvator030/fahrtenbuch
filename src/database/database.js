@@ -143,11 +143,25 @@ export const updateAddressInfo = async (db, info, id) => {
 // --- Route
 export const saveRoute = async (db, route) => {
   try {
+    db.transaction(tx => {
+      tx.executeSql(
+        `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`,
+        [],
+        (tx, results) => {
+          return results;
+        },
+      );
+    });
+  } catch (err) {
+    return err;
+  }
+  /*  try {
     const insertQuery = `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`;
     return await db.executeSql(insertQuery);
   } catch (error) {
     throw Error(error.message);
   }
+  */
 };
 
 export const deleteRouteById = async (db, id) => {
@@ -260,5 +274,19 @@ export const deleteDrivenRouteByRouteId = async (db, route_id) => {
   } catch (error) {
     console.error(error);
     throw Error(`Failed to delete drivenRoutes with route_id ${route_id}  !!!`);
+  }
+};
+
+export const changeDrivenRoutesRouteIdAtDate = async (
+  db,
+  date,
+  oldId,
+  newId,
+) => {
+  try {
+    const updateQuery = `UPDATE drivenRoute_tbl Set route_id = ${newId} WHERE route_id = ${oldId} AND date >= date`;
+    return db.executeSql(updateQuery);
+  } catch (error) {
+    console.error(error);
   }
 };
