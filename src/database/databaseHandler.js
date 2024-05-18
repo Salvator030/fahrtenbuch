@@ -72,7 +72,8 @@ export const getAllRoutes = async () => {
 export const saveNewRoute = async route => {
   const db = await database.getDBConnection();
   try {
-    return await database.saveRoute(db, route);
+    let res = await database.saveRoute(db, route);
+    return res[0].insertId;
   } catch (error) {
     if (
       error.message ===
@@ -95,11 +96,19 @@ export const setRouteHide = async (id, hide) => {
 
 export const updtaeRoute = async (newId, oldId) => {
   const db = await database.getDBConnection();
-  console.log("newId: ",newId)
-  console.log("old: ",oldId)
   await database.updateRouteStartId(db, newId, oldId);
-   await database.updateRouteDestId(db, newId,oldId)
-  } ;
+  await database.updateRouteDestId(db, newId, oldId);
+};
+
+export const changeRouteDistance = async (id, newDistance) => {
+  const db = await database.getDBConnection();
+  await database.changeRouteDistance(db, id, newDistance);
+};
+
+export const changeRouteDistanceAtDate = async (id, newDistance, date) => {
+  const db = await database.getDBConnection();
+  await database.changeRouteDistanceAtDate(db, id, newDistance, date);
+};
 
 // --- drivenRoute
 export const deleteDrivenRouteTable = async () => {
@@ -122,8 +131,6 @@ export const saveNewDrivenRoute = async drivenRoute => {
   return await database.saveDrivenRoute(db, drivenRoute);
 };
 
-
-
 export const deleteDrivenRoute = async dRoute_id => {
   const db = await database.getDBConnection();
   return await database.deleteDrivenRouteById(db, dRoute_id);
@@ -132,4 +139,9 @@ export const deleteDrivenRoute = async dRoute_id => {
 export const deleteDrivenRoutesByRouteId = async route_id => {
   const db = await database.getDBConnection();
   return await database.deleteDrivenRouteByRouteId(db, route_id);
+};
+
+export const changeDrivenRoutesRouteIdAtDate = async (date, oldId, newId) => {
+  const db = await database.getDBConnection();
+  return await database.changeDrivenRoutesRouteIdAtDate(db, date, oldId, newId);
 };

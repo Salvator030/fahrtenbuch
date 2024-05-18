@@ -32,9 +32,8 @@ export const createRouteTable = async db => {
       hide BOOLEAN,
       PRIMARY KEY(route_id),
       FOREIGN KEY(startAdd_id) REFERENCES address_tbl(add_id),
-      FOREIGN KEY(destAdd_id) REFERENCES address_tbl(add_id),
-      UNIQUE(startAdd_id,destAdd_id)
-    );`;
+      FOREIGN KEY(destAdd_id) REFERENCES address_tbl(add_id)
+      );`;
 
   await db.executeSql(query);
 };
@@ -143,11 +142,20 @@ export const updateAddressInfo = async (db, info, id) => {
 // --- Route
 export const saveRoute = async (db, route) => {
   try {
+    let insertQuery = `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`;
+    let res = await db.executeSql(insertQuery);
+    console.log(res[0].insertId);
+    return res;
+  } catch (err) {
+    return err;
+  }
+  /*  try {
     const insertQuery = `INSERT INTO route_tbl (startAdd_id,destAdd_id,distance, hide) VALUES ('${route.startAdd_id}','${route.destAdd_id}','${route.distance}',0)`;
     return await db.executeSql(insertQuery);
   } catch (error) {
     throw Error(error.message);
   }
+  */
 };
 
 export const deleteRouteById = async (db, id) => {
@@ -179,6 +187,17 @@ export const updateRouteDestId = async (db, newId, oldId) => {
     throw Error(error.message);
   }
 };
+
+export const changeRouteDistance = async (db, id, newDistance) => {
+  try {
+    const insertQuery = `UPDATE route_tbl Set distance = ${newDistance} WHERE route_id = ${id}`;
+    return await db.executeSql(insertQuery);
+  } catch (error) {
+    console.log(error);
+    throw Error(error.message);
+  }
+};
+
 // --- drivenRoute
 
 export const saveDrivenRoute = async (db, drivenRoute) => {
@@ -242,5 +261,30 @@ export const deleteDrivenRouteByRouteId = async (db, route_id) => {
   } catch (error) {
     console.error(error);
     throw Error(`Failed to delete drivenRoutes with route_id ${route_id}  !!!`);
+  }
+};
+
+export const changeDrivenRoutesRouteIdAtDate = async (
+  db,
+  date,
+  oldId,
+  newId,
+) => {
+  console.log(newId);
+  console.log(oldId);
+  console.log(date);
+  try {
+    // UPDATE drivenRoute_tbl Set route_id = ${newId} WHERE route_id = ${oldId} AND date >= '${date}'
+    const updateQuery = `UPDATE drivenRoute_tbl Set route_id = ${newId} WHERE route_id = ${oldId} AND date >= '${date}'`;
+    let res = await db.executeSql(updateQuery);
+    var len = res[0].rows.length;
+    for (let i = 0; i < len; i++) {
+      let row = res[0].rows.item(i);
+      console.log(row);
+    }
+    console.log(res);
+    return res;
+  } catch (error) {
+    console.error(error);
   }
 };

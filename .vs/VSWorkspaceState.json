@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\windows",
-    "\\windows\\fahrtenbuch",
-    "\\windows\\fahrtenbuch\\Assets"
+    "\\windows\\fahrtenbuch"
   ],
-  "SelectedNode": "\\windows\\fahrtenbuch\\Assets\\FontAwesome5_Brands.ttf",
+  "SelectedNode": "\\windows\\fahrtenbuch\\pch.h",
   "PreviewInSolutionExplorer": false
 }

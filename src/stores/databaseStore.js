@@ -176,10 +176,31 @@ export default function useDatabase() {
     loadRoutesCallback();
   };
 
-  const setRouteHide = (id, hide) => {
-    database.setRouteHide(id, hide);
+  const setRouteHide = async (id, hide) => {
+    await database.setRouteHide(id, hide);
     loadRoutesCallback();
   };
+  const changeRouteDistance = (id, newDistance) => {
+    database.changeRouteDistance(id, newDistance);
+    loadRoutesCallback();
+    loadDrivenRoutesCallback();
+  };
+
+  const changeRouteDistanceAtDate = async (oldRouteId, newDistance, date) => {
+    let oldRoute = routes.find(route => route.route_id === oldRouteId);
+    let route = {
+      startAdd_id: oldRoute.startAdd_id,
+      destAdd_id: oldRoute.destAdd_id,
+      distance: newDistance,
+    };
+    await setRouteHide(oldRouteId, 1);
+    let newId = await database.saveNewRoute(route);
+    console.log(newId);
+    await database.changeDrivenRoutesRouteIdAtDate(date, oldRouteId, newId);
+    loadRoutesCallback();
+    loadDrivenRoutesCallback();
+  };
+
   // --- drivenRoute
   const saveNewDrivenRoute = drivenRoute => {
     database.saveNewDrivenRoute(drivenRoute);
@@ -221,6 +242,8 @@ export default function useDatabase() {
     routes,
     saveNewRoute,
     getFullRouteById,
+    changeRouteDistance,
+    changeRouteDistanceAtDate,
     drivenRoutes,
     getDrivenRoutesBetweenDates,
     saveNewDrivenRoute,

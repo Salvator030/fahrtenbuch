@@ -24,12 +24,9 @@ export default function useCreateAddress() {
   };
 
   const handelOnClickSaveBtn = async () => {
-    console.log('handelOnClickSaveBtn');
     const address = getNewAddress();
-    console.log(address);
     if (address) {
       let result = await saveNewAddress(address);
-      console.log('click ', result);
       if (typeof result === 'string') {
         openWarning(result);
       }
