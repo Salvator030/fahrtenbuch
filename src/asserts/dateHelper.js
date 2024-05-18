@@ -1,13 +1,13 @@
 export const parseDate = date => {
   date = new Date(date);
-  console.log(date)
   return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
 };
 
 export const parseDateAndTime = date => {
   date = new Date(date);
-  console.log(date)
-  return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  return `${date.getDate()}.${
+    date.getMonth() + 1
+  }.${date.getFullYear()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 };
 
 export const parseDateForFileName = (startDate, endDate) => {

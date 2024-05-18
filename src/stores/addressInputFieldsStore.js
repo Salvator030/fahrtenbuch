@@ -76,7 +76,6 @@ export default function useAddressInputFields() {
   };
 
   const getNewAddress = () => {
-    console.log(checks);
     if (!checks.includes(false)) {
       return {
         name: nameValue,

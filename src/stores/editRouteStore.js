@@ -32,7 +32,11 @@ export default function useEditRouteModal() {
       changeRouteDistance(selectedRoute, newDistance);
       toggleEditRouteModalVisible();
     } else {
-      changeRouteDistanceAtDate(selectedRoute, newDistance, date);
+      changeRouteDistanceAtDate(
+        selectedRoute,
+        newDistance,
+        new Date(date).getTime(),
+      );
     }
     toggleEditRouteModalVisible();
   };

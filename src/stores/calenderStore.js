@@ -17,7 +17,6 @@ export default function useCalender() {
     let items = drivenRoutes.filter(
       route => route.date === Date.parse(selectedDate),
     );
-    console.log('items ', items);
     setDrivenRoutesByDate(items);
   }, [drivenRoutes, selectedDate]);
 
@@ -36,7 +35,6 @@ export default function useCalender() {
     items = items.map(item => {
       return {date: new Date(item.date), style: {backgroundColor: 'red'}};
     });
-    console.log(items);
     setDrivenRoutesByMonth(items);
   }, [selectedMonth, drivenRoutes]);
 
@@ -45,8 +43,6 @@ export default function useCalender() {
   };
 
   const handelMonthChange = date => {
-    console.log(date);
-
     setSelectedMonth(new Date(date._d.getFullYear(), date._d.getMonth(), 1));
   };
   return {

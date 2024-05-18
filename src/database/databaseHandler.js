@@ -72,7 +72,8 @@ export const getAllRoutes = async () => {
 export const saveNewRoute = async route => {
   const db = await database.getDBConnection();
   try {
-    return await database.saveRoute(db, route);
+    let res = await database.saveRoute(db, route);
+    return res[0].insertId;
   } catch (error) {
     if (
       error.message ===
@@ -95,8 +96,6 @@ export const setRouteHide = async (id, hide) => {
 
 export const updtaeRoute = async (newId, oldId) => {
   const db = await database.getDBConnection();
-  console.log('newId: ', newId);
-  console.log('old: ', oldId);
   await database.updateRouteStartId(db, newId, oldId);
   await database.updateRouteDestId(db, newId, oldId);
 };
@@ -144,10 +143,5 @@ export const deleteDrivenRoutesByRouteId = async route_id => {
 
 export const changeDrivenRoutesRouteIdAtDate = async (date, oldId, newId) => {
   const db = await database.getDBConnection();
-  return await database.changeDrivenRoutesRouteIdAtDate(
-    db,
-    parseDate(date),
-    oldId,
-    newId,
-  );
+  return await database.changeDrivenRoutesRouteIdAtDate(db, date, oldId, newId);
 };
