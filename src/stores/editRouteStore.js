@@ -45,7 +45,7 @@ export default function useEditRouteModal() {
     if (selectedRoute) {
       setNewDistance(`${getFullRouteById(selectedRoute).distance}`);
     }
-  }, [selectedRoute]);
+  }, [getFullRouteById, selectedRoute]);
 
   return {
     editRouteModalVisible,
