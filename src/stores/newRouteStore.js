@@ -10,12 +10,19 @@ export default function useNewRoute() {
   const [destinationAddressId, setDestinationAddressId] = useState(0);
   const [distance, setDistance] = useState(0);
 
-  const createNewRoute = () => {
-    return {
-      startAdd_id: startAddressId,
-      destAdd_id: destinationAddressId,
-      distance: distance,
-    };
+  const createNewRoutes = () => {
+    return [
+      {
+        startAdd_id: startAddressId,
+        destAdd_id: destinationAddressId,
+        distance: distance,
+      },
+      {
+        startAdd_id: destinationAddressId,
+        destAdd_id: startAddressId,
+        distance: distance,
+      },
+    ];
   };
 
   const clearNewRoute = () => {
@@ -30,10 +37,13 @@ export default function useNewRoute() {
     toggleCreateNewRoute();
   };
 
-  const changeAddressId = (id) => {
-    if (destinationAddressId)
-    {setDestinationAddressId(id)}
-  else{setStartAddressId(id)}}
+  const changeAddressId = id => {
+    if (destinationAddressId) {
+      setDestinationAddressId(id);
+    } else {
+      setStartAddressId(id);
+    }
+  };
 
   return {
     viewDescription,
@@ -44,7 +54,7 @@ export default function useNewRoute() {
     setDestinationAddressId,
     distance,
     setDistance,
-    createNewRoute,
+    createNewRoutes,
     closeNewRoute,
     changeAddressId,
   };

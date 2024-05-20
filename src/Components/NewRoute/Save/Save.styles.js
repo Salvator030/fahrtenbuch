@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
   },
   gridStyle: {
     flex: 12,
+    height: 25,
   },
   row: {
     flexDirection: 'row',
@@ -28,4 +29,5 @@ export const styles = StyleSheet.create({
   col1: {flex: 1, marginHorizontal: 'auto'},
   col2: {flex: 2, marginHorizontal: 'auto'},
   col4: {flex: 4, marginHorizontal: 'auto'},
+
 });
