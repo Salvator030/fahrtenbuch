@@ -16,3 +16,6 @@ x   54-feature-mark-day-in-calendar-whre-are-drivenRoute
 57-bug-fix-warning"`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method"
 58-bug-fix-erroe"ViewPropTypes will be removed from React Native"
 x   59-bug-update-npm-dependencies
+60-bug-fix-"Package react-native-sqlite-storage contains invalid configuration: "dependency.platforms.ios.project" is not allowed. "
+61-bug-fix"From React Native 0.72, your metro.config.js file should extend'@react-native/metro-config'. "
+62-bug-fix"Error: Unable to resolve module ./debugger-ui/debuggerWorker.aca173c4 from D:\Develop\Repositorys\fahrtenbuch/.:"
