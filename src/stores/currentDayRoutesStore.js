@@ -45,7 +45,14 @@ export default function useCurrentDayRoutes() {
       let distance = 0;
       let cards = list.map(route => {
         distance += getFullRouteById(route.route_id).distance;
-        return <DrivenRoutesCards key={route.dRoute_id} drivenRoute={route} />;
+        return (
+          <DrivenRoutesCards
+            key={route.dRoute_id}
+            drivenRoute={route}
+            selectedDrivenRoute={selectedDrivenRoute}
+            onClick={handelOnClickDrivenRouteCard}
+          />
+        );
       });
       setDistanceAtDay(distance);
       setDrivenRoutesCards(cards);
@@ -56,6 +63,7 @@ export default function useCurrentDayRoutes() {
     getFullRouteById,
     selectedDate,
     distanceAtDay,
+    selectedDrivenRoute,
   ]);
 
   return {

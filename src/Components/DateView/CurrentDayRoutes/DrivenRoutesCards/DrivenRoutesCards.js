@@ -2,16 +2,15 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Text, TouchableWithoutFeedback} from 'react-native';
 import {useBetween} from 'use-between';
 import useDatabase from '../../../../stores/databaseStore';
-import useCurrentDayRoutes from '../../../../stores/currentDayRoutesStore';
 import {styles} from './DrivenRoutesCards.syles';
 
-export default function DrivenRoutesCards({drivenRoute}) {
+export default function DrivenRoutesCards({
+  drivenRoute,
+  selectedDrivenRoute,
+  onClick,
+}) {
   const useShareDatabase = () => useBetween(useDatabase);
   const {getFullAddressById, getFullRouteById} = useShareDatabase();
-
-  const useShareCurrentDayRoutes = () => useBetween(useCurrentDayRoutes);
-  const {selectedDrivenRoute, handelOnClickDrivenRouteCard} =
-    useShareCurrentDayRoutes();
 
   const startAddName = getFullAddressById(
     getFullRouteById(drivenRoute.route_id).startAdd_id,
@@ -23,8 +22,7 @@ export default function DrivenRoutesCards({drivenRoute}) {
 
   const distance = getFullRouteById(drivenRoute.route_id).distance;
   return (
-    <TouchableWithoutFeedback
-      onPress={() => handelOnClickDrivenRouteCard(drivenRoute.dRoute_id)}>
+    <TouchableWithoutFeedback onPress={() => onClick(drivenRoute.dRoute_id)}>
       <View
         style={
           selectedDrivenRoute === drivenRoute.dRoute_id

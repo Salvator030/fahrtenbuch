@@ -7,18 +7,21 @@ import React, {
 import Address from './Address/Address';
 import ButtonIcon from '../../CustomComponents/ButtonSvgIcon/ButtonIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useBetween} from 'use-between';
-import useAvailableRoutes from '../../../stores/availableRoutesStor';
 import useRoutesCard from '../../../stores/routeCardStore';
 import {styles} from './RouteCard.styles';
 
-export default function RoteCard({id, startAdd, destAdd, distance, hide}) {
-  const useShareAvaibleRoutes = () => useBetween(useAvailableRoutes);
-  const {selectedRoute} = useShareAvaibleRoutes();
-
-  const {handelOnClickShowRouteBtn, handelOnClickRouteCard} = useRoutesCard();
+export default function RoteCard({
+  id,
+  startAdd,
+  destAdd,
+  distance,
+  hide,
+  selectedRoute,
+  onClick,
+}) {
+  const {handelOnClickShowRouteBtn} = useRoutesCard();
   return (
-    <TouchableWithoutFeedback onPress={() => handelOnClickRouteCard(id)}>
+    <TouchableWithoutFeedback onPress={() => onClick(id)}>
       <View
         style={
           selectedRoute === id
