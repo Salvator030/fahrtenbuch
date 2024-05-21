@@ -13,3 +13,6 @@ x   53-feature-ask-if-the-back-route-create-too
 x   54-feature-mark-day-in-calendar-whre-are-drivenRoute
 55-feature-get-version-number
 56-Increase-the-speed-of-the-opening-accordion-for-the-drivenRoute
+57-bug-fix-warning"`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method"
+58-bug-fix-erroe"ViewPropTypes will be removed from React Native"
+x   59-bug-update-npm-dependencies
