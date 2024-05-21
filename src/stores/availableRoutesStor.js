@@ -183,12 +183,21 @@ export default function useAvailableRoutes() {
             destAdd={getFullAddressById(route.destAdd_id)}
             distance={route.distance}
             hide={route.hide}
+            selectedRoute={selectedRoute}
+            onClick={handelOnClickRouteCard}
           />
         );
       });
       setRoutesCards(cards);
     }
-  }, [routes, sortValue, searchValue, hideRoutes, getFullAddressById]);
+  }, [
+    routes,
+    sortValue,
+    searchValue,
+    hideRoutes,
+    getFullAddressById,
+    selectedRoute,
+  ]);
 
   const createNewDrivenRoute = () => {
     return {date: selectedDate, route_id: selectedRoute};
@@ -196,6 +205,10 @@ export default function useAvailableRoutes() {
 
   const handelOnClickPill = value => {
     setSortValue(value);
+  };
+
+  const handelOnClickRouteCard = id => {
+    setSelectedRoute(id);
   };
 
   const handelOnClickAddDrivenRouteBtn = () => {

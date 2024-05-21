@@ -1,7 +1,6 @@
 import {useState, useCallback, useEffect} from 'react';
 import * as database from '../database/databaseHandler';
 import {useBetween} from 'use-between';
-import useCalender from './calenderStore';
 import useNewRoute from './newRouteStore';
 import {deleteDrivenRouteByRouteId} from '../database/database';
 import {parseDateAndTime} from '../asserts/dateHelper';
