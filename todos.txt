@@ -11,7 +11,7 @@ x   50-feature-edit-function-for-route(distance)
 52-feature-massage-if-a-output-file-safed
 x   53-feature-ask-if-the-back-route-create-too
 x   54-feature-mark-day-in-calendar-whre-are-drivenRoute
-55-feature-get-version-number
+x   55-feature-get-version-number
 56-Increase-the-speed-of-the-opening-accordion-for-the-drivenRoute
 57-bug-fix-warning"`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method"
 58-bug-fix-erroe"ViewPropTypes will be removed from React Native"
@@ -20,4 +20,4 @@ x   60-bug-fix-"Package react-native-sqlite-storage contains invalid configurati
 x   61-bug-fix"From React Native 0.72, your metro.config.js file should extend'@react-native/metro-config'. "
 x   62-bug-fix"Error: Unable to resolve module ./debugger-ui/debuggerWorker.aca173c4 from D:\Develop\Repositorys\fahrtenbuch/.:"
 63-bug-After comma numbers to two limits at the driven distance in one day
-64-feature-edit-README.md
+x   64-bug-feature-edit-README.md
