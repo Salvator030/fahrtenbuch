@@ -14,8 +14,6 @@ Current status is "Work in Process".
 - Selection of a time window in which all travelled routes and their distances are recorded and added up,  
   as well as output as a CSV file.
 
-Translated with www.DeepL.com/Translator (free version)
-
 ## Bigger todos are:
 
 - General refactoring
@@ -35,3 +33,5 @@ Translated with www.DeepL.com/Translator (free version)
 - install the Node dependencies with "npm install"
 - Start the programme with "npm run windows" from the root folder of the programme
 - The version numbers of the VisualStudio version used and/or the UWP version may need to be adjusted.
+
+Translated with www.DeepL.com/Translator
