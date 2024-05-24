@@ -18,7 +18,7 @@ export default function useCurrentDayRoutes() {
 
   const [selectedDrivenRoute, setSelectedDrivenRoute] = useState(0);
   const [drivenRoutesCards, setDrivenRoutesCards] = useState([]);
-  const [distanceAtDay, setDistanceAtDay] = useState(0);
+  const [distanceAtDay, setDistanceAtDay] = useState('');
 
   const handelOnClickDrivenRouteCard = dRoute_id => {
     setSelectedDrivenRoute(dRoute_id);
@@ -54,7 +54,7 @@ export default function useCurrentDayRoutes() {
           />
         );
       });
-      setDistanceAtDay(distance);
+      setDistanceAtDay(distance.toFixed(2));
       setDrivenRoutesCards(cards);
     }
   }, [
