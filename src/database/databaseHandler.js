@@ -10,9 +10,10 @@ export const implementDatabase = async () => {
   const db = await database.getDBConnection();
   let isTable = await database.checkTable(db, settingsTbl);
   if (isTable) {
-    let res = await database.getDbVersion(db);
-    console.log(res);
-    database.updateDatabase(db, dbVersion);
+    let currentDbVersion = await database.getDbVersion(db);
+    if (currentDbVersion < dbVersion) {
+      database.updateDatabase(db, dbVersion);
+    }
   } else {
     await database.createSettingsTable(db, dbVersion);
     await database.createAddressTable(db);
