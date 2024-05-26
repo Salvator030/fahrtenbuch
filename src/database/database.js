@@ -5,6 +5,32 @@ export const getDBConnection = async () => {
   return openDatabase({name: 'fahrtenbuch.db', location: 'default'});
 };
 
+export const checkTable = async (db, tableName) => {
+  const query = `SELECT name FROM sqlite_master WHERE type='table' AND name='${tableName}'`;
+  let result = await db.executeSql(query);
+  if (result[0].rows.length === 0) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+export const getDbVersion = async db => {
+  const query = 'SELECT dbVersion FROM settings_tbl;';
+  const result = db.executeSql(query);
+  return result[0];
+};
+
+export const updateDatabase = async (db, dbVersion) => {};
+
+export const createSettingsTable = async (db, dbVersion) => {
+  // create table if not exists
+  let query = 'CREATE TABLE settings_tbl (dbVersion INTEGER NOT NULL);';
+  await db.executeSql(query);
+  query = `INSERT INTO setting_tbl (dbVersion) Values (${dbVersion})`;
+  await db.executeSql(query);
+};
+
 export const createAddressTable = async db => {
   // create table if not exists
   const query = `CREATE TABLE IF NOT EXISTS address_tbl ( 
@@ -18,7 +44,6 @@ export const createAddressTable = async db => {
     hide BOOLEAN,
     PRIMARY KEY(add_id)
 );`;
-
   await db.executeSql(query);
 };
 

@@ -3,12 +3,23 @@ import * as database from './database';
 const addressTable = 'address_tbl';
 const routeTable = 'route_tbl';
 const drivenRouteTable = 'drivenRoute_tbl';
+const settingsTbl = 'settings_tbl';
+const dbVersion = 1;
 
 export const implementDatabase = async () => {
   const db = await database.getDBConnection();
-  await database.createAddressTable(db);
-  await database.createRouteTable(db);
-  await database.createDrivenRouteTable(db);
+  let isTable = await database.checkTable(db, settingsTbl);
+  if (isTable) {
+    let res = await database.getDbVersion(db);
+    console.log(res);
+    database.updateDatabase(db, dbVersion);
+  } else {
+    await database.createSettingsTable(db, dbVersion);
+    await database.createAddressTable(db);
+    await database.createRouteTable(db);
+    await database.createDrivenRouteTable(db);
+  }
+  console.log(isTable);
 };
 
 // --- addresses
