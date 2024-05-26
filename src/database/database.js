@@ -27,7 +27,7 @@ export const createSettingsTable = async (db, dbVersion) => {
   // create table if not exists
   let query = 'CREATE TABLE settings_tbl (dbVersion INTEGER NOT NULL);';
   await db.executeSql(query);
-  query = `INSERT INTO setting_tbl (dbVersion) Values (${dbVersion})`;
+  query = `INSERT INTO settings_tbl (dbVersion) Values (${dbVersion})`;
   await db.executeSql(query);
 };
 
