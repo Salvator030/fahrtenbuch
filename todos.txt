@@ -22,3 +22,4 @@ x   62-bug-fix"Error: Unable to resolve module ./debugger-ui/debuggerWorker.aca1
 x   63-bug-After comma numbers to two limits at the driven distance in one day
 x   64-bug-feature-edit-README.md
 65-feature-make-database-upgradele
+66-bug-handel error <<Error: no such table: address_tbl>> and other table, by first start of the app
