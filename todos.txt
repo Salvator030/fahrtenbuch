@@ -21,3 +21,4 @@ x   61-bug-fix"From React Native 0.72, your metro.config.js file should extend'@
 x   62-bug-fix"Error: Unable to resolve module ./debugger-ui/debuggerWorker.aca173c4 from D:\Develop\Repositorys\fahrtenbuch/.:"
 x   63-bug-After comma numbers to two limits at the driven distance in one day
 x   64-bug-feature-edit-README.md
+65-feature-make-database-upgradele
