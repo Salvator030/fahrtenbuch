@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
 import useDatabase from './databaseStore';
 import useMainView from './MainViewStore';
+import useFileHandler from './fileHandlerStore';
 
 export default function useWarningModal() {
   const useShareDatabase = () => useBetween(useDatabase);
@@ -15,6 +16,9 @@ export default function useWarningModal() {
 
   const useShareMainView = () => useBetween(useMainView);
   const {toggleShowWarning} = useShareMainView();
+
+  const useSharedFileHandler = () => useBetween(useFileHandler);
+  const {path} = useSharedFileHandler();
 
   const [selectedRouteWarning, setSelectedRouteWarning] = useState(0);
   const [selectedAddressesWarning, setSelectedAddressesWarning] = useState(0);
@@ -102,13 +106,18 @@ export default function useWarningModal() {
 
         break;
       }
+      case 'printRoutes': {
+        text = 'Die Datei wurde gespeichert unter.\n\n' + `${path}`;
+
+        break;
+      }
 
       default: {
         text = '';
       }
     }
     setWarningContent(text);
-  }, [warningDescription]);
+  }, [path, warningDescription]);
 
   return {
     warningDescription,
