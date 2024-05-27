@@ -17,11 +17,16 @@ export const checkTable = async (db, tableName) => {
 
 export const getDbVersion = async db => {
   const query = 'SELECT dbVersion FROM settings_tbl;';
-  const result = db.executeSql(query);
-  return result[0];
+  const result = await db.executeSql(query);
+  let rows = result[0].rows.raw();
+  console.log(rows[rows.length - 1]);
+  return rows[rows.length - 1].dbVersion;
 };
 
-export const updateDatabase = async (db, dbVersion) => {};
+export const updateDatabase = async (db, dbVersion) => {
+  // add content when neded
+  console.log('update');
+};
 
 export const createSettingsTable = async (db, dbVersion) => {
   // create table if not exists

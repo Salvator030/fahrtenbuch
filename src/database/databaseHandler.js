@@ -11,6 +11,7 @@ export const implementDatabase = async () => {
   let isTable = await database.checkTable(db, settingsTbl);
   if (isTable) {
     let currentDbVersion = await database.getDbVersion(db);
+    console.log(currentDbVersion);
     if (currentDbVersion < dbVersion) {
       database.updateDatabase(db, dbVersion);
     }
