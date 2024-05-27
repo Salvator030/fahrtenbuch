@@ -52,12 +52,14 @@ export default function WarningModal() {
             </View>
 
             <View style={styles.col1}>
-              <ButtonIcon
-                Icon={Icon2}
-                title="ok"
-                iconName="check"
-                onClick={handelOnClickOkBtn}
-              />
+              {warningDescription !== 'printRoutes' && (
+                <ButtonIcon
+                  Icon={Icon2}
+                  title="ok"
+                  iconName="check"
+                  onClick={handelOnClickOkBtn}
+                />
+              )}
             </View>
           </View>
         </View>

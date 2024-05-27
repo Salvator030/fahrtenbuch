@@ -3,6 +3,7 @@ import RNFS from 'react-native-fs';
 
 export default function useFileHandler() {
   const [documentsFolder, setDocumentsFolder] = useState('');
+  const [path, setPath] = useState();
   useEffect(() => {
     //get user's file paths from react-native-fs
     setDocumentsFolder(RNFS.DocumentDirectoryPath);
@@ -10,7 +11,7 @@ export default function useFileHandler() {
 
   const createFile = async (value, dateString) => {
     let name = '/fahrtenbuch' + dateString + '.csv';
-    var path = documentsFolder + name;
+    setPath(documentsFolder + name);
     console.log(path);
     RNFS.writeFile(path, value, 'utf8')
       .then(success => {
@@ -21,5 +22,5 @@ export default function useFileHandler() {
       });
   };
 
-  return {createFile};
+  return {createFile, path};
 }

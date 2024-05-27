@@ -6,15 +6,19 @@ import useFileHandler from './fileHandlerStore';
 import {Text} from 'react-native';
 import {parseToCsvString} from '../asserts/outputCsvHelper';
 import {parseDateForFileName} from '../asserts/dateHelper';
+import useWarningModal from './warningModalStore';
 
 export default function usePrintView() {
   const useShareDatabase = () => useBetween(useDatabase);
   const {getDrivenRoutesBetweenDates} = useShareDatabase();
   const useShareMainView = () => useBetween(useMainView);
-  const {createNewRoute, showWarningModal, printView, togglePrintView} =
-    useShareMainView();
+  const {togglePrintView, toggleShowWarning} = useShareMainView();
 
-  const {createFile} = useFileHandler();
+  const useSharedFileHandler = () => useBetween(useFileHandler);
+  const {createFile} = useSharedFileHandler();
+
+  const useSharedWarnigModal = () => useBetween(useWarningModal);
+  const {setWarningDescription} = useSharedWarnigModal();
 
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
@@ -47,6 +51,8 @@ export default function usePrintView() {
       csvStringtr,
       parseDateForFileName(selectedStartDate, selectedEndDate),
     );
+    setWarningDescription('printRoutes');
+    toggleShowWarning();
   };
 
   return {
